@@ -11,5 +11,71 @@
         "version": "1.0"
     },
     "basePath": "/v1",
-    "paths": {}
+    "paths": {
+        "/healthz": {
+            "get": {
+                "description": "Health Checking for API services",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Health Checking",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/healthz.Result"
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/healthz.Result"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "healthz.Result": {
+            "type": "object",
+            "properties": {
+                "details": {
+                    "$ref": "#/definitions/healthz.ResultDetails"
+                },
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "ok",
+                        "error"
+                    ],
+                    "example": "ok"
+                },
+                "uptime": {
+                    "type": "string"
+                }
+            }
+        },
+        "healthz.ResultDetail": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "ok",
+                        "error"
+                    ],
+                    "example": "ok"
+                }
+            }
+        },
+        "healthz.ResultDetails": {
+            "type": "object",
+            "properties": {
+                "db": {
+                    "$ref": "#/definitions/healthz.ResultDetail"
+                }
+            }
+        }
+    }
 }
