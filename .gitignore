@@ -27,3 +27,6 @@ go.work.sum
 
 # build folder
 build/
+
+# sqlite
+*.db

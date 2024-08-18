@@ -4,6 +4,9 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/syoi-org/judge.syoi.org/config"
+	"github.com/syoi-org/judge.syoi.org/db"
+	"go.uber.org/zap"
 )
 
 var migrateCmd = &cobra.Command{
@@ -12,7 +15,16 @@ var migrateCmd = &cobra.Command{
 	Long: `This command is used to migrate database schema. Note that currently migration
 is not versioned. Please use carefully.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("migrate called")
+		config, err := config.NewMigrateConfig()
+		if err != nil {
+			zap.S().Fatalf("fail to read config: %v", err)
+			return
+		}
+		if err := db.Migrate(cmd.Context(), &config.Db); err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Println("Migrate success")
 	},
 }
 

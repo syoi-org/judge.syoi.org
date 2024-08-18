@@ -1,7 +1,27 @@
+# Logging Configuration
 logger:
+  # Path to log directory
   path: ./logs
+  # Logging level
+  # Can be one of trace, debug, info, warn, error, fatal, panic
   level:
     file: info
     console: info
+
+# HTTP Server Configuration
 http:
   listen_addr: :8080
+
+# Database Configuration
+db:
+  # Database type
+  # Can be one of sqlite, memory
+  type: sqlite
+  # Auto migrate database
+  # If true, the database will be automatically migrated on server start
+  auto_migrate: false
+  # SQLite Configuration
+  sqlite:
+    # Datasource name
+    # Format: https://github.com/mattn/go-sqlite3?tab=readme-ov-file#connection-string
+    dsn: file:judgectl.db?_fk=1

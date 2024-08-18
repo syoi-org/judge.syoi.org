@@ -2,6 +2,7 @@ package app
 
 import (
 	"github.com/syoi-org/judge.syoi.org/config"
+	"github.com/syoi-org/judge.syoi.org/db"
 	"github.com/syoi-org/judge.syoi.org/healthz"
 	"github.com/syoi-org/judge.syoi.org/logger"
 	"github.com/syoi-org/judge.syoi.org/transport"
@@ -14,5 +15,6 @@ func NewServer() *fx.App {
 		logger.Module,
 		transport.Module,
 		healthz.Module,
+		db.Module,
 	)
 }

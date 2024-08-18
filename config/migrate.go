@@ -5,9 +5,11 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/spf13/viper"
+	"github.com/syoi-org/judge.syoi.org/db"
 )
 
 type MigrateConfig struct {
+	Db db.Config `mapstructure:"db" yaml:"db" validate:"required"`
 }
 
 func (a *MigrateConfig) Validate() error {
