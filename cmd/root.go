@@ -4,7 +4,10 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/syoi-org/judge.syoi.org/config"
 )
+
+var configFile string
 
 var rootCmd = &cobra.Command{
 	Use:   "judgectl",
@@ -22,5 +25,8 @@ func Execute() {
 }
 
 func init() {
-
+	cobra.OnInitialize(func() {
+		config.InitConfig(configFile)
+	})
+	rootCmd.PersistentFlags().StringVar(&configFile, "config", "", "path to config file")
 }

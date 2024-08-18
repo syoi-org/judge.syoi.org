@@ -24,6 +24,9 @@
           packages = with pkgs; [
             go
             cobra-cli
+            ent-go
+            isolate
+            just
           ] ++ [
             gomod2nix.packages.${system}.default
           ];

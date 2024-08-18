@@ -1,0 +1,5 @@
+logger:
+  path: ./logs
+  level:
+    file: info
+    console: info
