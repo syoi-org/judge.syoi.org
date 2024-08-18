@@ -6,12 +6,14 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/spf13/viper"
 	"github.com/syoi-org/judge.syoi.org/logger"
+	"github.com/syoi-org/judge.syoi.org/transport"
 	"go.uber.org/fx"
 )
 
 type ServerConfig struct {
 	fx.Out
-	Logger *logger.Config `mapstructure:"logger" yaml:"logger" validate:"required"`
+	Logger *logger.Config    `mapstructure:"logger" yaml:"logger" validate:"required"`
+	Http   *transport.Config `mapstructure:"http" yaml:"http" validate:"required"`
 }
 
 func (a *ServerConfig) Validate() error {

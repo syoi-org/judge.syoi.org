@@ -1,0 +1,11 @@
+basePath: /v1
+info:
+  contact: {}
+  description: This is a API for running SYOI Online Judge.
+  license:
+    name: GNU General Public License (GPLv3)
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+  title: SYOI Online Judge API
+  version: "1.0"
+paths: {}
+swagger: "2.0"

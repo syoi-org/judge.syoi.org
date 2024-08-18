@@ -1,0 +1,15 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a API for running SYOI Online Judge.",
+        "title": "SYOI Online Judge API",
+        "contact": {},
+        "license": {
+            "name": "GNU General Public License (GPLv3)",
+            "url": "https://www.gnu.org/licenses/gpl-3.0.html"
+        },
+        "version": "1.0"
+    },
+    "basePath": "/v1",
+    "paths": {}
+}

@@ -3,3 +3,5 @@ logger:
   level:
     file: info
     console: info
+http:
+  listen_addr: :8080
