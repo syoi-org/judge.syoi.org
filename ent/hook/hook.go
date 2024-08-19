@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/syoi-org/judge.syoi.org/ent"
+	"github.com/syoi-org/judy/ent"
 )
 
 // The JudgeFunc type is an adapter to allow the use of ordinary

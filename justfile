@@ -1,5 +1,5 @@
 build:
-    go build -o build/judgectl .
+    go build -o build/judy .
 
 test:
     go test ./...
@@ -8,10 +8,10 @@ generate:
     go generate ./...
 
 migrate *ARGS: build
-    build/judgectl migrate {{ARGS}}
+    build/judy migrate {{ARGS}}
 
 server *ARGS: build
-    build/judgectl server {{ARGS}}
+    build/judy server {{ARGS}}
 
 worker *ARGS: build
-    build/judgectl worker {{ARGS}}
+    build/judy worker {{ARGS}}

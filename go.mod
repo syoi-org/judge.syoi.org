@@ -1,4 +1,4 @@
-module github.com/syoi-org/judge.syoi.org
+module github.com/syoi-org/judy
 
 go 1.22.5
 

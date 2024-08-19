@@ -15,8 +15,8 @@
       in
       {
         packages.default = gomod2nix.legacyPackages.${system}.buildGoApplication {
-          pname = "judgectl";
-          name = "judgectl";
+          pname = "judy";
+          name = "judy";
           src = ./.;
           modules = ./gomod2nix.toml;
         };

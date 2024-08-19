@@ -11,7 +11,7 @@ import (
 	"go.uber.org/zap"
 )
 
-var packageName = "judgectl"
+var packageName = "judy"
 
 //go:embed default.yaml
 var defaultConfig []byte

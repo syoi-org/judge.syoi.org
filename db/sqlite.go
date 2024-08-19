@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/syoi-org/judge.syoi.org/ent"
+	"github.com/syoi-org/judy/ent"
 )
 
 type SQLiteConfig struct {

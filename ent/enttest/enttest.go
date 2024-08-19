@@ -5,12 +5,12 @@ package enttest
 import (
 	"context"
 
-	"github.com/syoi-org/judge.syoi.org/ent"
+	"github.com/syoi-org/judy/ent"
 	// required by schema hooks.
-	_ "github.com/syoi-org/judge.syoi.org/ent/runtime"
+	_ "github.com/syoi-org/judy/ent/runtime"
 
 	"entgo.io/ent/dialect/sql/schema"
-	"github.com/syoi-org/judge.syoi.org/ent/migrate"
+	"github.com/syoi-org/judy/ent/migrate"
 )
 
 type (

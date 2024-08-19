@@ -10,8 +10,8 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/syoi-org/judge.syoi.org/ent/problem"
-	"github.com/syoi-org/judge.syoi.org/ent/submission"
+	"github.com/syoi-org/judy/ent/problem"
+	"github.com/syoi-org/judy/ent/submission"
 )
 
 // SubmissionCreate is the builder for creating a Submission entity.

@@ -12,9 +12,9 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
-	"github.com/syoi-org/judge.syoi.org/ent/judge"
-	"github.com/syoi-org/judge.syoi.org/ent/problem"
-	"github.com/syoi-org/judge.syoi.org/ent/submission"
+	"github.com/syoi-org/judy/ent/judge"
+	"github.com/syoi-org/judy/ent/problem"
+	"github.com/syoi-org/judy/ent/submission"
 )
 
 // ent aliases to avoid import conflicts in user's code.

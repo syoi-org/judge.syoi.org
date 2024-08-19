@@ -1,4 +1,4 @@
-# judge.syoi.org
+# judy
 
 Forever work-in-progress repository for building a online judge.
 
@@ -17,10 +17,10 @@ following when scaling up.
 The minimal setup can be run without any configuration! Open two terminals and run the following:
 
 ```bash
-judgectl migrate
-judgectl serve
+judy migrate
+judy serve
 ```
 
 ```bash
-judgectl worker
+judy worker
 ```

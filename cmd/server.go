@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/syoi-org/judge.syoi.org/app"
+	"github.com/syoi-org/judy/app"
 )
 
 var serverCmd = &cobra.Command{

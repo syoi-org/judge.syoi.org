@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"github.com/syoi-org/judge.syoi.org/config"
-	"github.com/syoi-org/judge.syoi.org/db"
+	"github.com/syoi-org/judy/config"
+	"github.com/syoi-org/judy/db"
 	"go.uber.org/zap"
 )
 

@@ -4,17 +4,17 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"github.com/syoi-org/judge.syoi.org/config"
+	"github.com/syoi-org/judy/config"
 )
 
 var configFile string
 
 var rootCmd = &cobra.Command{
-	Use:   "judgectl",
+	Use:   "judy",
 	Short: "Command line utility for running SYOI Online Judge",
 	Long: `This is a command line utility for running SYOI Online Judge.
 	
-For more information, see https://github.com/syoi-org/judge.syoi.org`,
+For more information, see https://github.com/syoi-org/judy`,
 }
 
 func Execute() {

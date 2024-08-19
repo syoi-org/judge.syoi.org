@@ -1,11 +1,11 @@
 package app
 
 import (
-	"github.com/syoi-org/judge.syoi.org/config"
-	"github.com/syoi-org/judge.syoi.org/db"
-	"github.com/syoi-org/judge.syoi.org/healthz"
-	"github.com/syoi-org/judge.syoi.org/logger"
-	"github.com/syoi-org/judge.syoi.org/transport"
+	"github.com/syoi-org/judy/config"
+	"github.com/syoi-org/judy/db"
+	"github.com/syoi-org/judy/healthz"
+	"github.com/syoi-org/judy/logger"
+	"github.com/syoi-org/judy/transport"
 	"go.uber.org/fx"
 )
 

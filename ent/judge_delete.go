@@ -8,8 +8,8 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/syoi-org/judge.syoi.org/ent/judge"
-	"github.com/syoi-org/judge.syoi.org/ent/predicate"
+	"github.com/syoi-org/judy/ent/judge"
+	"github.com/syoi-org/judy/ent/predicate"
 )
 
 // JudgeDelete is the builder for deleting a Judge entity.

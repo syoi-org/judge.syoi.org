@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	_ "github.com/syoi-org/judge.syoi.org/docs"
+	_ "github.com/syoi-org/judy/docs"
 )
 
 type SwaggerHandler struct{}

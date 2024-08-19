@@ -10,7 +10,7 @@ import (
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
-	"github.com/syoi-org/judge.syoi.org/ent/judge"
+	"github.com/syoi-org/judy/ent/judge"
 )
 
 // Judge is the model entity for the Judge schema.

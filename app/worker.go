@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/syoi-org/judge.syoi.org/config"
-	"github.com/syoi-org/judge.syoi.org/logger"
+	"github.com/syoi-org/judy/config"
+	"github.com/syoi-org/judy/logger"
 	"go.uber.org/fx"
 )
 

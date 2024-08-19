@@ -2,7 +2,7 @@
 
 package runtime
 
-// The schema-stitching logic is generated in github.com/syoi-org/judge.syoi.org/ent/runtime.go
+// The schema-stitching logic is generated in github.com/syoi-org/judy/ent/runtime.go
 
 const (
 	Version = "v0.14.0"                                         // Version of ent codegen.

@@ -5,9 +5,9 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/spf13/viper"
-	"github.com/syoi-org/judge.syoi.org/db"
-	"github.com/syoi-org/judge.syoi.org/logger"
-	"github.com/syoi-org/judge.syoi.org/transport"
+	"github.com/syoi-org/judy/db"
+	"github.com/syoi-org/judy/logger"
+	"github.com/syoi-org/judy/transport"
 	"go.uber.org/fx"
 )
 

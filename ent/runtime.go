@@ -5,10 +5,10 @@ package ent
 import (
 	"time"
 
-	"github.com/syoi-org/judge.syoi.org/ent/judge"
-	"github.com/syoi-org/judge.syoi.org/ent/problem"
-	"github.com/syoi-org/judge.syoi.org/ent/schema"
-	"github.com/syoi-org/judge.syoi.org/ent/submission"
+	"github.com/syoi-org/judy/ent/judge"
+	"github.com/syoi-org/judy/ent/problem"
+	"github.com/syoi-org/judy/ent/schema"
+	"github.com/syoi-org/judy/ent/submission"
 )
 
 // The init function reads all schema descriptors with runtime code

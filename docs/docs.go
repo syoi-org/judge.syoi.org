@@ -66,6 +66,9 @@ const docTemplate = `{
         "healthz.ResultDetail": {
             "type": "object",
             "properties": {
+                "error": {
+                    "type": "string"
+                },
                 "status": {
                     "type": "string",
                     "enum": [

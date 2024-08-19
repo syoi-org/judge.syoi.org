@@ -1,7 +1,7 @@
 package healthz
 
 import (
-	"github.com/syoi-org/judge.syoi.org/transport"
+	"github.com/syoi-org/judy/transport"
 	"go.uber.org/fx"
 )
 

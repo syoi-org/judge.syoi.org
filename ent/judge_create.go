@@ -10,8 +10,8 @@ import (
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/syoi-org/judge.syoi.org/ent/judge"
-	"github.com/syoi-org/judge.syoi.org/ent/problem"
+	"github.com/syoi-org/judy/ent/judge"
+	"github.com/syoi-org/judy/ent/problem"
 )
 
 // JudgeCreate is the builder for creating a Judge entity.

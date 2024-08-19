@@ -11,9 +11,9 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
-	"github.com/syoi-org/judge.syoi.org/ent/predicate"
-	"github.com/syoi-org/judge.syoi.org/ent/problem"
-	"github.com/syoi-org/judge.syoi.org/ent/submission"
+	"github.com/syoi-org/judy/ent/predicate"
+	"github.com/syoi-org/judy/ent/problem"
+	"github.com/syoi-org/judy/ent/submission"
 )
 
 // SubmissionQuery is the builder for querying Submission entities.

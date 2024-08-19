@@ -15,6 +15,8 @@ definitions:
     type: object
   healthz.ResultDetail:
     properties:
+      error:
+        type: string
       status:
         enum:
         - ok
