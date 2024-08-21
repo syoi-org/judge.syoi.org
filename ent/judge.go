@@ -17,6 +17,10 @@ type Judge struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt time.Time `json:"created_at,omitempty"`
+	// UpdatedAt holds the value of the "updated_at" field.
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
 	// Code holds the value of the "code" field.
@@ -25,10 +29,6 @@ type Judge struct {
 	Type judge.Type `json:"type,omitempty"`
 	// Configuration holds the value of the "configuration" field.
 	Configuration string `json:"configuration,omitempty"`
-	// CreatedAt holds the value of the "created_at" field.
-	CreatedAt time.Time `json:"created_at,omitempty"`
-	// UpdatedAt holds the value of the "updated_at" field.
-	UpdatedAt time.Time `json:"updated_at,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the JudgeQuery when eager-loading is set.
 	Edges        JudgeEdges `json:"edges"`
@@ -85,6 +85,18 @@ func (j *Judge) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
 			j.ID = int(value.Int64)
+		case judge.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				j.CreatedAt = value.Time
+			}
+		case judge.FieldUpdatedAt:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
+			} else if value.Valid {
+				j.UpdatedAt = value.Time
+			}
 		case judge.FieldName:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field name", values[i])
@@ -108,18 +120,6 @@ func (j *Judge) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field configuration", values[i])
 			} else if value.Valid {
 				j.Configuration = value.String
-			}
-		case judge.FieldCreatedAt:
-			if value, ok := values[i].(*sql.NullTime); !ok {
-				return fmt.Errorf("unexpected type %T for field created_at", values[i])
-			} else if value.Valid {
-				j.CreatedAt = value.Time
-			}
-		case judge.FieldUpdatedAt:
-			if value, ok := values[i].(*sql.NullTime); !ok {
-				return fmt.Errorf("unexpected type %T for field updated_at", values[i])
-			} else if value.Valid {
-				j.UpdatedAt = value.Time
 			}
 		default:
 			j.selectValues.Set(columns[i], values[i])
@@ -162,6 +162,12 @@ func (j *Judge) String() string {
 	var builder strings.Builder
 	builder.WriteString("Judge(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", j.ID))
+	builder.WriteString("created_at=")
+	builder.WriteString(j.CreatedAt.Format(time.ANSIC))
+	builder.WriteString(", ")
+	builder.WriteString("updated_at=")
+	builder.WriteString(j.UpdatedAt.Format(time.ANSIC))
+	builder.WriteString(", ")
 	builder.WriteString("name=")
 	builder.WriteString(j.Name)
 	builder.WriteString(", ")
@@ -173,12 +179,6 @@ func (j *Judge) String() string {
 	builder.WriteString(", ")
 	builder.WriteString("configuration=")
 	builder.WriteString(j.Configuration)
-	builder.WriteString(", ")
-	builder.WriteString("created_at=")
-	builder.WriteString(j.CreatedAt.Format(time.ANSIC))
-	builder.WriteString(", ")
-	builder.WriteString("updated_at=")
-	builder.WriteString(j.UpdatedAt.Format(time.ANSIC))
 	builder.WriteByte(')')
 	return builder.String()
 }

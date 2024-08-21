@@ -336,12 +336,12 @@ func (pq *ProblemQuery) WithJudge(opts ...func(*JudgeQuery)) *ProblemQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CreatedAt time.Time `json:"created_at,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Problem.Query().
-//		GroupBy(problem.FieldName).
+//		GroupBy(problem.FieldCreatedAt).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 func (pq *ProblemQuery) GroupBy(field string, fields ...string) *ProblemGroupBy {
@@ -359,11 +359,11 @@ func (pq *ProblemQuery) GroupBy(field string, fields ...string) *ProblemGroupBy 
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CreatedAt time.Time `json:"created_at,omitempty"`
 //	}
 //
 //	client.Problem.Query().
-//		Select(problem.FieldName).
+//		Select(problem.FieldCreatedAt).
 //		Scan(ctx, &v)
 func (pq *ProblemQuery) Select(fields ...string) *ProblemSelect {
 	pq.ctx.Fields = append(pq.ctx.Fields, fields...)

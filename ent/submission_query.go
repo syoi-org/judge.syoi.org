@@ -299,12 +299,12 @@ func (sq *SubmissionQuery) WithProblem(opts ...func(*ProblemQuery)) *SubmissionQ
 // Example:
 //
 //	var v []struct {
-//		Status submission.Status `json:"status,omitempty"`
+//		CreatedAt time.Time `json:"created_at,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Submission.Query().
-//		GroupBy(submission.FieldStatus).
+//		GroupBy(submission.FieldCreatedAt).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 func (sq *SubmissionQuery) GroupBy(field string, fields ...string) *SubmissionGroupBy {
@@ -322,11 +322,11 @@ func (sq *SubmissionQuery) GroupBy(field string, fields ...string) *SubmissionGr
 // Example:
 //
 //	var v []struct {
-//		Status submission.Status `json:"status,omitempty"`
+//		CreatedAt time.Time `json:"created_at,omitempty"`
 //	}
 //
 //	client.Submission.Query().
-//		Select(submission.FieldStatus).
+//		Select(submission.FieldCreatedAt).
 //		Scan(ctx, &v)
 func (sq *SubmissionQuery) Select(fields ...string) *SubmissionSelect {
 	sq.ctx.Fields = append(sq.ctx.Fields, fields...)

@@ -22,18 +22,6 @@ type ProblemCreate struct {
 	hooks    []Hook
 }
 
-// SetName sets the "name" field.
-func (pc *ProblemCreate) SetName(s string) *ProblemCreate {
-	pc.mutation.SetName(s)
-	return pc
-}
-
-// SetCode sets the "code" field.
-func (pc *ProblemCreate) SetCode(s string) *ProblemCreate {
-	pc.mutation.SetCode(s)
-	return pc
-}
-
 // SetCreatedAt sets the "created_at" field.
 func (pc *ProblemCreate) SetCreatedAt(t time.Time) *ProblemCreate {
 	pc.mutation.SetCreatedAt(t)
@@ -59,6 +47,18 @@ func (pc *ProblemCreate) SetNillableUpdatedAt(t *time.Time) *ProblemCreate {
 	if t != nil {
 		pc.SetUpdatedAt(*t)
 	}
+	return pc
+}
+
+// SetName sets the "name" field.
+func (pc *ProblemCreate) SetName(s string) *ProblemCreate {
+	pc.mutation.SetName(s)
+	return pc
+}
+
+// SetCode sets the "code" field.
+func (pc *ProblemCreate) SetCode(s string) *ProblemCreate {
+	pc.mutation.SetCode(s)
 	return pc
 }
 
@@ -135,6 +135,12 @@ func (pc *ProblemCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (pc *ProblemCreate) check() error {
+	if _, ok := pc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Problem.created_at"`)}
+	}
+	if _, ok := pc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "Problem.updated_at"`)}
+	}
 	if _, ok := pc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Problem.name"`)}
 	}
@@ -150,12 +156,6 @@ func (pc *ProblemCreate) check() error {
 		if err := problem.CodeValidator(v); err != nil {
 			return &ValidationError{Name: "code", err: fmt.Errorf(`ent: validator failed for field "Problem.code": %w`, err)}
 		}
-	}
-	if _, ok := pc.mutation.CreatedAt(); !ok {
-		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Problem.created_at"`)}
-	}
-	if _, ok := pc.mutation.UpdatedAt(); !ok {
-		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "Problem.updated_at"`)}
 	}
 	if len(pc.mutation.JudgeIDs()) == 0 {
 		return &ValidationError{Name: "judge", err: errors.New(`ent: missing required edge "Problem.judge"`)}
@@ -186,14 +186,6 @@ func (pc *ProblemCreate) createSpec() (*Problem, *sqlgraph.CreateSpec) {
 		_node = &Problem{config: pc.config}
 		_spec = sqlgraph.NewCreateSpec(problem.Table, sqlgraph.NewFieldSpec(problem.FieldID, field.TypeInt))
 	)
-	if value, ok := pc.mutation.Name(); ok {
-		_spec.SetField(problem.FieldName, field.TypeString, value)
-		_node.Name = value
-	}
-	if value, ok := pc.mutation.Code(); ok {
-		_spec.SetField(problem.FieldCode, field.TypeString, value)
-		_node.Code = value
-	}
 	if value, ok := pc.mutation.CreatedAt(); ok {
 		_spec.SetField(problem.FieldCreatedAt, field.TypeTime, value)
 		_node.CreatedAt = value
@@ -201,6 +193,14 @@ func (pc *ProblemCreate) createSpec() (*Problem, *sqlgraph.CreateSpec) {
 	if value, ok := pc.mutation.UpdatedAt(); ok {
 		_spec.SetField(problem.FieldUpdatedAt, field.TypeTime, value)
 		_node.UpdatedAt = value
+	}
+	if value, ok := pc.mutation.Name(); ok {
+		_spec.SetField(problem.FieldName, field.TypeString, value)
+		_node.Name = value
+	}
+	if value, ok := pc.mutation.Code(); ok {
+		_spec.SetField(problem.FieldCode, field.TypeString, value)
+		_node.Code = value
 	}
 	if nodes := pc.mutation.SubmissionsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

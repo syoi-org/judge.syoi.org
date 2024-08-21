@@ -10,13 +10,23 @@ import (
 )
 
 type CreateJudgeReq struct {
+	CreatedAt     time.Time          `json:"created_at"`
+	UpdatedAt     time.Time          `json:"updated_at"`
 	Name          string             `json:"name"`
 	Code          string             `json:"code"`
 	Type          CreateJudgeReqType `json:"type"`
 	Configuration string             `json:"configuration"`
-	CreatedAt     time.Time          `json:"created_at"`
-	UpdatedAt     time.Time          `json:"updated_at"`
 	Problems      []int              `json:"problems"`
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *CreateJudgeReq) GetCreatedAt() time.Time {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *CreateJudgeReq) GetUpdatedAt() time.Time {
+	return s.UpdatedAt
 }
 
 // GetName returns the value of Name.
@@ -39,19 +49,19 @@ func (s *CreateJudgeReq) GetConfiguration() string {
 	return s.Configuration
 }
 
-// GetCreatedAt returns the value of CreatedAt.
-func (s *CreateJudgeReq) GetCreatedAt() time.Time {
-	return s.CreatedAt
-}
-
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *CreateJudgeReq) GetUpdatedAt() time.Time {
-	return s.UpdatedAt
-}
-
 // GetProblems returns the value of Problems.
 func (s *CreateJudgeReq) GetProblems() []int {
 	return s.Problems
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *CreateJudgeReq) SetCreatedAt(val time.Time) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *CreateJudgeReq) SetUpdatedAt(val time.Time) {
+	s.UpdatedAt = val
 }
 
 // SetName sets the value of Name.
@@ -72,16 +82,6 @@ func (s *CreateJudgeReq) SetType(val CreateJudgeReqType) {
 // SetConfiguration sets the value of Configuration.
 func (s *CreateJudgeReq) SetConfiguration(val string) {
 	s.Configuration = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *CreateJudgeReq) SetCreatedAt(val time.Time) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *CreateJudgeReq) SetUpdatedAt(val time.Time) {
-	s.UpdatedAt = val
 }
 
 // SetProblems sets the value of Problems.
@@ -152,22 +152,12 @@ func (s *CreateJudgeReqType) UnmarshalText(data []byte) error {
 }
 
 type CreateProblemReq struct {
-	Name        string    `json:"name"`
-	Code        string    `json:"code"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
+	Name        string    `json:"name"`
+	Code        string    `json:"code"`
 	Submissions []int     `json:"submissions"`
 	Judge       int       `json:"judge"`
-}
-
-// GetName returns the value of Name.
-func (s *CreateProblemReq) GetName() string {
-	return s.Name
-}
-
-// GetCode returns the value of Code.
-func (s *CreateProblemReq) GetCode() string {
-	return s.Code
 }
 
 // GetCreatedAt returns the value of CreatedAt.
@@ -180,6 +170,16 @@ func (s *CreateProblemReq) GetUpdatedAt() time.Time {
 	return s.UpdatedAt
 }
 
+// GetName returns the value of Name.
+func (s *CreateProblemReq) GetName() string {
+	return s.Name
+}
+
+// GetCode returns the value of Code.
+func (s *CreateProblemReq) GetCode() string {
+	return s.Code
+}
+
 // GetSubmissions returns the value of Submissions.
 func (s *CreateProblemReq) GetSubmissions() []int {
 	return s.Submissions
@@ -190,16 +190,6 @@ func (s *CreateProblemReq) GetJudge() int {
 	return s.Judge
 }
 
-// SetName sets the value of Name.
-func (s *CreateProblemReq) SetName(val string) {
-	s.Name = val
-}
-
-// SetCode sets the value of Code.
-func (s *CreateProblemReq) SetCode(val string) {
-	s.Code = val
-}
-
 // SetCreatedAt sets the value of CreatedAt.
 func (s *CreateProblemReq) SetCreatedAt(val time.Time) {
 	s.CreatedAt = val
@@ -208,6 +198,16 @@ func (s *CreateProblemReq) SetCreatedAt(val time.Time) {
 // SetUpdatedAt sets the value of UpdatedAt.
 func (s *CreateProblemReq) SetUpdatedAt(val time.Time) {
 	s.UpdatedAt = val
+}
+
+// SetName sets the value of Name.
+func (s *CreateProblemReq) SetName(val string) {
+	s.Name = val
+}
+
+// SetCode sets the value of Code.
+func (s *CreateProblemReq) SetCode(val string) {
+	s.Code = val
 }
 
 // SetSubmissions sets the value of Submissions.
@@ -221,12 +221,22 @@ func (s *CreateProblemReq) SetJudge(val int) {
 }
 
 type CreateSubmissionReq struct {
+	CreatedAt time.Time                  `json:"created_at"`
+	UpdatedAt time.Time                  `json:"updated_at"`
 	Status    CreateSubmissionReqStatus  `json:"status"`
 	Verdict   CreateSubmissionReqVerdict `json:"verdict"`
 	TestCount int                        `json:"test_count"`
-	CreatedAt time.Time                  `json:"created_at"`
-	UpdatedAt time.Time                  `json:"updated_at"`
 	Problem   int                        `json:"problem"`
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *CreateSubmissionReq) GetCreatedAt() time.Time {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *CreateSubmissionReq) GetUpdatedAt() time.Time {
+	return s.UpdatedAt
 }
 
 // GetStatus returns the value of Status.
@@ -244,19 +254,19 @@ func (s *CreateSubmissionReq) GetTestCount() int {
 	return s.TestCount
 }
 
-// GetCreatedAt returns the value of CreatedAt.
-func (s *CreateSubmissionReq) GetCreatedAt() time.Time {
-	return s.CreatedAt
-}
-
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *CreateSubmissionReq) GetUpdatedAt() time.Time {
-	return s.UpdatedAt
-}
-
 // GetProblem returns the value of Problem.
 func (s *CreateSubmissionReq) GetProblem() int {
 	return s.Problem
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *CreateSubmissionReq) SetCreatedAt(val time.Time) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *CreateSubmissionReq) SetUpdatedAt(val time.Time) {
+	s.UpdatedAt = val
 }
 
 // SetStatus sets the value of Status.
@@ -272,16 +282,6 @@ func (s *CreateSubmissionReq) SetVerdict(val CreateSubmissionReqVerdict) {
 // SetTestCount sets the value of TestCount.
 func (s *CreateSubmissionReq) SetTestCount(val int) {
 	s.TestCount = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *CreateSubmissionReq) SetCreatedAt(val time.Time) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *CreateSubmissionReq) SetUpdatedAt(val time.Time) {
-	s.UpdatedAt = val
 }
 
 // SetProblem sets the value of Problem.
@@ -459,17 +459,27 @@ func (*DeleteSubmissionNoContent) deleteSubmissionRes() {}
 // Ref: #/components/schemas/JudgeCreate
 type JudgeCreate struct {
 	ID            int             `json:"id"`
+	CreatedAt     time.Time       `json:"created_at"`
+	UpdatedAt     time.Time       `json:"updated_at"`
 	Name          string          `json:"name"`
 	Code          string          `json:"code"`
 	Type          JudgeCreateType `json:"type"`
 	Configuration string          `json:"configuration"`
-	CreatedAt     time.Time       `json:"created_at"`
-	UpdatedAt     time.Time       `json:"updated_at"`
 }
 
 // GetID returns the value of ID.
 func (s *JudgeCreate) GetID() int {
 	return s.ID
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *JudgeCreate) GetCreatedAt() time.Time {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *JudgeCreate) GetUpdatedAt() time.Time {
+	return s.UpdatedAt
 }
 
 // GetName returns the value of Name.
@@ -492,19 +502,19 @@ func (s *JudgeCreate) GetConfiguration() string {
 	return s.Configuration
 }
 
-// GetCreatedAt returns the value of CreatedAt.
-func (s *JudgeCreate) GetCreatedAt() time.Time {
-	return s.CreatedAt
-}
-
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *JudgeCreate) GetUpdatedAt() time.Time {
-	return s.UpdatedAt
-}
-
 // SetID sets the value of ID.
 func (s *JudgeCreate) SetID(val int) {
 	s.ID = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *JudgeCreate) SetCreatedAt(val time.Time) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *JudgeCreate) SetUpdatedAt(val time.Time) {
+	s.UpdatedAt = val
 }
 
 // SetName sets the value of Name.
@@ -525,16 +535,6 @@ func (s *JudgeCreate) SetType(val JudgeCreateType) {
 // SetConfiguration sets the value of Configuration.
 func (s *JudgeCreate) SetConfiguration(val string) {
 	s.Configuration = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *JudgeCreate) SetCreatedAt(val time.Time) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *JudgeCreate) SetUpdatedAt(val time.Time) {
-	s.UpdatedAt = val
 }
 
 func (*JudgeCreate) createJudgeRes() {}
@@ -604,17 +604,27 @@ func (s *JudgeCreateType) UnmarshalText(data []byte) error {
 // Ref: #/components/schemas/JudgeList
 type JudgeList struct {
 	ID            int           `json:"id"`
+	CreatedAt     time.Time     `json:"created_at"`
+	UpdatedAt     time.Time     `json:"updated_at"`
 	Name          string        `json:"name"`
 	Code          string        `json:"code"`
 	Type          JudgeListType `json:"type"`
 	Configuration string        `json:"configuration"`
-	CreatedAt     time.Time     `json:"created_at"`
-	UpdatedAt     time.Time     `json:"updated_at"`
 }
 
 // GetID returns the value of ID.
 func (s *JudgeList) GetID() int {
 	return s.ID
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *JudgeList) GetCreatedAt() time.Time {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *JudgeList) GetUpdatedAt() time.Time {
+	return s.UpdatedAt
 }
 
 // GetName returns the value of Name.
@@ -637,19 +647,19 @@ func (s *JudgeList) GetConfiguration() string {
 	return s.Configuration
 }
 
-// GetCreatedAt returns the value of CreatedAt.
-func (s *JudgeList) GetCreatedAt() time.Time {
-	return s.CreatedAt
-}
-
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *JudgeList) GetUpdatedAt() time.Time {
-	return s.UpdatedAt
-}
-
 // SetID sets the value of ID.
 func (s *JudgeList) SetID(val int) {
 	s.ID = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *JudgeList) SetCreatedAt(val time.Time) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *JudgeList) SetUpdatedAt(val time.Time) {
+	s.UpdatedAt = val
 }
 
 // SetName sets the value of Name.
@@ -670,16 +680,6 @@ func (s *JudgeList) SetType(val JudgeListType) {
 // SetConfiguration sets the value of Configuration.
 func (s *JudgeList) SetConfiguration(val string) {
 	s.Configuration = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *JudgeList) SetCreatedAt(val time.Time) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *JudgeList) SetUpdatedAt(val time.Time) {
-	s.UpdatedAt = val
 }
 
 type JudgeListType string
@@ -747,25 +747,15 @@ func (s *JudgeListType) UnmarshalText(data []byte) error {
 // Ref: #/components/schemas/Judge_ProblemsList
 type JudgeProblemsList struct {
 	ID        int       `json:"id"`
-	Name      string    `json:"name"`
-	Code      string    `json:"code"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+	Name      string    `json:"name"`
+	Code      string    `json:"code"`
 }
 
 // GetID returns the value of ID.
 func (s *JudgeProblemsList) GetID() int {
 	return s.ID
-}
-
-// GetName returns the value of Name.
-func (s *JudgeProblemsList) GetName() string {
-	return s.Name
-}
-
-// GetCode returns the value of Code.
-func (s *JudgeProblemsList) GetCode() string {
-	return s.Code
 }
 
 // GetCreatedAt returns the value of CreatedAt.
@@ -778,19 +768,19 @@ func (s *JudgeProblemsList) GetUpdatedAt() time.Time {
 	return s.UpdatedAt
 }
 
+// GetName returns the value of Name.
+func (s *JudgeProblemsList) GetName() string {
+	return s.Name
+}
+
+// GetCode returns the value of Code.
+func (s *JudgeProblemsList) GetCode() string {
+	return s.Code
+}
+
 // SetID sets the value of ID.
 func (s *JudgeProblemsList) SetID(val int) {
 	s.ID = val
-}
-
-// SetName sets the value of Name.
-func (s *JudgeProblemsList) SetName(val string) {
-	s.Name = val
-}
-
-// SetCode sets the value of Code.
-func (s *JudgeProblemsList) SetCode(val string) {
-	s.Code = val
 }
 
 // SetCreatedAt sets the value of CreatedAt.
@@ -803,20 +793,40 @@ func (s *JudgeProblemsList) SetUpdatedAt(val time.Time) {
 	s.UpdatedAt = val
 }
 
+// SetName sets the value of Name.
+func (s *JudgeProblemsList) SetName(val string) {
+	s.Name = val
+}
+
+// SetCode sets the value of Code.
+func (s *JudgeProblemsList) SetCode(val string) {
+	s.Code = val
+}
+
 // Ref: #/components/schemas/JudgeRead
 type JudgeRead struct {
 	ID            int           `json:"id"`
+	CreatedAt     time.Time     `json:"created_at"`
+	UpdatedAt     time.Time     `json:"updated_at"`
 	Name          string        `json:"name"`
 	Code          string        `json:"code"`
 	Type          JudgeReadType `json:"type"`
 	Configuration string        `json:"configuration"`
-	CreatedAt     time.Time     `json:"created_at"`
-	UpdatedAt     time.Time     `json:"updated_at"`
 }
 
 // GetID returns the value of ID.
 func (s *JudgeRead) GetID() int {
 	return s.ID
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *JudgeRead) GetCreatedAt() time.Time {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *JudgeRead) GetUpdatedAt() time.Time {
+	return s.UpdatedAt
 }
 
 // GetName returns the value of Name.
@@ -839,19 +849,19 @@ func (s *JudgeRead) GetConfiguration() string {
 	return s.Configuration
 }
 
-// GetCreatedAt returns the value of CreatedAt.
-func (s *JudgeRead) GetCreatedAt() time.Time {
-	return s.CreatedAt
-}
-
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *JudgeRead) GetUpdatedAt() time.Time {
-	return s.UpdatedAt
-}
-
 // SetID sets the value of ID.
 func (s *JudgeRead) SetID(val int) {
 	s.ID = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *JudgeRead) SetCreatedAt(val time.Time) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *JudgeRead) SetUpdatedAt(val time.Time) {
+	s.UpdatedAt = val
 }
 
 // SetName sets the value of Name.
@@ -872,16 +882,6 @@ func (s *JudgeRead) SetType(val JudgeReadType) {
 // SetConfiguration sets the value of Configuration.
 func (s *JudgeRead) SetConfiguration(val string) {
 	s.Configuration = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *JudgeRead) SetCreatedAt(val time.Time) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *JudgeRead) SetUpdatedAt(val time.Time) {
-	s.UpdatedAt = val
 }
 
 func (*JudgeRead) readJudgeRes() {}
@@ -951,17 +951,27 @@ func (s *JudgeReadType) UnmarshalText(data []byte) error {
 // Ref: #/components/schemas/JudgeUpdate
 type JudgeUpdate struct {
 	ID            int             `json:"id"`
+	CreatedAt     time.Time       `json:"created_at"`
+	UpdatedAt     time.Time       `json:"updated_at"`
 	Name          string          `json:"name"`
 	Code          string          `json:"code"`
 	Type          JudgeUpdateType `json:"type"`
 	Configuration string          `json:"configuration"`
-	CreatedAt     time.Time       `json:"created_at"`
-	UpdatedAt     time.Time       `json:"updated_at"`
 }
 
 // GetID returns the value of ID.
 func (s *JudgeUpdate) GetID() int {
 	return s.ID
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *JudgeUpdate) GetCreatedAt() time.Time {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *JudgeUpdate) GetUpdatedAt() time.Time {
+	return s.UpdatedAt
 }
 
 // GetName returns the value of Name.
@@ -984,19 +994,19 @@ func (s *JudgeUpdate) GetConfiguration() string {
 	return s.Configuration
 }
 
-// GetCreatedAt returns the value of CreatedAt.
-func (s *JudgeUpdate) GetCreatedAt() time.Time {
-	return s.CreatedAt
-}
-
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *JudgeUpdate) GetUpdatedAt() time.Time {
-	return s.UpdatedAt
-}
-
 // SetID sets the value of ID.
 func (s *JudgeUpdate) SetID(val int) {
 	s.ID = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *JudgeUpdate) SetCreatedAt(val time.Time) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *JudgeUpdate) SetUpdatedAt(val time.Time) {
+	s.UpdatedAt = val
 }
 
 // SetName sets the value of Name.
@@ -1017,16 +1027,6 @@ func (s *JudgeUpdate) SetType(val JudgeUpdateType) {
 // SetConfiguration sets the value of Configuration.
 func (s *JudgeUpdate) SetConfiguration(val string) {
 	s.Configuration = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *JudgeUpdate) SetCreatedAt(val time.Time) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *JudgeUpdate) SetUpdatedAt(val time.Time) {
-	s.UpdatedAt = val
 }
 
 func (*JudgeUpdate) updateJudgeRes() {}
@@ -1392,25 +1392,15 @@ func (o OptUpdateSubmissionReqVerdict) Or(d UpdateSubmissionReqVerdict) UpdateSu
 // Ref: #/components/schemas/ProblemCreate
 type ProblemCreate struct {
 	ID        int       `json:"id"`
-	Name      string    `json:"name"`
-	Code      string    `json:"code"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+	Name      string    `json:"name"`
+	Code      string    `json:"code"`
 }
 
 // GetID returns the value of ID.
 func (s *ProblemCreate) GetID() int {
 	return s.ID
-}
-
-// GetName returns the value of Name.
-func (s *ProblemCreate) GetName() string {
-	return s.Name
-}
-
-// GetCode returns the value of Code.
-func (s *ProblemCreate) GetCode() string {
-	return s.Code
 }
 
 // GetCreatedAt returns the value of CreatedAt.
@@ -1423,19 +1413,19 @@ func (s *ProblemCreate) GetUpdatedAt() time.Time {
 	return s.UpdatedAt
 }
 
+// GetName returns the value of Name.
+func (s *ProblemCreate) GetName() string {
+	return s.Name
+}
+
+// GetCode returns the value of Code.
+func (s *ProblemCreate) GetCode() string {
+	return s.Code
+}
+
 // SetID sets the value of ID.
 func (s *ProblemCreate) SetID(val int) {
 	s.ID = val
-}
-
-// SetName sets the value of Name.
-func (s *ProblemCreate) SetName(val string) {
-	s.Name = val
-}
-
-// SetCode sets the value of Code.
-func (s *ProblemCreate) SetCode(val string) {
-	s.Code = val
 }
 
 // SetCreatedAt sets the value of CreatedAt.
@@ -1448,22 +1438,42 @@ func (s *ProblemCreate) SetUpdatedAt(val time.Time) {
 	s.UpdatedAt = val
 }
 
+// SetName sets the value of Name.
+func (s *ProblemCreate) SetName(val string) {
+	s.Name = val
+}
+
+// SetCode sets the value of Code.
+func (s *ProblemCreate) SetCode(val string) {
+	s.Code = val
+}
+
 func (*ProblemCreate) createProblemRes() {}
 
 // Ref: #/components/schemas/Problem_JudgeRead
 type ProblemJudgeRead struct {
 	ID            int                  `json:"id"`
+	CreatedAt     time.Time            `json:"created_at"`
+	UpdatedAt     time.Time            `json:"updated_at"`
 	Name          string               `json:"name"`
 	Code          string               `json:"code"`
 	Type          ProblemJudgeReadType `json:"type"`
 	Configuration string               `json:"configuration"`
-	CreatedAt     time.Time            `json:"created_at"`
-	UpdatedAt     time.Time            `json:"updated_at"`
 }
 
 // GetID returns the value of ID.
 func (s *ProblemJudgeRead) GetID() int {
 	return s.ID
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *ProblemJudgeRead) GetCreatedAt() time.Time {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *ProblemJudgeRead) GetUpdatedAt() time.Time {
+	return s.UpdatedAt
 }
 
 // GetName returns the value of Name.
@@ -1486,19 +1496,19 @@ func (s *ProblemJudgeRead) GetConfiguration() string {
 	return s.Configuration
 }
 
-// GetCreatedAt returns the value of CreatedAt.
-func (s *ProblemJudgeRead) GetCreatedAt() time.Time {
-	return s.CreatedAt
-}
-
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *ProblemJudgeRead) GetUpdatedAt() time.Time {
-	return s.UpdatedAt
-}
-
 // SetID sets the value of ID.
 func (s *ProblemJudgeRead) SetID(val int) {
 	s.ID = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *ProblemJudgeRead) SetCreatedAt(val time.Time) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *ProblemJudgeRead) SetUpdatedAt(val time.Time) {
+	s.UpdatedAt = val
 }
 
 // SetName sets the value of Name.
@@ -1519,16 +1529,6 @@ func (s *ProblemJudgeRead) SetType(val ProblemJudgeReadType) {
 // SetConfiguration sets the value of Configuration.
 func (s *ProblemJudgeRead) SetConfiguration(val string) {
 	s.Configuration = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *ProblemJudgeRead) SetCreatedAt(val time.Time) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *ProblemJudgeRead) SetUpdatedAt(val time.Time) {
-	s.UpdatedAt = val
 }
 
 func (*ProblemJudgeRead) readProblemJudgeRes() {}
@@ -1598,25 +1598,15 @@ func (s *ProblemJudgeReadType) UnmarshalText(data []byte) error {
 // Ref: #/components/schemas/ProblemList
 type ProblemList struct {
 	ID        int       `json:"id"`
-	Name      string    `json:"name"`
-	Code      string    `json:"code"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+	Name      string    `json:"name"`
+	Code      string    `json:"code"`
 }
 
 // GetID returns the value of ID.
 func (s *ProblemList) GetID() int {
 	return s.ID
-}
-
-// GetName returns the value of Name.
-func (s *ProblemList) GetName() string {
-	return s.Name
-}
-
-// GetCode returns the value of Code.
-func (s *ProblemList) GetCode() string {
-	return s.Code
 }
 
 // GetCreatedAt returns the value of CreatedAt.
@@ -1629,19 +1619,19 @@ func (s *ProblemList) GetUpdatedAt() time.Time {
 	return s.UpdatedAt
 }
 
+// GetName returns the value of Name.
+func (s *ProblemList) GetName() string {
+	return s.Name
+}
+
+// GetCode returns the value of Code.
+func (s *ProblemList) GetCode() string {
+	return s.Code
+}
+
 // SetID sets the value of ID.
 func (s *ProblemList) SetID(val int) {
 	s.ID = val
-}
-
-// SetName sets the value of Name.
-func (s *ProblemList) SetName(val string) {
-	s.Name = val
-}
-
-// SetCode sets the value of Code.
-func (s *ProblemList) SetCode(val string) {
-	s.Code = val
 }
 
 // SetCreatedAt sets the value of CreatedAt.
@@ -1654,28 +1644,28 @@ func (s *ProblemList) SetUpdatedAt(val time.Time) {
 	s.UpdatedAt = val
 }
 
+// SetName sets the value of Name.
+func (s *ProblemList) SetName(val string) {
+	s.Name = val
+}
+
+// SetCode sets the value of Code.
+func (s *ProblemList) SetCode(val string) {
+	s.Code = val
+}
+
 // Ref: #/components/schemas/ProblemRead
 type ProblemRead struct {
 	ID        int       `json:"id"`
-	Name      string    `json:"name"`
-	Code      string    `json:"code"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+	Name      string    `json:"name"`
+	Code      string    `json:"code"`
 }
 
 // GetID returns the value of ID.
 func (s *ProblemRead) GetID() int {
 	return s.ID
-}
-
-// GetName returns the value of Name.
-func (s *ProblemRead) GetName() string {
-	return s.Name
-}
-
-// GetCode returns the value of Code.
-func (s *ProblemRead) GetCode() string {
-	return s.Code
 }
 
 // GetCreatedAt returns the value of CreatedAt.
@@ -1688,19 +1678,19 @@ func (s *ProblemRead) GetUpdatedAt() time.Time {
 	return s.UpdatedAt
 }
 
+// GetName returns the value of Name.
+func (s *ProblemRead) GetName() string {
+	return s.Name
+}
+
+// GetCode returns the value of Code.
+func (s *ProblemRead) GetCode() string {
+	return s.Code
+}
+
 // SetID sets the value of ID.
 func (s *ProblemRead) SetID(val int) {
 	s.ID = val
-}
-
-// SetName sets the value of Name.
-func (s *ProblemRead) SetName(val string) {
-	s.Name = val
-}
-
-// SetCode sets the value of Code.
-func (s *ProblemRead) SetCode(val string) {
-	s.Code = val
 }
 
 // SetCreatedAt sets the value of CreatedAt.
@@ -1713,21 +1703,41 @@ func (s *ProblemRead) SetUpdatedAt(val time.Time) {
 	s.UpdatedAt = val
 }
 
+// SetName sets the value of Name.
+func (s *ProblemRead) SetName(val string) {
+	s.Name = val
+}
+
+// SetCode sets the value of Code.
+func (s *ProblemRead) SetCode(val string) {
+	s.Code = val
+}
+
 func (*ProblemRead) readProblemRes() {}
 
 // Ref: #/components/schemas/Problem_SubmissionsList
 type ProblemSubmissionsList struct {
 	ID        int                           `json:"id"`
+	CreatedAt time.Time                     `json:"created_at"`
+	UpdatedAt time.Time                     `json:"updated_at"`
 	Status    ProblemSubmissionsListStatus  `json:"status"`
 	Verdict   ProblemSubmissionsListVerdict `json:"verdict"`
 	TestCount int                           `json:"test_count"`
-	CreatedAt time.Time                     `json:"created_at"`
-	UpdatedAt time.Time                     `json:"updated_at"`
 }
 
 // GetID returns the value of ID.
 func (s *ProblemSubmissionsList) GetID() int {
 	return s.ID
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *ProblemSubmissionsList) GetCreatedAt() time.Time {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *ProblemSubmissionsList) GetUpdatedAt() time.Time {
+	return s.UpdatedAt
 }
 
 // GetStatus returns the value of Status.
@@ -1745,19 +1755,19 @@ func (s *ProblemSubmissionsList) GetTestCount() int {
 	return s.TestCount
 }
 
-// GetCreatedAt returns the value of CreatedAt.
-func (s *ProblemSubmissionsList) GetCreatedAt() time.Time {
-	return s.CreatedAt
-}
-
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *ProblemSubmissionsList) GetUpdatedAt() time.Time {
-	return s.UpdatedAt
-}
-
 // SetID sets the value of ID.
 func (s *ProblemSubmissionsList) SetID(val int) {
 	s.ID = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *ProblemSubmissionsList) SetCreatedAt(val time.Time) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *ProblemSubmissionsList) SetUpdatedAt(val time.Time) {
+	s.UpdatedAt = val
 }
 
 // SetStatus sets the value of Status.
@@ -1773,16 +1783,6 @@ func (s *ProblemSubmissionsList) SetVerdict(val ProblemSubmissionsListVerdict) {
 // SetTestCount sets the value of TestCount.
 func (s *ProblemSubmissionsList) SetTestCount(val int) {
 	s.TestCount = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *ProblemSubmissionsList) SetCreatedAt(val time.Time) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *ProblemSubmissionsList) SetUpdatedAt(val time.Time) {
-	s.UpdatedAt = val
 }
 
 type ProblemSubmissionsListStatus string
@@ -1940,25 +1940,15 @@ func (s *ProblemSubmissionsListVerdict) UnmarshalText(data []byte) error {
 // Ref: #/components/schemas/ProblemUpdate
 type ProblemUpdate struct {
 	ID        int       `json:"id"`
-	Name      string    `json:"name"`
-	Code      string    `json:"code"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+	Name      string    `json:"name"`
+	Code      string    `json:"code"`
 }
 
 // GetID returns the value of ID.
 func (s *ProblemUpdate) GetID() int {
 	return s.ID
-}
-
-// GetName returns the value of Name.
-func (s *ProblemUpdate) GetName() string {
-	return s.Name
-}
-
-// GetCode returns the value of Code.
-func (s *ProblemUpdate) GetCode() string {
-	return s.Code
 }
 
 // GetCreatedAt returns the value of CreatedAt.
@@ -1971,19 +1961,19 @@ func (s *ProblemUpdate) GetUpdatedAt() time.Time {
 	return s.UpdatedAt
 }
 
+// GetName returns the value of Name.
+func (s *ProblemUpdate) GetName() string {
+	return s.Name
+}
+
+// GetCode returns the value of Code.
+func (s *ProblemUpdate) GetCode() string {
+	return s.Code
+}
+
 // SetID sets the value of ID.
 func (s *ProblemUpdate) SetID(val int) {
 	s.ID = val
-}
-
-// SetName sets the value of Name.
-func (s *ProblemUpdate) SetName(val string) {
-	s.Name = val
-}
-
-// SetCode sets the value of Code.
-func (s *ProblemUpdate) SetCode(val string) {
-	s.Code = val
 }
 
 // SetCreatedAt sets the value of CreatedAt.
@@ -1994,6 +1984,16 @@ func (s *ProblemUpdate) SetCreatedAt(val time.Time) {
 // SetUpdatedAt sets the value of UpdatedAt.
 func (s *ProblemUpdate) SetUpdatedAt(val time.Time) {
 	s.UpdatedAt = val
+}
+
+// SetName sets the value of Name.
+func (s *ProblemUpdate) SetName(val string) {
+	s.Name = val
+}
+
+// SetCode sets the value of Code.
+func (s *ProblemUpdate) SetCode(val string) {
+	s.Code = val
 }
 
 func (*ProblemUpdate) updateProblemRes() {}
@@ -2222,16 +2222,26 @@ func (*R500) updateSubmissionRes()       {}
 // Ref: #/components/schemas/SubmissionCreate
 type SubmissionCreate struct {
 	ID        int                     `json:"id"`
+	CreatedAt time.Time               `json:"created_at"`
+	UpdatedAt time.Time               `json:"updated_at"`
 	Status    SubmissionCreateStatus  `json:"status"`
 	Verdict   SubmissionCreateVerdict `json:"verdict"`
 	TestCount int                     `json:"test_count"`
-	CreatedAt time.Time               `json:"created_at"`
-	UpdatedAt time.Time               `json:"updated_at"`
 }
 
 // GetID returns the value of ID.
 func (s *SubmissionCreate) GetID() int {
 	return s.ID
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *SubmissionCreate) GetCreatedAt() time.Time {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *SubmissionCreate) GetUpdatedAt() time.Time {
+	return s.UpdatedAt
 }
 
 // GetStatus returns the value of Status.
@@ -2249,19 +2259,19 @@ func (s *SubmissionCreate) GetTestCount() int {
 	return s.TestCount
 }
 
-// GetCreatedAt returns the value of CreatedAt.
-func (s *SubmissionCreate) GetCreatedAt() time.Time {
-	return s.CreatedAt
-}
-
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *SubmissionCreate) GetUpdatedAt() time.Time {
-	return s.UpdatedAt
-}
-
 // SetID sets the value of ID.
 func (s *SubmissionCreate) SetID(val int) {
 	s.ID = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *SubmissionCreate) SetCreatedAt(val time.Time) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *SubmissionCreate) SetUpdatedAt(val time.Time) {
+	s.UpdatedAt = val
 }
 
 // SetStatus sets the value of Status.
@@ -2277,16 +2287,6 @@ func (s *SubmissionCreate) SetVerdict(val SubmissionCreateVerdict) {
 // SetTestCount sets the value of TestCount.
 func (s *SubmissionCreate) SetTestCount(val int) {
 	s.TestCount = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *SubmissionCreate) SetCreatedAt(val time.Time) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *SubmissionCreate) SetUpdatedAt(val time.Time) {
-	s.UpdatedAt = val
 }
 
 func (*SubmissionCreate) createSubmissionRes() {}
@@ -2446,16 +2446,26 @@ func (s *SubmissionCreateVerdict) UnmarshalText(data []byte) error {
 // Ref: #/components/schemas/SubmissionList
 type SubmissionList struct {
 	ID        int                   `json:"id"`
+	CreatedAt time.Time             `json:"created_at"`
+	UpdatedAt time.Time             `json:"updated_at"`
 	Status    SubmissionListStatus  `json:"status"`
 	Verdict   SubmissionListVerdict `json:"verdict"`
 	TestCount int                   `json:"test_count"`
-	CreatedAt time.Time             `json:"created_at"`
-	UpdatedAt time.Time             `json:"updated_at"`
 }
 
 // GetID returns the value of ID.
 func (s *SubmissionList) GetID() int {
 	return s.ID
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *SubmissionList) GetCreatedAt() time.Time {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *SubmissionList) GetUpdatedAt() time.Time {
+	return s.UpdatedAt
 }
 
 // GetStatus returns the value of Status.
@@ -2473,19 +2483,19 @@ func (s *SubmissionList) GetTestCount() int {
 	return s.TestCount
 }
 
-// GetCreatedAt returns the value of CreatedAt.
-func (s *SubmissionList) GetCreatedAt() time.Time {
-	return s.CreatedAt
-}
-
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *SubmissionList) GetUpdatedAt() time.Time {
-	return s.UpdatedAt
-}
-
 // SetID sets the value of ID.
 func (s *SubmissionList) SetID(val int) {
 	s.ID = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *SubmissionList) SetCreatedAt(val time.Time) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *SubmissionList) SetUpdatedAt(val time.Time) {
+	s.UpdatedAt = val
 }
 
 // SetStatus sets the value of Status.
@@ -2501,16 +2511,6 @@ func (s *SubmissionList) SetVerdict(val SubmissionListVerdict) {
 // SetTestCount sets the value of TestCount.
 func (s *SubmissionList) SetTestCount(val int) {
 	s.TestCount = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *SubmissionList) SetCreatedAt(val time.Time) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *SubmissionList) SetUpdatedAt(val time.Time) {
-	s.UpdatedAt = val
 }
 
 type SubmissionListStatus string
@@ -2668,25 +2668,15 @@ func (s *SubmissionListVerdict) UnmarshalText(data []byte) error {
 // Ref: #/components/schemas/Submission_ProblemRead
 type SubmissionProblemRead struct {
 	ID        int       `json:"id"`
-	Name      string    `json:"name"`
-	Code      string    `json:"code"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+	Name      string    `json:"name"`
+	Code      string    `json:"code"`
 }
 
 // GetID returns the value of ID.
 func (s *SubmissionProblemRead) GetID() int {
 	return s.ID
-}
-
-// GetName returns the value of Name.
-func (s *SubmissionProblemRead) GetName() string {
-	return s.Name
-}
-
-// GetCode returns the value of Code.
-func (s *SubmissionProblemRead) GetCode() string {
-	return s.Code
 }
 
 // GetCreatedAt returns the value of CreatedAt.
@@ -2699,19 +2689,19 @@ func (s *SubmissionProblemRead) GetUpdatedAt() time.Time {
 	return s.UpdatedAt
 }
 
+// GetName returns the value of Name.
+func (s *SubmissionProblemRead) GetName() string {
+	return s.Name
+}
+
+// GetCode returns the value of Code.
+func (s *SubmissionProblemRead) GetCode() string {
+	return s.Code
+}
+
 // SetID sets the value of ID.
 func (s *SubmissionProblemRead) SetID(val int) {
 	s.ID = val
-}
-
-// SetName sets the value of Name.
-func (s *SubmissionProblemRead) SetName(val string) {
-	s.Name = val
-}
-
-// SetCode sets the value of Code.
-func (s *SubmissionProblemRead) SetCode(val string) {
-	s.Code = val
 }
 
 // SetCreatedAt sets the value of CreatedAt.
@@ -2724,21 +2714,41 @@ func (s *SubmissionProblemRead) SetUpdatedAt(val time.Time) {
 	s.UpdatedAt = val
 }
 
+// SetName sets the value of Name.
+func (s *SubmissionProblemRead) SetName(val string) {
+	s.Name = val
+}
+
+// SetCode sets the value of Code.
+func (s *SubmissionProblemRead) SetCode(val string) {
+	s.Code = val
+}
+
 func (*SubmissionProblemRead) readSubmissionProblemRes() {}
 
 // Ref: #/components/schemas/SubmissionRead
 type SubmissionRead struct {
 	ID        int                   `json:"id"`
+	CreatedAt time.Time             `json:"created_at"`
+	UpdatedAt time.Time             `json:"updated_at"`
 	Status    SubmissionReadStatus  `json:"status"`
 	Verdict   SubmissionReadVerdict `json:"verdict"`
 	TestCount int                   `json:"test_count"`
-	CreatedAt time.Time             `json:"created_at"`
-	UpdatedAt time.Time             `json:"updated_at"`
 }
 
 // GetID returns the value of ID.
 func (s *SubmissionRead) GetID() int {
 	return s.ID
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *SubmissionRead) GetCreatedAt() time.Time {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *SubmissionRead) GetUpdatedAt() time.Time {
+	return s.UpdatedAt
 }
 
 // GetStatus returns the value of Status.
@@ -2756,19 +2766,19 @@ func (s *SubmissionRead) GetTestCount() int {
 	return s.TestCount
 }
 
-// GetCreatedAt returns the value of CreatedAt.
-func (s *SubmissionRead) GetCreatedAt() time.Time {
-	return s.CreatedAt
-}
-
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *SubmissionRead) GetUpdatedAt() time.Time {
-	return s.UpdatedAt
-}
-
 // SetID sets the value of ID.
 func (s *SubmissionRead) SetID(val int) {
 	s.ID = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *SubmissionRead) SetCreatedAt(val time.Time) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *SubmissionRead) SetUpdatedAt(val time.Time) {
+	s.UpdatedAt = val
 }
 
 // SetStatus sets the value of Status.
@@ -2784,16 +2794,6 @@ func (s *SubmissionRead) SetVerdict(val SubmissionReadVerdict) {
 // SetTestCount sets the value of TestCount.
 func (s *SubmissionRead) SetTestCount(val int) {
 	s.TestCount = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *SubmissionRead) SetCreatedAt(val time.Time) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *SubmissionRead) SetUpdatedAt(val time.Time) {
-	s.UpdatedAt = val
 }
 
 func (*SubmissionRead) readSubmissionRes() {}
@@ -2953,16 +2953,26 @@ func (s *SubmissionReadVerdict) UnmarshalText(data []byte) error {
 // Ref: #/components/schemas/SubmissionUpdate
 type SubmissionUpdate struct {
 	ID        int                     `json:"id"`
+	CreatedAt time.Time               `json:"created_at"`
+	UpdatedAt time.Time               `json:"updated_at"`
 	Status    SubmissionUpdateStatus  `json:"status"`
 	Verdict   SubmissionUpdateVerdict `json:"verdict"`
 	TestCount int                     `json:"test_count"`
-	CreatedAt time.Time               `json:"created_at"`
-	UpdatedAt time.Time               `json:"updated_at"`
 }
 
 // GetID returns the value of ID.
 func (s *SubmissionUpdate) GetID() int {
 	return s.ID
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *SubmissionUpdate) GetCreatedAt() time.Time {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *SubmissionUpdate) GetUpdatedAt() time.Time {
+	return s.UpdatedAt
 }
 
 // GetStatus returns the value of Status.
@@ -2980,19 +2990,19 @@ func (s *SubmissionUpdate) GetTestCount() int {
 	return s.TestCount
 }
 
-// GetCreatedAt returns the value of CreatedAt.
-func (s *SubmissionUpdate) GetCreatedAt() time.Time {
-	return s.CreatedAt
-}
-
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *SubmissionUpdate) GetUpdatedAt() time.Time {
-	return s.UpdatedAt
-}
-
 // SetID sets the value of ID.
 func (s *SubmissionUpdate) SetID(val int) {
 	s.ID = val
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *SubmissionUpdate) SetCreatedAt(val time.Time) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *SubmissionUpdate) SetUpdatedAt(val time.Time) {
+	s.UpdatedAt = val
 }
 
 // SetStatus sets the value of Status.
@@ -3008,16 +3018,6 @@ func (s *SubmissionUpdate) SetVerdict(val SubmissionUpdateVerdict) {
 // SetTestCount sets the value of TestCount.
 func (s *SubmissionUpdate) SetTestCount(val int) {
 	s.TestCount = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *SubmissionUpdate) SetCreatedAt(val time.Time) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *SubmissionUpdate) SetUpdatedAt(val time.Time) {
-	s.UpdatedAt = val
 }
 
 func (*SubmissionUpdate) updateSubmissionRes() {}
@@ -3175,13 +3175,23 @@ func (s *SubmissionUpdateVerdict) UnmarshalText(data []byte) error {
 }
 
 type UpdateJudgeReq struct {
+	CreatedAt     OptDateTime           `json:"created_at"`
+	UpdatedAt     OptDateTime           `json:"updated_at"`
 	Name          OptString             `json:"name"`
 	Code          OptString             `json:"code"`
 	Type          OptUpdateJudgeReqType `json:"type"`
 	Configuration OptString             `json:"configuration"`
-	CreatedAt     OptDateTime           `json:"created_at"`
-	UpdatedAt     OptDateTime           `json:"updated_at"`
 	Problems      []int                 `json:"problems"`
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *UpdateJudgeReq) GetCreatedAt() OptDateTime {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *UpdateJudgeReq) GetUpdatedAt() OptDateTime {
+	return s.UpdatedAt
 }
 
 // GetName returns the value of Name.
@@ -3204,19 +3214,19 @@ func (s *UpdateJudgeReq) GetConfiguration() OptString {
 	return s.Configuration
 }
 
-// GetCreatedAt returns the value of CreatedAt.
-func (s *UpdateJudgeReq) GetCreatedAt() OptDateTime {
-	return s.CreatedAt
-}
-
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *UpdateJudgeReq) GetUpdatedAt() OptDateTime {
-	return s.UpdatedAt
-}
-
 // GetProblems returns the value of Problems.
 func (s *UpdateJudgeReq) GetProblems() []int {
 	return s.Problems
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *UpdateJudgeReq) SetCreatedAt(val OptDateTime) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *UpdateJudgeReq) SetUpdatedAt(val OptDateTime) {
+	s.UpdatedAt = val
 }
 
 // SetName sets the value of Name.
@@ -3237,16 +3247,6 @@ func (s *UpdateJudgeReq) SetType(val OptUpdateJudgeReqType) {
 // SetConfiguration sets the value of Configuration.
 func (s *UpdateJudgeReq) SetConfiguration(val OptString) {
 	s.Configuration = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *UpdateJudgeReq) SetCreatedAt(val OptDateTime) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *UpdateJudgeReq) SetUpdatedAt(val OptDateTime) {
-	s.UpdatedAt = val
 }
 
 // SetProblems sets the value of Problems.
@@ -3317,22 +3317,12 @@ func (s *UpdateJudgeReqType) UnmarshalText(data []byte) error {
 }
 
 type UpdateProblemReq struct {
-	Name        OptString   `json:"name"`
-	Code        OptString   `json:"code"`
 	CreatedAt   OptDateTime `json:"created_at"`
 	UpdatedAt   OptDateTime `json:"updated_at"`
+	Name        OptString   `json:"name"`
+	Code        OptString   `json:"code"`
 	Submissions []int       `json:"submissions"`
 	Judge       OptInt      `json:"judge"`
-}
-
-// GetName returns the value of Name.
-func (s *UpdateProblemReq) GetName() OptString {
-	return s.Name
-}
-
-// GetCode returns the value of Code.
-func (s *UpdateProblemReq) GetCode() OptString {
-	return s.Code
 }
 
 // GetCreatedAt returns the value of CreatedAt.
@@ -3345,6 +3335,16 @@ func (s *UpdateProblemReq) GetUpdatedAt() OptDateTime {
 	return s.UpdatedAt
 }
 
+// GetName returns the value of Name.
+func (s *UpdateProblemReq) GetName() OptString {
+	return s.Name
+}
+
+// GetCode returns the value of Code.
+func (s *UpdateProblemReq) GetCode() OptString {
+	return s.Code
+}
+
 // GetSubmissions returns the value of Submissions.
 func (s *UpdateProblemReq) GetSubmissions() []int {
 	return s.Submissions
@@ -3355,16 +3355,6 @@ func (s *UpdateProblemReq) GetJudge() OptInt {
 	return s.Judge
 }
 
-// SetName sets the value of Name.
-func (s *UpdateProblemReq) SetName(val OptString) {
-	s.Name = val
-}
-
-// SetCode sets the value of Code.
-func (s *UpdateProblemReq) SetCode(val OptString) {
-	s.Code = val
-}
-
 // SetCreatedAt sets the value of CreatedAt.
 func (s *UpdateProblemReq) SetCreatedAt(val OptDateTime) {
 	s.CreatedAt = val
@@ -3373,6 +3363,16 @@ func (s *UpdateProblemReq) SetCreatedAt(val OptDateTime) {
 // SetUpdatedAt sets the value of UpdatedAt.
 func (s *UpdateProblemReq) SetUpdatedAt(val OptDateTime) {
 	s.UpdatedAt = val
+}
+
+// SetName sets the value of Name.
+func (s *UpdateProblemReq) SetName(val OptString) {
+	s.Name = val
+}
+
+// SetCode sets the value of Code.
+func (s *UpdateProblemReq) SetCode(val OptString) {
+	s.Code = val
 }
 
 // SetSubmissions sets the value of Submissions.
@@ -3386,12 +3386,22 @@ func (s *UpdateProblemReq) SetJudge(val OptInt) {
 }
 
 type UpdateSubmissionReq struct {
+	CreatedAt OptDateTime                   `json:"created_at"`
+	UpdatedAt OptDateTime                   `json:"updated_at"`
 	Status    OptUpdateSubmissionReqStatus  `json:"status"`
 	Verdict   OptUpdateSubmissionReqVerdict `json:"verdict"`
 	TestCount OptInt                        `json:"test_count"`
-	CreatedAt OptDateTime                   `json:"created_at"`
-	UpdatedAt OptDateTime                   `json:"updated_at"`
 	Problem   OptInt                        `json:"problem"`
+}
+
+// GetCreatedAt returns the value of CreatedAt.
+func (s *UpdateSubmissionReq) GetCreatedAt() OptDateTime {
+	return s.CreatedAt
+}
+
+// GetUpdatedAt returns the value of UpdatedAt.
+func (s *UpdateSubmissionReq) GetUpdatedAt() OptDateTime {
+	return s.UpdatedAt
 }
 
 // GetStatus returns the value of Status.
@@ -3409,19 +3419,19 @@ func (s *UpdateSubmissionReq) GetTestCount() OptInt {
 	return s.TestCount
 }
 
-// GetCreatedAt returns the value of CreatedAt.
-func (s *UpdateSubmissionReq) GetCreatedAt() OptDateTime {
-	return s.CreatedAt
-}
-
-// GetUpdatedAt returns the value of UpdatedAt.
-func (s *UpdateSubmissionReq) GetUpdatedAt() OptDateTime {
-	return s.UpdatedAt
-}
-
 // GetProblem returns the value of Problem.
 func (s *UpdateSubmissionReq) GetProblem() OptInt {
 	return s.Problem
+}
+
+// SetCreatedAt sets the value of CreatedAt.
+func (s *UpdateSubmissionReq) SetCreatedAt(val OptDateTime) {
+	s.CreatedAt = val
+}
+
+// SetUpdatedAt sets the value of UpdatedAt.
+func (s *UpdateSubmissionReq) SetUpdatedAt(val OptDateTime) {
+	s.UpdatedAt = val
 }
 
 // SetStatus sets the value of Status.
@@ -3437,16 +3447,6 @@ func (s *UpdateSubmissionReq) SetVerdict(val OptUpdateSubmissionReqVerdict) {
 // SetTestCount sets the value of TestCount.
 func (s *UpdateSubmissionReq) SetTestCount(val OptInt) {
 	s.TestCount = val
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *UpdateSubmissionReq) SetCreatedAt(val OptDateTime) {
-	s.CreatedAt = val
-}
-
-// SetUpdatedAt sets the value of UpdatedAt.
-func (s *UpdateSubmissionReq) SetUpdatedAt(val OptDateTime) {
-	s.UpdatedAt = val
 }
 
 // SetProblem sets the value of Problem.

@@ -10,12 +10,12 @@ func NewJudgeCreate(e *ent.Judge) *JudgeCreate {
 	}
 	var ret JudgeCreate
 	ret.ID = e.ID
+	ret.CreatedAt = e.CreatedAt
+	ret.UpdatedAt = e.UpdatedAt
 	ret.Name = e.Name
 	ret.Code = e.Code
 	ret.Type = JudgeCreateType(e.Type)
 	ret.Configuration = e.Configuration
-	ret.CreatedAt = e.CreatedAt
-	ret.UpdatedAt = e.UpdatedAt
 	return &ret
 }
 
@@ -43,12 +43,12 @@ func NewJudgeList(e *ent.Judge) *JudgeList {
 	}
 	var ret JudgeList
 	ret.ID = e.ID
+	ret.CreatedAt = e.CreatedAt
+	ret.UpdatedAt = e.UpdatedAt
 	ret.Name = e.Name
 	ret.Code = e.Code
 	ret.Type = JudgeListType(e.Type)
 	ret.Configuration = e.Configuration
-	ret.CreatedAt = e.CreatedAt
-	ret.UpdatedAt = e.UpdatedAt
 	return &ret
 }
 
@@ -76,12 +76,12 @@ func NewJudgeRead(e *ent.Judge) *JudgeRead {
 	}
 	var ret JudgeRead
 	ret.ID = e.ID
+	ret.CreatedAt = e.CreatedAt
+	ret.UpdatedAt = e.UpdatedAt
 	ret.Name = e.Name
 	ret.Code = e.Code
 	ret.Type = JudgeReadType(e.Type)
 	ret.Configuration = e.Configuration
-	ret.CreatedAt = e.CreatedAt
-	ret.UpdatedAt = e.UpdatedAt
 	return &ret
 }
 
@@ -109,12 +109,12 @@ func NewJudgeUpdate(e *ent.Judge) *JudgeUpdate {
 	}
 	var ret JudgeUpdate
 	ret.ID = e.ID
+	ret.CreatedAt = e.CreatedAt
+	ret.UpdatedAt = e.UpdatedAt
 	ret.Name = e.Name
 	ret.Code = e.Code
 	ret.Type = JudgeUpdateType(e.Type)
 	ret.Configuration = e.Configuration
-	ret.CreatedAt = e.CreatedAt
-	ret.UpdatedAt = e.UpdatedAt
 	return &ret
 }
 
@@ -142,10 +142,10 @@ func NewJudgeProblemsList(e *ent.Problem) *JudgeProblemsList {
 	}
 	var ret JudgeProblemsList
 	ret.ID = e.ID
-	ret.Name = e.Name
-	ret.Code = e.Code
 	ret.CreatedAt = e.CreatedAt
 	ret.UpdatedAt = e.UpdatedAt
+	ret.Name = e.Name
+	ret.Code = e.Code
 	return &ret
 }
 
@@ -173,10 +173,10 @@ func NewProblemCreate(e *ent.Problem) *ProblemCreate {
 	}
 	var ret ProblemCreate
 	ret.ID = e.ID
-	ret.Name = e.Name
-	ret.Code = e.Code
 	ret.CreatedAt = e.CreatedAt
 	ret.UpdatedAt = e.UpdatedAt
+	ret.Name = e.Name
+	ret.Code = e.Code
 	return &ret
 }
 
@@ -204,10 +204,10 @@ func NewProblemList(e *ent.Problem) *ProblemList {
 	}
 	var ret ProblemList
 	ret.ID = e.ID
-	ret.Name = e.Name
-	ret.Code = e.Code
 	ret.CreatedAt = e.CreatedAt
 	ret.UpdatedAt = e.UpdatedAt
+	ret.Name = e.Name
+	ret.Code = e.Code
 	return &ret
 }
 
@@ -235,10 +235,10 @@ func NewProblemRead(e *ent.Problem) *ProblemRead {
 	}
 	var ret ProblemRead
 	ret.ID = e.ID
-	ret.Name = e.Name
-	ret.Code = e.Code
 	ret.CreatedAt = e.CreatedAt
 	ret.UpdatedAt = e.UpdatedAt
+	ret.Name = e.Name
+	ret.Code = e.Code
 	return &ret
 }
 
@@ -266,10 +266,10 @@ func NewProblemUpdate(e *ent.Problem) *ProblemUpdate {
 	}
 	var ret ProblemUpdate
 	ret.ID = e.ID
-	ret.Name = e.Name
-	ret.Code = e.Code
 	ret.CreatedAt = e.CreatedAt
 	ret.UpdatedAt = e.UpdatedAt
+	ret.Name = e.Name
+	ret.Code = e.Code
 	return &ret
 }
 
@@ -297,12 +297,12 @@ func NewProblemJudgeRead(e *ent.Judge) *ProblemJudgeRead {
 	}
 	var ret ProblemJudgeRead
 	ret.ID = e.ID
+	ret.CreatedAt = e.CreatedAt
+	ret.UpdatedAt = e.UpdatedAt
 	ret.Name = e.Name
 	ret.Code = e.Code
 	ret.Type = ProblemJudgeReadType(e.Type)
 	ret.Configuration = e.Configuration
-	ret.CreatedAt = e.CreatedAt
-	ret.UpdatedAt = e.UpdatedAt
 	return &ret
 }
 
@@ -330,11 +330,11 @@ func NewProblemSubmissionsList(e *ent.Submission) *ProblemSubmissionsList {
 	}
 	var ret ProblemSubmissionsList
 	ret.ID = e.ID
+	ret.CreatedAt = e.CreatedAt
+	ret.UpdatedAt = e.UpdatedAt
 	ret.Status = ProblemSubmissionsListStatus(e.Status)
 	ret.Verdict = ProblemSubmissionsListVerdict(e.Verdict)
 	ret.TestCount = e.TestCount
-	ret.CreatedAt = e.CreatedAt
-	ret.UpdatedAt = e.UpdatedAt
 	return &ret
 }
 
@@ -362,11 +362,11 @@ func NewSubmissionCreate(e *ent.Submission) *SubmissionCreate {
 	}
 	var ret SubmissionCreate
 	ret.ID = e.ID
+	ret.CreatedAt = e.CreatedAt
+	ret.UpdatedAt = e.UpdatedAt
 	ret.Status = SubmissionCreateStatus(e.Status)
 	ret.Verdict = SubmissionCreateVerdict(e.Verdict)
 	ret.TestCount = e.TestCount
-	ret.CreatedAt = e.CreatedAt
-	ret.UpdatedAt = e.UpdatedAt
 	return &ret
 }
 
@@ -394,11 +394,11 @@ func NewSubmissionList(e *ent.Submission) *SubmissionList {
 	}
 	var ret SubmissionList
 	ret.ID = e.ID
+	ret.CreatedAt = e.CreatedAt
+	ret.UpdatedAt = e.UpdatedAt
 	ret.Status = SubmissionListStatus(e.Status)
 	ret.Verdict = SubmissionListVerdict(e.Verdict)
 	ret.TestCount = e.TestCount
-	ret.CreatedAt = e.CreatedAt
-	ret.UpdatedAt = e.UpdatedAt
 	return &ret
 }
 
@@ -426,11 +426,11 @@ func NewSubmissionRead(e *ent.Submission) *SubmissionRead {
 	}
 	var ret SubmissionRead
 	ret.ID = e.ID
+	ret.CreatedAt = e.CreatedAt
+	ret.UpdatedAt = e.UpdatedAt
 	ret.Status = SubmissionReadStatus(e.Status)
 	ret.Verdict = SubmissionReadVerdict(e.Verdict)
 	ret.TestCount = e.TestCount
-	ret.CreatedAt = e.CreatedAt
-	ret.UpdatedAt = e.UpdatedAt
 	return &ret
 }
 
@@ -458,11 +458,11 @@ func NewSubmissionUpdate(e *ent.Submission) *SubmissionUpdate {
 	}
 	var ret SubmissionUpdate
 	ret.ID = e.ID
+	ret.CreatedAt = e.CreatedAt
+	ret.UpdatedAt = e.UpdatedAt
 	ret.Status = SubmissionUpdateStatus(e.Status)
 	ret.Verdict = SubmissionUpdateVerdict(e.Verdict)
 	ret.TestCount = e.TestCount
-	ret.CreatedAt = e.CreatedAt
-	ret.UpdatedAt = e.UpdatedAt
 	return &ret
 }
 
@@ -490,10 +490,10 @@ func NewSubmissionProblemRead(e *ent.Problem) *SubmissionProblemRead {
 	}
 	var ret SubmissionProblemRead
 	ret.ID = e.ID
-	ret.Name = e.Name
-	ret.Code = e.Code
 	ret.CreatedAt = e.CreatedAt
 	ret.UpdatedAt = e.UpdatedAt
+	ret.Name = e.Name
+	ret.Code = e.Code
 	return &ret
 }
 

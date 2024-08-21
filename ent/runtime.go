@@ -15,8 +15,21 @@ import (
 // (default values, validators, hooks and policies) and stitches it
 // to their package variables.
 func init() {
+	judgeMixin := schema.Judge{}.Mixin()
+	judgeMixinFields0 := judgeMixin[0].Fields()
+	_ = judgeMixinFields0
 	judgeFields := schema.Judge{}.Fields()
 	_ = judgeFields
+	// judgeDescCreatedAt is the schema descriptor for created_at field.
+	judgeDescCreatedAt := judgeMixinFields0[0].Descriptor()
+	// judge.DefaultCreatedAt holds the default value on creation for the created_at field.
+	judge.DefaultCreatedAt = judgeDescCreatedAt.Default.(func() time.Time)
+	// judgeDescUpdatedAt is the schema descriptor for updated_at field.
+	judgeDescUpdatedAt := judgeMixinFields0[1].Descriptor()
+	// judge.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	judge.DefaultUpdatedAt = judgeDescUpdatedAt.Default.(func() time.Time)
+	// judge.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	judge.UpdateDefaultUpdatedAt = judgeDescUpdatedAt.UpdateDefault.(func() time.Time)
 	// judgeDescName is the schema descriptor for name field.
 	judgeDescName := judgeFields[0].Descriptor()
 	// judge.NameValidator is a validator for the "name" field. It is called by the builders before save.
@@ -25,18 +38,21 @@ func init() {
 	judgeDescCode := judgeFields[1].Descriptor()
 	// judge.CodeValidator is a validator for the "code" field. It is called by the builders before save.
 	judge.CodeValidator = judgeDescCode.Validators[0].(func(string) error)
-	// judgeDescCreatedAt is the schema descriptor for created_at field.
-	judgeDescCreatedAt := judgeFields[4].Descriptor()
-	// judge.DefaultCreatedAt holds the default value on creation for the created_at field.
-	judge.DefaultCreatedAt = judgeDescCreatedAt.Default.(func() time.Time)
-	// judgeDescUpdatedAt is the schema descriptor for updated_at field.
-	judgeDescUpdatedAt := judgeFields[5].Descriptor()
-	// judge.DefaultUpdatedAt holds the default value on creation for the updated_at field.
-	judge.DefaultUpdatedAt = judgeDescUpdatedAt.Default.(func() time.Time)
-	// judge.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
-	judge.UpdateDefaultUpdatedAt = judgeDescUpdatedAt.UpdateDefault.(func() time.Time)
+	problemMixin := schema.Problem{}.Mixin()
+	problemMixinFields0 := problemMixin[0].Fields()
+	_ = problemMixinFields0
 	problemFields := schema.Problem{}.Fields()
 	_ = problemFields
+	// problemDescCreatedAt is the schema descriptor for created_at field.
+	problemDescCreatedAt := problemMixinFields0[0].Descriptor()
+	// problem.DefaultCreatedAt holds the default value on creation for the created_at field.
+	problem.DefaultCreatedAt = problemDescCreatedAt.Default.(func() time.Time)
+	// problemDescUpdatedAt is the schema descriptor for updated_at field.
+	problemDescUpdatedAt := problemMixinFields0[1].Descriptor()
+	// problem.DefaultUpdatedAt holds the default value on creation for the updated_at field.
+	problem.DefaultUpdatedAt = problemDescUpdatedAt.Default.(func() time.Time)
+	// problem.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
+	problem.UpdateDefaultUpdatedAt = problemDescUpdatedAt.UpdateDefault.(func() time.Time)
 	// problemDescName is the schema descriptor for name field.
 	problemDescName := problemFields[0].Descriptor()
 	// problem.NameValidator is a validator for the "name" field. It is called by the builders before save.
@@ -45,30 +61,23 @@ func init() {
 	problemDescCode := problemFields[1].Descriptor()
 	// problem.CodeValidator is a validator for the "code" field. It is called by the builders before save.
 	problem.CodeValidator = problemDescCode.Validators[0].(func(string) error)
-	// problemDescCreatedAt is the schema descriptor for created_at field.
-	problemDescCreatedAt := problemFields[2].Descriptor()
-	// problem.DefaultCreatedAt holds the default value on creation for the created_at field.
-	problem.DefaultCreatedAt = problemDescCreatedAt.Default.(func() time.Time)
-	// problemDescUpdatedAt is the schema descriptor for updated_at field.
-	problemDescUpdatedAt := problemFields[3].Descriptor()
-	// problem.DefaultUpdatedAt holds the default value on creation for the updated_at field.
-	problem.DefaultUpdatedAt = problemDescUpdatedAt.Default.(func() time.Time)
-	// problem.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
-	problem.UpdateDefaultUpdatedAt = problemDescUpdatedAt.UpdateDefault.(func() time.Time)
+	submissionMixin := schema.Submission{}.Mixin()
+	submissionMixinFields0 := submissionMixin[0].Fields()
+	_ = submissionMixinFields0
 	submissionFields := schema.Submission{}.Fields()
 	_ = submissionFields
-	// submissionDescTestCount is the schema descriptor for test_count field.
-	submissionDescTestCount := submissionFields[2].Descriptor()
-	// submission.DefaultTestCount holds the default value on creation for the test_count field.
-	submission.DefaultTestCount = submissionDescTestCount.Default.(int)
 	// submissionDescCreatedAt is the schema descriptor for created_at field.
-	submissionDescCreatedAt := submissionFields[3].Descriptor()
+	submissionDescCreatedAt := submissionMixinFields0[0].Descriptor()
 	// submission.DefaultCreatedAt holds the default value on creation for the created_at field.
 	submission.DefaultCreatedAt = submissionDescCreatedAt.Default.(func() time.Time)
 	// submissionDescUpdatedAt is the schema descriptor for updated_at field.
-	submissionDescUpdatedAt := submissionFields[4].Descriptor()
+	submissionDescUpdatedAt := submissionMixinFields0[1].Descriptor()
 	// submission.DefaultUpdatedAt holds the default value on creation for the updated_at field.
 	submission.DefaultUpdatedAt = submissionDescUpdatedAt.Default.(func() time.Time)
 	// submission.UpdateDefaultUpdatedAt holds the default value on update for the updated_at field.
 	submission.UpdateDefaultUpdatedAt = submissionDescUpdatedAt.UpdateDefault.(func() time.Time)
+	// submissionDescTestCount is the schema descriptor for test_count field.
+	submissionDescTestCount := submissionFields[2].Descriptor()
+	// submission.DefaultTestCount holds the default value on creation for the test_count field.
+	submission.DefaultTestCount = submissionDescTestCount.Default.(int)
 }

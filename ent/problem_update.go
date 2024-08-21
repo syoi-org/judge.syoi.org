@@ -30,6 +30,26 @@ func (pu *ProblemUpdate) Where(ps ...predicate.Problem) *ProblemUpdate {
 	return pu
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (pu *ProblemUpdate) SetCreatedAt(t time.Time) *ProblemUpdate {
+	pu.mutation.SetCreatedAt(t)
+	return pu
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (pu *ProblemUpdate) SetNillableCreatedAt(t *time.Time) *ProblemUpdate {
+	if t != nil {
+		pu.SetCreatedAt(*t)
+	}
+	return pu
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (pu *ProblemUpdate) SetUpdatedAt(t time.Time) *ProblemUpdate {
+	pu.mutation.SetUpdatedAt(t)
+	return pu
+}
+
 // SetName sets the "name" field.
 func (pu *ProblemUpdate) SetName(s string) *ProblemUpdate {
 	pu.mutation.SetName(s)
@@ -55,26 +75,6 @@ func (pu *ProblemUpdate) SetNillableCode(s *string) *ProblemUpdate {
 	if s != nil {
 		pu.SetCode(*s)
 	}
-	return pu
-}
-
-// SetCreatedAt sets the "created_at" field.
-func (pu *ProblemUpdate) SetCreatedAt(t time.Time) *ProblemUpdate {
-	pu.mutation.SetCreatedAt(t)
-	return pu
-}
-
-// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (pu *ProblemUpdate) SetNillableCreatedAt(t *time.Time) *ProblemUpdate {
-	if t != nil {
-		pu.SetCreatedAt(*t)
-	}
-	return pu
-}
-
-// SetUpdatedAt sets the "updated_at" field.
-func (pu *ProblemUpdate) SetUpdatedAt(t time.Time) *ProblemUpdate {
-	pu.mutation.SetUpdatedAt(t)
 	return pu
 }
 
@@ -202,17 +202,17 @@ func (pu *ProblemUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
-	if value, ok := pu.mutation.Name(); ok {
-		_spec.SetField(problem.FieldName, field.TypeString, value)
-	}
-	if value, ok := pu.mutation.Code(); ok {
-		_spec.SetField(problem.FieldCode, field.TypeString, value)
-	}
 	if value, ok := pu.mutation.CreatedAt(); ok {
 		_spec.SetField(problem.FieldCreatedAt, field.TypeTime, value)
 	}
 	if value, ok := pu.mutation.UpdatedAt(); ok {
 		_spec.SetField(problem.FieldUpdatedAt, field.TypeTime, value)
+	}
+	if value, ok := pu.mutation.Name(); ok {
+		_spec.SetField(problem.FieldName, field.TypeString, value)
+	}
+	if value, ok := pu.mutation.Code(); ok {
+		_spec.SetField(problem.FieldCode, field.TypeString, value)
 	}
 	if pu.mutation.SubmissionsCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -308,6 +308,26 @@ type ProblemUpdateOne struct {
 	mutation *ProblemMutation
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (puo *ProblemUpdateOne) SetCreatedAt(t time.Time) *ProblemUpdateOne {
+	puo.mutation.SetCreatedAt(t)
+	return puo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (puo *ProblemUpdateOne) SetNillableCreatedAt(t *time.Time) *ProblemUpdateOne {
+	if t != nil {
+		puo.SetCreatedAt(*t)
+	}
+	return puo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (puo *ProblemUpdateOne) SetUpdatedAt(t time.Time) *ProblemUpdateOne {
+	puo.mutation.SetUpdatedAt(t)
+	return puo
+}
+
 // SetName sets the "name" field.
 func (puo *ProblemUpdateOne) SetName(s string) *ProblemUpdateOne {
 	puo.mutation.SetName(s)
@@ -333,26 +353,6 @@ func (puo *ProblemUpdateOne) SetNillableCode(s *string) *ProblemUpdateOne {
 	if s != nil {
 		puo.SetCode(*s)
 	}
-	return puo
-}
-
-// SetCreatedAt sets the "created_at" field.
-func (puo *ProblemUpdateOne) SetCreatedAt(t time.Time) *ProblemUpdateOne {
-	puo.mutation.SetCreatedAt(t)
-	return puo
-}
-
-// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (puo *ProblemUpdateOne) SetNillableCreatedAt(t *time.Time) *ProblemUpdateOne {
-	if t != nil {
-		puo.SetCreatedAt(*t)
-	}
-	return puo
-}
-
-// SetUpdatedAt sets the "updated_at" field.
-func (puo *ProblemUpdateOne) SetUpdatedAt(t time.Time) *ProblemUpdateOne {
-	puo.mutation.SetUpdatedAt(t)
 	return puo
 }
 
@@ -510,17 +510,17 @@ func (puo *ProblemUpdateOne) sqlSave(ctx context.Context) (_node *Problem, err e
 			}
 		}
 	}
-	if value, ok := puo.mutation.Name(); ok {
-		_spec.SetField(problem.FieldName, field.TypeString, value)
-	}
-	if value, ok := puo.mutation.Code(); ok {
-		_spec.SetField(problem.FieldCode, field.TypeString, value)
-	}
 	if value, ok := puo.mutation.CreatedAt(); ok {
 		_spec.SetField(problem.FieldCreatedAt, field.TypeTime, value)
 	}
 	if value, ok := puo.mutation.UpdatedAt(); ok {
 		_spec.SetField(problem.FieldUpdatedAt, field.TypeTime, value)
+	}
+	if value, ok := puo.mutation.Name(); ok {
+		_spec.SetField(problem.FieldName, field.TypeString, value)
+	}
+	if value, ok := puo.mutation.Code(); ok {
+		_spec.SetField(problem.FieldCode, field.TypeString, value)
 	}
 	if puo.mutation.SubmissionsCleared() {
 		edge := &sqlgraph.EdgeSpec{

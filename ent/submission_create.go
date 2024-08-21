@@ -21,6 +21,34 @@ type SubmissionCreate struct {
 	hooks    []Hook
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (sc *SubmissionCreate) SetCreatedAt(t time.Time) *SubmissionCreate {
+	sc.mutation.SetCreatedAt(t)
+	return sc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (sc *SubmissionCreate) SetNillableCreatedAt(t *time.Time) *SubmissionCreate {
+	if t != nil {
+		sc.SetCreatedAt(*t)
+	}
+	return sc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (sc *SubmissionCreate) SetUpdatedAt(t time.Time) *SubmissionCreate {
+	sc.mutation.SetUpdatedAt(t)
+	return sc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (sc *SubmissionCreate) SetNillableUpdatedAt(t *time.Time) *SubmissionCreate {
+	if t != nil {
+		sc.SetUpdatedAt(*t)
+	}
+	return sc
+}
+
 // SetStatus sets the "status" field.
 func (sc *SubmissionCreate) SetStatus(s submission.Status) *SubmissionCreate {
 	sc.mutation.SetStatus(s)
@@ -59,34 +87,6 @@ func (sc *SubmissionCreate) SetTestCount(i int) *SubmissionCreate {
 func (sc *SubmissionCreate) SetNillableTestCount(i *int) *SubmissionCreate {
 	if i != nil {
 		sc.SetTestCount(*i)
-	}
-	return sc
-}
-
-// SetCreatedAt sets the "created_at" field.
-func (sc *SubmissionCreate) SetCreatedAt(t time.Time) *SubmissionCreate {
-	sc.mutation.SetCreatedAt(t)
-	return sc
-}
-
-// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (sc *SubmissionCreate) SetNillableCreatedAt(t *time.Time) *SubmissionCreate {
-	if t != nil {
-		sc.SetCreatedAt(*t)
-	}
-	return sc
-}
-
-// SetUpdatedAt sets the "updated_at" field.
-func (sc *SubmissionCreate) SetUpdatedAt(t time.Time) *SubmissionCreate {
-	sc.mutation.SetUpdatedAt(t)
-	return sc
-}
-
-// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (sc *SubmissionCreate) SetNillableUpdatedAt(t *time.Time) *SubmissionCreate {
-	if t != nil {
-		sc.SetUpdatedAt(*t)
 	}
 	return sc
 }
@@ -137,6 +137,14 @@ func (sc *SubmissionCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (sc *SubmissionCreate) defaults() {
+	if _, ok := sc.mutation.CreatedAt(); !ok {
+		v := submission.DefaultCreatedAt()
+		sc.mutation.SetCreatedAt(v)
+	}
+	if _, ok := sc.mutation.UpdatedAt(); !ok {
+		v := submission.DefaultUpdatedAt()
+		sc.mutation.SetUpdatedAt(v)
+	}
 	if _, ok := sc.mutation.Status(); !ok {
 		v := submission.DefaultStatus
 		sc.mutation.SetStatus(v)
@@ -149,18 +157,16 @@ func (sc *SubmissionCreate) defaults() {
 		v := submission.DefaultTestCount
 		sc.mutation.SetTestCount(v)
 	}
-	if _, ok := sc.mutation.CreatedAt(); !ok {
-		v := submission.DefaultCreatedAt()
-		sc.mutation.SetCreatedAt(v)
-	}
-	if _, ok := sc.mutation.UpdatedAt(); !ok {
-		v := submission.DefaultUpdatedAt()
-		sc.mutation.SetUpdatedAt(v)
-	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (sc *SubmissionCreate) check() error {
+	if _, ok := sc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Submission.created_at"`)}
+	}
+	if _, ok := sc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "Submission.updated_at"`)}
+	}
 	if _, ok := sc.mutation.Status(); !ok {
 		return &ValidationError{Name: "status", err: errors.New(`ent: missing required field "Submission.status"`)}
 	}
@@ -179,12 +185,6 @@ func (sc *SubmissionCreate) check() error {
 	}
 	if _, ok := sc.mutation.TestCount(); !ok {
 		return &ValidationError{Name: "test_count", err: errors.New(`ent: missing required field "Submission.test_count"`)}
-	}
-	if _, ok := sc.mutation.CreatedAt(); !ok {
-		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Submission.created_at"`)}
-	}
-	if _, ok := sc.mutation.UpdatedAt(); !ok {
-		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "Submission.updated_at"`)}
 	}
 	if len(sc.mutation.ProblemIDs()) == 0 {
 		return &ValidationError{Name: "problem", err: errors.New(`ent: missing required edge "Submission.problem"`)}
@@ -215,6 +215,14 @@ func (sc *SubmissionCreate) createSpec() (*Submission, *sqlgraph.CreateSpec) {
 		_node = &Submission{config: sc.config}
 		_spec = sqlgraph.NewCreateSpec(submission.Table, sqlgraph.NewFieldSpec(submission.FieldID, field.TypeInt))
 	)
+	if value, ok := sc.mutation.CreatedAt(); ok {
+		_spec.SetField(submission.FieldCreatedAt, field.TypeTime, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := sc.mutation.UpdatedAt(); ok {
+		_spec.SetField(submission.FieldUpdatedAt, field.TypeTime, value)
+		_node.UpdatedAt = value
+	}
 	if value, ok := sc.mutation.Status(); ok {
 		_spec.SetField(submission.FieldStatus, field.TypeEnum, value)
 		_node.Status = value
@@ -226,14 +234,6 @@ func (sc *SubmissionCreate) createSpec() (*Submission, *sqlgraph.CreateSpec) {
 	if value, ok := sc.mutation.TestCount(); ok {
 		_spec.SetField(submission.FieldTestCount, field.TypeInt, value)
 		_node.TestCount = value
-	}
-	if value, ok := sc.mutation.CreatedAt(); ok {
-		_spec.SetField(submission.FieldCreatedAt, field.TypeTime, value)
-		_node.CreatedAt = value
-	}
-	if value, ok := sc.mutation.UpdatedAt(); ok {
-		_spec.SetField(submission.FieldUpdatedAt, field.TypeTime, value)
-		_node.UpdatedAt = value
 	}
 	if nodes := sc.mutation.ProblemIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

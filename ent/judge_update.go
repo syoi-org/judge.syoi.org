@@ -29,6 +29,26 @@ func (ju *JudgeUpdate) Where(ps ...predicate.Judge) *JudgeUpdate {
 	return ju
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (ju *JudgeUpdate) SetCreatedAt(t time.Time) *JudgeUpdate {
+	ju.mutation.SetCreatedAt(t)
+	return ju
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (ju *JudgeUpdate) SetNillableCreatedAt(t *time.Time) *JudgeUpdate {
+	if t != nil {
+		ju.SetCreatedAt(*t)
+	}
+	return ju
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (ju *JudgeUpdate) SetUpdatedAt(t time.Time) *JudgeUpdate {
+	ju.mutation.SetUpdatedAt(t)
+	return ju
+}
+
 // SetName sets the "name" field.
 func (ju *JudgeUpdate) SetName(s string) *JudgeUpdate {
 	ju.mutation.SetName(s)
@@ -82,26 +102,6 @@ func (ju *JudgeUpdate) SetNillableConfiguration(s *string) *JudgeUpdate {
 	if s != nil {
 		ju.SetConfiguration(*s)
 	}
-	return ju
-}
-
-// SetCreatedAt sets the "created_at" field.
-func (ju *JudgeUpdate) SetCreatedAt(t time.Time) *JudgeUpdate {
-	ju.mutation.SetCreatedAt(t)
-	return ju
-}
-
-// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (ju *JudgeUpdate) SetNillableCreatedAt(t *time.Time) *JudgeUpdate {
-	if t != nil {
-		ju.SetCreatedAt(*t)
-	}
-	return ju
-}
-
-// SetUpdatedAt sets the "updated_at" field.
-func (ju *JudgeUpdate) SetUpdatedAt(t time.Time) *JudgeUpdate {
-	ju.mutation.SetUpdatedAt(t)
 	return ju
 }
 
@@ -214,6 +214,12 @@ func (ju *JudgeUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := ju.mutation.CreatedAt(); ok {
+		_spec.SetField(judge.FieldCreatedAt, field.TypeTime, value)
+	}
+	if value, ok := ju.mutation.UpdatedAt(); ok {
+		_spec.SetField(judge.FieldUpdatedAt, field.TypeTime, value)
+	}
 	if value, ok := ju.mutation.Name(); ok {
 		_spec.SetField(judge.FieldName, field.TypeString, value)
 	}
@@ -225,12 +231,6 @@ func (ju *JudgeUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := ju.mutation.Configuration(); ok {
 		_spec.SetField(judge.FieldConfiguration, field.TypeString, value)
-	}
-	if value, ok := ju.mutation.CreatedAt(); ok {
-		_spec.SetField(judge.FieldCreatedAt, field.TypeTime, value)
-	}
-	if value, ok := ju.mutation.UpdatedAt(); ok {
-		_spec.SetField(judge.FieldUpdatedAt, field.TypeTime, value)
 	}
 	if ju.mutation.ProblemsCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -297,6 +297,26 @@ type JudgeUpdateOne struct {
 	mutation *JudgeMutation
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (juo *JudgeUpdateOne) SetCreatedAt(t time.Time) *JudgeUpdateOne {
+	juo.mutation.SetCreatedAt(t)
+	return juo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (juo *JudgeUpdateOne) SetNillableCreatedAt(t *time.Time) *JudgeUpdateOne {
+	if t != nil {
+		juo.SetCreatedAt(*t)
+	}
+	return juo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (juo *JudgeUpdateOne) SetUpdatedAt(t time.Time) *JudgeUpdateOne {
+	juo.mutation.SetUpdatedAt(t)
+	return juo
+}
+
 // SetName sets the "name" field.
 func (juo *JudgeUpdateOne) SetName(s string) *JudgeUpdateOne {
 	juo.mutation.SetName(s)
@@ -350,26 +370,6 @@ func (juo *JudgeUpdateOne) SetNillableConfiguration(s *string) *JudgeUpdateOne {
 	if s != nil {
 		juo.SetConfiguration(*s)
 	}
-	return juo
-}
-
-// SetCreatedAt sets the "created_at" field.
-func (juo *JudgeUpdateOne) SetCreatedAt(t time.Time) *JudgeUpdateOne {
-	juo.mutation.SetCreatedAt(t)
-	return juo
-}
-
-// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (juo *JudgeUpdateOne) SetNillableCreatedAt(t *time.Time) *JudgeUpdateOne {
-	if t != nil {
-		juo.SetCreatedAt(*t)
-	}
-	return juo
-}
-
-// SetUpdatedAt sets the "updated_at" field.
-func (juo *JudgeUpdateOne) SetUpdatedAt(t time.Time) *JudgeUpdateOne {
-	juo.mutation.SetUpdatedAt(t)
 	return juo
 }
 
@@ -512,6 +512,12 @@ func (juo *JudgeUpdateOne) sqlSave(ctx context.Context) (_node *Judge, err error
 			}
 		}
 	}
+	if value, ok := juo.mutation.CreatedAt(); ok {
+		_spec.SetField(judge.FieldCreatedAt, field.TypeTime, value)
+	}
+	if value, ok := juo.mutation.UpdatedAt(); ok {
+		_spec.SetField(judge.FieldUpdatedAt, field.TypeTime, value)
+	}
 	if value, ok := juo.mutation.Name(); ok {
 		_spec.SetField(judge.FieldName, field.TypeString, value)
 	}
@@ -523,12 +529,6 @@ func (juo *JudgeUpdateOne) sqlSave(ctx context.Context) (_node *Judge, err error
 	}
 	if value, ok := juo.mutation.Configuration(); ok {
 		_spec.SetField(judge.FieldConfiguration, field.TypeString, value)
-	}
-	if value, ok := juo.mutation.CreatedAt(); ok {
-		_spec.SetField(judge.FieldCreatedAt, field.TypeTime, value)
-	}
-	if value, ok := juo.mutation.UpdatedAt(); ok {
-		_spec.SetField(judge.FieldUpdatedAt, field.TypeTime, value)
 	}
 	if juo.mutation.ProblemsCleared() {
 		edge := &sqlgraph.EdgeSpec{

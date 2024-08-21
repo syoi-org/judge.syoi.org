@@ -29,6 +29,26 @@ func (su *SubmissionUpdate) Where(ps ...predicate.Submission) *SubmissionUpdate 
 	return su
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (su *SubmissionUpdate) SetCreatedAt(t time.Time) *SubmissionUpdate {
+	su.mutation.SetCreatedAt(t)
+	return su
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (su *SubmissionUpdate) SetNillableCreatedAt(t *time.Time) *SubmissionUpdate {
+	if t != nil {
+		su.SetCreatedAt(*t)
+	}
+	return su
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (su *SubmissionUpdate) SetUpdatedAt(t time.Time) *SubmissionUpdate {
+	su.mutation.SetUpdatedAt(t)
+	return su
+}
+
 // SetStatus sets the "status" field.
 func (su *SubmissionUpdate) SetStatus(s submission.Status) *SubmissionUpdate {
 	su.mutation.SetStatus(s)
@@ -75,26 +95,6 @@ func (su *SubmissionUpdate) SetNillableTestCount(i *int) *SubmissionUpdate {
 // AddTestCount adds i to the "test_count" field.
 func (su *SubmissionUpdate) AddTestCount(i int) *SubmissionUpdate {
 	su.mutation.AddTestCount(i)
-	return su
-}
-
-// SetCreatedAt sets the "created_at" field.
-func (su *SubmissionUpdate) SetCreatedAt(t time.Time) *SubmissionUpdate {
-	su.mutation.SetCreatedAt(t)
-	return su
-}
-
-// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (su *SubmissionUpdate) SetNillableCreatedAt(t *time.Time) *SubmissionUpdate {
-	if t != nil {
-		su.SetCreatedAt(*t)
-	}
-	return su
-}
-
-// SetUpdatedAt sets the "updated_at" field.
-func (su *SubmissionUpdate) SetUpdatedAt(t time.Time) *SubmissionUpdate {
-	su.mutation.SetUpdatedAt(t)
 	return su
 }
 
@@ -186,6 +186,12 @@ func (su *SubmissionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := su.mutation.CreatedAt(); ok {
+		_spec.SetField(submission.FieldCreatedAt, field.TypeTime, value)
+	}
+	if value, ok := su.mutation.UpdatedAt(); ok {
+		_spec.SetField(submission.FieldUpdatedAt, field.TypeTime, value)
+	}
 	if value, ok := su.mutation.Status(); ok {
 		_spec.SetField(submission.FieldStatus, field.TypeEnum, value)
 	}
@@ -197,12 +203,6 @@ func (su *SubmissionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := su.mutation.AddedTestCount(); ok {
 		_spec.AddField(submission.FieldTestCount, field.TypeInt, value)
-	}
-	if value, ok := su.mutation.CreatedAt(); ok {
-		_spec.SetField(submission.FieldCreatedAt, field.TypeTime, value)
-	}
-	if value, ok := su.mutation.UpdatedAt(); ok {
-		_spec.SetField(submission.FieldUpdatedAt, field.TypeTime, value)
 	}
 	if su.mutation.ProblemCleared() {
 		edge := &sqlgraph.EdgeSpec{
@@ -253,6 +253,26 @@ type SubmissionUpdateOne struct {
 	mutation *SubmissionMutation
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (suo *SubmissionUpdateOne) SetCreatedAt(t time.Time) *SubmissionUpdateOne {
+	suo.mutation.SetCreatedAt(t)
+	return suo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (suo *SubmissionUpdateOne) SetNillableCreatedAt(t *time.Time) *SubmissionUpdateOne {
+	if t != nil {
+		suo.SetCreatedAt(*t)
+	}
+	return suo
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (suo *SubmissionUpdateOne) SetUpdatedAt(t time.Time) *SubmissionUpdateOne {
+	suo.mutation.SetUpdatedAt(t)
+	return suo
+}
+
 // SetStatus sets the "status" field.
 func (suo *SubmissionUpdateOne) SetStatus(s submission.Status) *SubmissionUpdateOne {
 	suo.mutation.SetStatus(s)
@@ -299,26 +319,6 @@ func (suo *SubmissionUpdateOne) SetNillableTestCount(i *int) *SubmissionUpdateOn
 // AddTestCount adds i to the "test_count" field.
 func (suo *SubmissionUpdateOne) AddTestCount(i int) *SubmissionUpdateOne {
 	suo.mutation.AddTestCount(i)
-	return suo
-}
-
-// SetCreatedAt sets the "created_at" field.
-func (suo *SubmissionUpdateOne) SetCreatedAt(t time.Time) *SubmissionUpdateOne {
-	suo.mutation.SetCreatedAt(t)
-	return suo
-}
-
-// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (suo *SubmissionUpdateOne) SetNillableCreatedAt(t *time.Time) *SubmissionUpdateOne {
-	if t != nil {
-		suo.SetCreatedAt(*t)
-	}
-	return suo
-}
-
-// SetUpdatedAt sets the "updated_at" field.
-func (suo *SubmissionUpdateOne) SetUpdatedAt(t time.Time) *SubmissionUpdateOne {
-	suo.mutation.SetUpdatedAt(t)
 	return suo
 }
 
@@ -440,6 +440,12 @@ func (suo *SubmissionUpdateOne) sqlSave(ctx context.Context) (_node *Submission,
 			}
 		}
 	}
+	if value, ok := suo.mutation.CreatedAt(); ok {
+		_spec.SetField(submission.FieldCreatedAt, field.TypeTime, value)
+	}
+	if value, ok := suo.mutation.UpdatedAt(); ok {
+		_spec.SetField(submission.FieldUpdatedAt, field.TypeTime, value)
+	}
 	if value, ok := suo.mutation.Status(); ok {
 		_spec.SetField(submission.FieldStatus, field.TypeEnum, value)
 	}
@@ -451,12 +457,6 @@ func (suo *SubmissionUpdateOne) sqlSave(ctx context.Context) (_node *Submission,
 	}
 	if value, ok := suo.mutation.AddedTestCount(); ok {
 		_spec.AddField(submission.FieldTestCount, field.TypeInt, value)
-	}
-	if value, ok := suo.mutation.CreatedAt(); ok {
-		_spec.SetField(submission.FieldCreatedAt, field.TypeTime, value)
-	}
-	if value, ok := suo.mutation.UpdatedAt(); ok {
-		_spec.SetField(submission.FieldUpdatedAt, field.TypeTime, value)
 	}
 	if suo.mutation.ProblemCleared() {
 		edge := &sqlgraph.EdgeSpec{

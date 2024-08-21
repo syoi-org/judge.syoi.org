@@ -55,11 +55,6 @@ func IDLTE(id int) predicate.Submission {
 	return predicate.Submission(sql.FieldLTE(FieldID, id))
 }
 
-// TestCount applies equality check predicate on the "test_count" field. It's identical to TestCountEQ.
-func TestCount(v int) predicate.Submission {
-	return predicate.Submission(sql.FieldEQ(FieldTestCount, v))
-}
-
 // CreatedAt applies equality check predicate on the "created_at" field. It's identical to CreatedAtEQ.
 func CreatedAt(v time.Time) predicate.Submission {
 	return predicate.Submission(sql.FieldEQ(FieldCreatedAt, v))
@@ -70,84 +65,9 @@ func UpdatedAt(v time.Time) predicate.Submission {
 	return predicate.Submission(sql.FieldEQ(FieldUpdatedAt, v))
 }
 
-// StatusEQ applies the EQ predicate on the "status" field.
-func StatusEQ(v Status) predicate.Submission {
-	return predicate.Submission(sql.FieldEQ(FieldStatus, v))
-}
-
-// StatusNEQ applies the NEQ predicate on the "status" field.
-func StatusNEQ(v Status) predicate.Submission {
-	return predicate.Submission(sql.FieldNEQ(FieldStatus, v))
-}
-
-// StatusIn applies the In predicate on the "status" field.
-func StatusIn(vs ...Status) predicate.Submission {
-	return predicate.Submission(sql.FieldIn(FieldStatus, vs...))
-}
-
-// StatusNotIn applies the NotIn predicate on the "status" field.
-func StatusNotIn(vs ...Status) predicate.Submission {
-	return predicate.Submission(sql.FieldNotIn(FieldStatus, vs...))
-}
-
-// VerdictEQ applies the EQ predicate on the "verdict" field.
-func VerdictEQ(v Verdict) predicate.Submission {
-	return predicate.Submission(sql.FieldEQ(FieldVerdict, v))
-}
-
-// VerdictNEQ applies the NEQ predicate on the "verdict" field.
-func VerdictNEQ(v Verdict) predicate.Submission {
-	return predicate.Submission(sql.FieldNEQ(FieldVerdict, v))
-}
-
-// VerdictIn applies the In predicate on the "verdict" field.
-func VerdictIn(vs ...Verdict) predicate.Submission {
-	return predicate.Submission(sql.FieldIn(FieldVerdict, vs...))
-}
-
-// VerdictNotIn applies the NotIn predicate on the "verdict" field.
-func VerdictNotIn(vs ...Verdict) predicate.Submission {
-	return predicate.Submission(sql.FieldNotIn(FieldVerdict, vs...))
-}
-
-// TestCountEQ applies the EQ predicate on the "test_count" field.
-func TestCountEQ(v int) predicate.Submission {
+// TestCount applies equality check predicate on the "test_count" field. It's identical to TestCountEQ.
+func TestCount(v int) predicate.Submission {
 	return predicate.Submission(sql.FieldEQ(FieldTestCount, v))
-}
-
-// TestCountNEQ applies the NEQ predicate on the "test_count" field.
-func TestCountNEQ(v int) predicate.Submission {
-	return predicate.Submission(sql.FieldNEQ(FieldTestCount, v))
-}
-
-// TestCountIn applies the In predicate on the "test_count" field.
-func TestCountIn(vs ...int) predicate.Submission {
-	return predicate.Submission(sql.FieldIn(FieldTestCount, vs...))
-}
-
-// TestCountNotIn applies the NotIn predicate on the "test_count" field.
-func TestCountNotIn(vs ...int) predicate.Submission {
-	return predicate.Submission(sql.FieldNotIn(FieldTestCount, vs...))
-}
-
-// TestCountGT applies the GT predicate on the "test_count" field.
-func TestCountGT(v int) predicate.Submission {
-	return predicate.Submission(sql.FieldGT(FieldTestCount, v))
-}
-
-// TestCountGTE applies the GTE predicate on the "test_count" field.
-func TestCountGTE(v int) predicate.Submission {
-	return predicate.Submission(sql.FieldGTE(FieldTestCount, v))
-}
-
-// TestCountLT applies the LT predicate on the "test_count" field.
-func TestCountLT(v int) predicate.Submission {
-	return predicate.Submission(sql.FieldLT(FieldTestCount, v))
-}
-
-// TestCountLTE applies the LTE predicate on the "test_count" field.
-func TestCountLTE(v int) predicate.Submission {
-	return predicate.Submission(sql.FieldLTE(FieldTestCount, v))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.
@@ -228,6 +148,86 @@ func UpdatedAtLT(v time.Time) predicate.Submission {
 // UpdatedAtLTE applies the LTE predicate on the "updated_at" field.
 func UpdatedAtLTE(v time.Time) predicate.Submission {
 	return predicate.Submission(sql.FieldLTE(FieldUpdatedAt, v))
+}
+
+// StatusEQ applies the EQ predicate on the "status" field.
+func StatusEQ(v Status) predicate.Submission {
+	return predicate.Submission(sql.FieldEQ(FieldStatus, v))
+}
+
+// StatusNEQ applies the NEQ predicate on the "status" field.
+func StatusNEQ(v Status) predicate.Submission {
+	return predicate.Submission(sql.FieldNEQ(FieldStatus, v))
+}
+
+// StatusIn applies the In predicate on the "status" field.
+func StatusIn(vs ...Status) predicate.Submission {
+	return predicate.Submission(sql.FieldIn(FieldStatus, vs...))
+}
+
+// StatusNotIn applies the NotIn predicate on the "status" field.
+func StatusNotIn(vs ...Status) predicate.Submission {
+	return predicate.Submission(sql.FieldNotIn(FieldStatus, vs...))
+}
+
+// VerdictEQ applies the EQ predicate on the "verdict" field.
+func VerdictEQ(v Verdict) predicate.Submission {
+	return predicate.Submission(sql.FieldEQ(FieldVerdict, v))
+}
+
+// VerdictNEQ applies the NEQ predicate on the "verdict" field.
+func VerdictNEQ(v Verdict) predicate.Submission {
+	return predicate.Submission(sql.FieldNEQ(FieldVerdict, v))
+}
+
+// VerdictIn applies the In predicate on the "verdict" field.
+func VerdictIn(vs ...Verdict) predicate.Submission {
+	return predicate.Submission(sql.FieldIn(FieldVerdict, vs...))
+}
+
+// VerdictNotIn applies the NotIn predicate on the "verdict" field.
+func VerdictNotIn(vs ...Verdict) predicate.Submission {
+	return predicate.Submission(sql.FieldNotIn(FieldVerdict, vs...))
+}
+
+// TestCountEQ applies the EQ predicate on the "test_count" field.
+func TestCountEQ(v int) predicate.Submission {
+	return predicate.Submission(sql.FieldEQ(FieldTestCount, v))
+}
+
+// TestCountNEQ applies the NEQ predicate on the "test_count" field.
+func TestCountNEQ(v int) predicate.Submission {
+	return predicate.Submission(sql.FieldNEQ(FieldTestCount, v))
+}
+
+// TestCountIn applies the In predicate on the "test_count" field.
+func TestCountIn(vs ...int) predicate.Submission {
+	return predicate.Submission(sql.FieldIn(FieldTestCount, vs...))
+}
+
+// TestCountNotIn applies the NotIn predicate on the "test_count" field.
+func TestCountNotIn(vs ...int) predicate.Submission {
+	return predicate.Submission(sql.FieldNotIn(FieldTestCount, vs...))
+}
+
+// TestCountGT applies the GT predicate on the "test_count" field.
+func TestCountGT(v int) predicate.Submission {
+	return predicate.Submission(sql.FieldGT(FieldTestCount, v))
+}
+
+// TestCountGTE applies the GTE predicate on the "test_count" field.
+func TestCountGTE(v int) predicate.Submission {
+	return predicate.Submission(sql.FieldGTE(FieldTestCount, v))
+}
+
+// TestCountLT applies the LT predicate on the "test_count" field.
+func TestCountLT(v int) predicate.Submission {
+	return predicate.Submission(sql.FieldLT(FieldTestCount, v))
+}
+
+// TestCountLTE applies the LTE predicate on the "test_count" field.
+func TestCountLTE(v int) predicate.Submission {
+	return predicate.Submission(sql.FieldLTE(FieldTestCount, v))
 }
 
 // HasProblem applies the HasEdge predicate on the "problem" edge.

@@ -77,6 +77,14 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
                   "name": {
                     "type": "string"
                   },
@@ -97,14 +105,6 @@
                   "configuration": {
                     "type": "string"
                   },
-                  "created_at": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "updated_at": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
                   "problems": {
                     "type": "array",
                     "items": {
@@ -113,12 +113,12 @@
                   }
                 },
                 "required": [
+                  "created_at",
+                  "updated_at",
                   "name",
                   "code",
                   "type",
-                  "configuration",
-                  "created_at",
-                  "updated_at"
+                  "configuration"
                 ]
               }
             }
@@ -253,6 +253,14 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
                   "name": {
                     "type": "string"
                   },
@@ -272,14 +280,6 @@
                   },
                   "configuration": {
                     "type": "string"
-                  },
-                  "created_at": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "updated_at": {
-                    "type": "string",
-                    "format": "date-time"
                   },
                   "problems": {
                     "type": "array",
@@ -454,12 +454,6 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "code": {
-                    "type": "string"
-                  },
                   "created_at": {
                     "type": "string",
                     "format": "date-time"
@@ -467,6 +461,12 @@
                   "updated_at": {
                     "type": "string",
                     "format": "date-time"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
                   },
                   "submissions": {
                     "type": "array",
@@ -479,10 +479,10 @@
                   }
                 },
                 "required": [
-                  "name",
-                  "code",
                   "created_at",
                   "updated_at",
+                  "name",
+                  "code",
                   "judge"
                 ]
               }
@@ -618,12 +618,6 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "code": {
-                    "type": "string"
-                  },
                   "created_at": {
                     "type": "string",
                     "format": "date-time"
@@ -631,6 +625,12 @@
                   "updated_at": {
                     "type": "string",
                     "format": "date-time"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
                   },
                   "submissions": {
                     "type": "array",
@@ -853,6 +853,14 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
                   "status": {
                     "type": "string",
                     "enum": [
@@ -882,24 +890,16 @@
                   "test_count": {
                     "type": "integer"
                   },
-                  "created_at": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "updated_at": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
                   "problem": {
                     "type": "integer"
                   }
                 },
                 "required": [
+                  "created_at",
+                  "updated_at",
                   "status",
                   "verdict",
                   "test_count",
-                  "created_at",
-                  "updated_at",
                   "problem"
                 ]
               }
@@ -1035,6 +1035,14 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
                   "status": {
                     "type": "string",
                     "enum": [
@@ -1063,14 +1071,6 @@
                   },
                   "test_count": {
                     "type": "integer"
-                  },
-                  "created_at": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "updated_at": {
-                    "type": "string",
-                    "format": "date-time"
                   },
                   "problem": {
                     "type": "integer"
@@ -1161,6 +1161,14 @@
           "id": {
             "type": "integer"
           },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
           "name": {
             "type": "string"
           },
@@ -1180,14 +1188,6 @@
           },
           "configuration": {
             "type": "string"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time"
           },
           "problems": {
             "type": "array",
@@ -1198,12 +1198,12 @@
         },
         "required": [
           "id",
+          "created_at",
+          "updated_at",
           "name",
           "code",
           "type",
-          "configuration",
-          "created_at",
-          "updated_at"
+          "configuration"
         ]
       },
       "JudgeCreate": {
@@ -1212,6 +1212,14 @@
           "id": {
             "type": "integer"
           },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
           "name": {
             "type": "string"
           },
@@ -1231,24 +1239,16 @@
           },
           "configuration": {
             "type": "string"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "required": [
           "id",
+          "created_at",
+          "updated_at",
           "name",
           "code",
           "type",
-          "configuration",
-          "created_at",
-          "updated_at"
+          "configuration"
         ]
       },
       "JudgeList": {
@@ -1257,6 +1257,14 @@
           "id": {
             "type": "integer"
           },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
           "name": {
             "type": "string"
           },
@@ -1276,24 +1284,16 @@
           },
           "configuration": {
             "type": "string"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "required": [
           "id",
+          "created_at",
+          "updated_at",
           "name",
           "code",
           "type",
-          "configuration",
-          "created_at",
-          "updated_at"
+          "configuration"
         ]
       },
       "JudgeRead": {
@@ -1302,6 +1302,14 @@
           "id": {
             "type": "integer"
           },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
           "name": {
             "type": "string"
           },
@@ -1321,24 +1329,16 @@
           },
           "configuration": {
             "type": "string"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "required": [
           "id",
+          "created_at",
+          "updated_at",
           "name",
           "code",
           "type",
-          "configuration",
-          "created_at",
-          "updated_at"
+          "configuration"
         ]
       },
       "JudgeUpdate": {
@@ -1347,6 +1347,14 @@
           "id": {
             "type": "integer"
           },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
           "name": {
             "type": "string"
           },
@@ -1366,24 +1374,16 @@
           },
           "configuration": {
             "type": "string"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "required": [
           "id",
+          "created_at",
+          "updated_at",
           "name",
           "code",
           "type",
-          "configuration",
-          "created_at",
-          "updated_at"
+          "configuration"
         ]
       },
       "Judge_ProblemsList": {
@@ -1392,12 +1392,6 @@
           "id": {
             "type": "integer"
           },
-          "name": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
           "created_at": {
             "type": "string",
             "format": "date-time"
@@ -1405,14 +1399,20 @@
           "updated_at": {
             "type": "string",
             "format": "date-time"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
           }
         },
         "required": [
           "id",
-          "name",
-          "code",
           "created_at",
-          "updated_at"
+          "updated_at",
+          "name",
+          "code"
         ]
       },
       "Problem": {
@@ -1421,12 +1421,6 @@
           "id": {
             "type": "integer"
           },
-          "name": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
           "created_at": {
             "type": "string",
             "format": "date-time"
@@ -1434,6 +1428,12 @@
           "updated_at": {
             "type": "string",
             "format": "date-time"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
           },
           "submissions": {
             "type": "array",
@@ -1447,10 +1447,10 @@
         },
         "required": [
           "id",
-          "name",
-          "code",
           "created_at",
           "updated_at",
+          "name",
+          "code",
           "judge"
         ]
       },
@@ -1460,12 +1460,6 @@
           "id": {
             "type": "integer"
           },
-          "name": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
           "created_at": {
             "type": "string",
             "format": "date-time"
@@ -1473,14 +1467,20 @@
           "updated_at": {
             "type": "string",
             "format": "date-time"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
           }
         },
         "required": [
           "id",
-          "name",
-          "code",
           "created_at",
-          "updated_at"
+          "updated_at",
+          "name",
+          "code"
         ]
       },
       "ProblemList": {
@@ -1489,12 +1489,6 @@
           "id": {
             "type": "integer"
           },
-          "name": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
           "created_at": {
             "type": "string",
             "format": "date-time"
@@ -1502,14 +1496,20 @@
           "updated_at": {
             "type": "string",
             "format": "date-time"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
           }
         },
         "required": [
           "id",
-          "name",
-          "code",
           "created_at",
-          "updated_at"
+          "updated_at",
+          "name",
+          "code"
         ]
       },
       "ProblemRead": {
@@ -1518,12 +1518,6 @@
           "id": {
             "type": "integer"
           },
-          "name": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
           "created_at": {
             "type": "string",
             "format": "date-time"
@@ -1531,14 +1525,20 @@
           "updated_at": {
             "type": "string",
             "format": "date-time"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
           }
         },
         "required": [
           "id",
-          "name",
-          "code",
           "created_at",
-          "updated_at"
+          "updated_at",
+          "name",
+          "code"
         ]
       },
       "ProblemUpdate": {
@@ -1547,11 +1547,34 @@
           "id": {
             "type": "integer"
           },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
           "name": {
             "type": "string"
           },
           "code": {
             "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "created_at",
+          "updated_at",
+          "name",
+          "code"
+        ]
+      },
+      "Problem_JudgeRead": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
           },
           "created_at": {
             "type": "string",
@@ -1560,21 +1583,6 @@
           "updated_at": {
             "type": "string",
             "format": "date-time"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "code",
-          "created_at",
-          "updated_at"
-        ]
-      },
-      "Problem_JudgeRead": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
           },
           "name": {
             "type": "string"
@@ -1595,24 +1603,16 @@
           },
           "configuration": {
             "type": "string"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "required": [
           "id",
+          "created_at",
+          "updated_at",
           "name",
           "code",
           "type",
-          "configuration",
-          "created_at",
-          "updated_at"
+          "configuration"
         ]
       },
       "Problem_SubmissionsList": {
@@ -1621,6 +1621,14 @@
           "id": {
             "type": "integer"
           },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
           "status": {
             "type": "string",
             "enum": [
@@ -1649,23 +1657,15 @@
           },
           "test_count": {
             "type": "integer"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "required": [
           "id",
+          "created_at",
+          "updated_at",
           "status",
           "verdict",
-          "test_count",
-          "created_at",
-          "updated_at"
+          "test_count"
         ]
       },
       "Submission": {
@@ -1674,6 +1674,14 @@
           "id": {
             "type": "integer"
           },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
           "status": {
             "type": "string",
             "enum": [
@@ -1703,25 +1711,17 @@
           "test_count": {
             "type": "integer"
           },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time"
-          },
           "problem": {
             "$ref": "#/components/schemas/Problem"
           }
         },
         "required": [
           "id",
+          "created_at",
+          "updated_at",
           "status",
           "verdict",
           "test_count",
-          "created_at",
-          "updated_at",
           "problem"
         ]
       },
@@ -1731,6 +1731,14 @@
           "id": {
             "type": "integer"
           },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
           "status": {
             "type": "string",
             "enum": [
@@ -1759,23 +1767,15 @@
           },
           "test_count": {
             "type": "integer"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "required": [
           "id",
+          "created_at",
+          "updated_at",
           "status",
           "verdict",
-          "test_count",
-          "created_at",
-          "updated_at"
+          "test_count"
         ]
       },
       "SubmissionList": {
@@ -1784,6 +1784,14 @@
           "id": {
             "type": "integer"
           },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
           "status": {
             "type": "string",
             "enum": [
@@ -1812,23 +1820,15 @@
           },
           "test_count": {
             "type": "integer"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "required": [
           "id",
+          "created_at",
+          "updated_at",
           "status",
           "verdict",
-          "test_count",
-          "created_at",
-          "updated_at"
+          "test_count"
         ]
       },
       "SubmissionRead": {
@@ -1837,6 +1837,14 @@
           "id": {
             "type": "integer"
           },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
           "status": {
             "type": "string",
             "enum": [
@@ -1865,23 +1873,15 @@
           },
           "test_count": {
             "type": "integer"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "required": [
           "id",
+          "created_at",
+          "updated_at",
           "status",
           "verdict",
-          "test_count",
-          "created_at",
-          "updated_at"
+          "test_count"
         ]
       },
       "SubmissionUpdate": {
@@ -1890,6 +1890,14 @@
           "id": {
             "type": "integer"
           },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
           "status": {
             "type": "string",
             "enum": [
@@ -1918,23 +1926,15 @@
           },
           "test_count": {
             "type": "integer"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "required": [
           "id",
+          "created_at",
+          "updated_at",
           "status",
           "verdict",
-          "test_count",
-          "created_at",
-          "updated_at"
+          "test_count"
         ]
       },
       "Submission_ProblemRead": {
@@ -1943,12 +1943,6 @@
           "id": {
             "type": "integer"
           },
-          "name": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
           "created_at": {
             "type": "string",
             "format": "date-time"
@@ -1956,14 +1950,20 @@
           "updated_at": {
             "type": "string",
             "format": "date-time"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
           }
         },
         "required": [
           "id",
-          "name",
-          "code",
           "created_at",
-          "updated_at"
+          "updated_at",
+          "name",
+          "code"
         ]
       }
     },

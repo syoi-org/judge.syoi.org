@@ -32,12 +32,12 @@ func rawError(err error) jx.Raw {
 func (h *OgentHandler) CreateJudge(ctx context.Context, req *CreateJudgeReq) (CreateJudgeRes, error) {
 	b := h.client.Judge.Create()
 	// Add all fields.
+	b.SetCreatedAt(req.CreatedAt)
+	b.SetUpdatedAt(req.UpdatedAt)
 	b.SetName(req.Name)
 	b.SetCode(req.Code)
 	b.SetType(judge.Type(req.Type))
 	b.SetConfiguration(req.Configuration)
-	b.SetCreatedAt(req.CreatedAt)
-	b.SetUpdatedAt(req.UpdatedAt)
 	// Add all edges.
 	b.AddProblemIDs(req.Problems...)
 	// Persist to storage.
@@ -101,6 +101,12 @@ func (h *OgentHandler) ReadJudge(ctx context.Context, params ReadJudgeParams) (R
 func (h *OgentHandler) UpdateJudge(ctx context.Context, req *UpdateJudgeReq, params UpdateJudgeParams) (UpdateJudgeRes, error) {
 	b := h.client.Judge.UpdateOneID(params.ID)
 	// Add all fields.
+	if v, ok := req.CreatedAt.Get(); ok {
+		b.SetCreatedAt(v)
+	}
+	if v, ok := req.UpdatedAt.Get(); ok {
+		b.SetUpdatedAt(v)
+	}
 	if v, ok := req.Name.Get(); ok {
 		b.SetName(v)
 	}
@@ -112,12 +118,6 @@ func (h *OgentHandler) UpdateJudge(ctx context.Context, req *UpdateJudgeReq, par
 	}
 	if v, ok := req.Configuration.Get(); ok {
 		b.SetConfiguration(v)
-	}
-	if v, ok := req.CreatedAt.Get(); ok {
-		b.SetCreatedAt(v)
-	}
-	if v, ok := req.UpdatedAt.Get(); ok {
-		b.SetUpdatedAt(v)
 	}
 	// Add all edges.
 	if req.Problems != nil {
@@ -257,10 +257,10 @@ func (h *OgentHandler) ListJudgeProblems(ctx context.Context, params ListJudgePr
 func (h *OgentHandler) CreateProblem(ctx context.Context, req *CreateProblemReq) (CreateProblemRes, error) {
 	b := h.client.Problem.Create()
 	// Add all fields.
-	b.SetName(req.Name)
-	b.SetCode(req.Code)
 	b.SetCreatedAt(req.CreatedAt)
 	b.SetUpdatedAt(req.UpdatedAt)
+	b.SetName(req.Name)
+	b.SetCode(req.Code)
 	// Add all edges.
 	b.AddSubmissionIDs(req.Submissions...)
 	b.SetJudgeID(req.Judge)
@@ -325,17 +325,17 @@ func (h *OgentHandler) ReadProblem(ctx context.Context, params ReadProblemParams
 func (h *OgentHandler) UpdateProblem(ctx context.Context, req *UpdateProblemReq, params UpdateProblemParams) (UpdateProblemRes, error) {
 	b := h.client.Problem.UpdateOneID(params.ID)
 	// Add all fields.
-	if v, ok := req.Name.Get(); ok {
-		b.SetName(v)
-	}
-	if v, ok := req.Code.Get(); ok {
-		b.SetCode(v)
-	}
 	if v, ok := req.CreatedAt.Get(); ok {
 		b.SetCreatedAt(v)
 	}
 	if v, ok := req.UpdatedAt.Get(); ok {
 		b.SetUpdatedAt(v)
+	}
+	if v, ok := req.Name.Get(); ok {
+		b.SetName(v)
+	}
+	if v, ok := req.Code.Get(); ok {
+		b.SetCode(v)
 	}
 	// Add all edges.
 	if req.Submissions != nil {
@@ -504,11 +504,11 @@ func (h *OgentHandler) ReadProblemJudge(ctx context.Context, params ReadProblemJ
 func (h *OgentHandler) CreateSubmission(ctx context.Context, req *CreateSubmissionReq) (CreateSubmissionRes, error) {
 	b := h.client.Submission.Create()
 	// Add all fields.
+	b.SetCreatedAt(req.CreatedAt)
+	b.SetUpdatedAt(req.UpdatedAt)
 	b.SetStatus(submission.Status(req.Status))
 	b.SetVerdict(submission.Verdict(req.Verdict))
 	b.SetTestCount(req.TestCount)
-	b.SetCreatedAt(req.CreatedAt)
-	b.SetUpdatedAt(req.UpdatedAt)
 	// Add all edges.
 	b.SetProblemID(req.Problem)
 	// Persist to storage.
@@ -572,6 +572,12 @@ func (h *OgentHandler) ReadSubmission(ctx context.Context, params ReadSubmission
 func (h *OgentHandler) UpdateSubmission(ctx context.Context, req *UpdateSubmissionReq, params UpdateSubmissionParams) (UpdateSubmissionRes, error) {
 	b := h.client.Submission.UpdateOneID(params.ID)
 	// Add all fields.
+	if v, ok := req.CreatedAt.Get(); ok {
+		b.SetCreatedAt(v)
+	}
+	if v, ok := req.UpdatedAt.Get(); ok {
+		b.SetUpdatedAt(v)
+	}
 	if v, ok := req.Status.Get(); ok {
 		b.SetStatus(submission.Status(v))
 	}
@@ -580,12 +586,6 @@ func (h *OgentHandler) UpdateSubmission(ctx context.Context, req *UpdateSubmissi
 	}
 	if v, ok := req.TestCount.Get(); ok {
 		b.SetTestCount(v)
-	}
-	if v, ok := req.CreatedAt.Get(); ok {
-		b.SetCreatedAt(v)
-	}
-	if v, ok := req.UpdatedAt.Get(); ok {
-		b.SetUpdatedAt(v)
 	}
 	// Add all edges.
 	if v, ok := req.Problem.Get(); ok {

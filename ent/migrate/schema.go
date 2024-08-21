@@ -11,12 +11,12 @@ var (
 	// JudgesColumns holds the columns for the "judges" table.
 	JudgesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "name", Type: field.TypeString},
 		{Name: "code", Type: field.TypeString, Unique: true},
 		{Name: "type", Type: field.TypeEnum, Enums: []string{"local", "codeforces", "vjudge", "syoj", "noop"}, Default: "local"},
 		{Name: "configuration", Type: field.TypeString},
-		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
 	}
 	// JudgesTable holds the schema information for the "judges" table.
 	JudgesTable = &schema.Table{
@@ -27,10 +27,10 @@ var (
 	// ProblemsColumns holds the columns for the "problems" table.
 	ProblemsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "name", Type: field.TypeString},
-		{Name: "code", Type: field.TypeString, Unique: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString, Unique: true},
 		{Name: "judge_problems", Type: field.TypeInt},
 	}
 	// ProblemsTable holds the schema information for the "problems" table.
@@ -50,11 +50,11 @@ var (
 	// SubmissionsColumns holds the columns for the "submissions" table.
 	SubmissionsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "created_at", Type: field.TypeTime},
+		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "status", Type: field.TypeEnum, Enums: []string{"pending", "compiling", "judging", "finished"}, Default: "pending"},
 		{Name: "verdict", Type: field.TypeEnum, Enums: []string{"OK", "TLE", "MLE", "ILE", "WA", "CE", "RE", "PE", "CRASHED", "OTHER"}, Default: "OK"},
 		{Name: "test_count", Type: field.TypeInt, Default: 0},
-		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
 		{Name: "problem_submissions", Type: field.TypeInt},
 	}
 	// SubmissionsTable holds the schema information for the "submissions" table.

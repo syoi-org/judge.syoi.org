@@ -1,8 +1,6 @@
 package schema
 
 import (
-	"time"
-
 	"entgo.io/ent"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
@@ -18,8 +16,6 @@ func (Problem) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("name").NotEmpty(),
 		field.String("code").NotEmpty().Unique(),
-		field.Time("created_at").Default(time.Now),
-		field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
 	}
 }
 
@@ -28,5 +24,11 @@ func (Problem) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.To("submissions", Submission.Type),
 		edge.From("judge", Judge.Type).Ref("problems").Unique().Required(),
+	}
+}
+
+func (Problem) Mixin() []ent.Mixin {
+	return []ent.Mixin{
+		TimeMixin{},
 	}
 }

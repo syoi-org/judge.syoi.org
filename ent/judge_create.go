@@ -21,6 +21,34 @@ type JudgeCreate struct {
 	hooks    []Hook
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (jc *JudgeCreate) SetCreatedAt(t time.Time) *JudgeCreate {
+	jc.mutation.SetCreatedAt(t)
+	return jc
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (jc *JudgeCreate) SetNillableCreatedAt(t *time.Time) *JudgeCreate {
+	if t != nil {
+		jc.SetCreatedAt(*t)
+	}
+	return jc
+}
+
+// SetUpdatedAt sets the "updated_at" field.
+func (jc *JudgeCreate) SetUpdatedAt(t time.Time) *JudgeCreate {
+	jc.mutation.SetUpdatedAt(t)
+	return jc
+}
+
+// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
+func (jc *JudgeCreate) SetNillableUpdatedAt(t *time.Time) *JudgeCreate {
+	if t != nil {
+		jc.SetUpdatedAt(*t)
+	}
+	return jc
+}
+
 // SetName sets the "name" field.
 func (jc *JudgeCreate) SetName(s string) *JudgeCreate {
 	jc.mutation.SetName(s)
@@ -50,34 +78,6 @@ func (jc *JudgeCreate) SetNillableType(j *judge.Type) *JudgeCreate {
 // SetConfiguration sets the "configuration" field.
 func (jc *JudgeCreate) SetConfiguration(s string) *JudgeCreate {
 	jc.mutation.SetConfiguration(s)
-	return jc
-}
-
-// SetCreatedAt sets the "created_at" field.
-func (jc *JudgeCreate) SetCreatedAt(t time.Time) *JudgeCreate {
-	jc.mutation.SetCreatedAt(t)
-	return jc
-}
-
-// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (jc *JudgeCreate) SetNillableCreatedAt(t *time.Time) *JudgeCreate {
-	if t != nil {
-		jc.SetCreatedAt(*t)
-	}
-	return jc
-}
-
-// SetUpdatedAt sets the "updated_at" field.
-func (jc *JudgeCreate) SetUpdatedAt(t time.Time) *JudgeCreate {
-	jc.mutation.SetUpdatedAt(t)
-	return jc
-}
-
-// SetNillableUpdatedAt sets the "updated_at" field if the given value is not nil.
-func (jc *JudgeCreate) SetNillableUpdatedAt(t *time.Time) *JudgeCreate {
-	if t != nil {
-		jc.SetUpdatedAt(*t)
-	}
 	return jc
 }
 
@@ -131,10 +131,6 @@ func (jc *JudgeCreate) ExecX(ctx context.Context) {
 
 // defaults sets the default values of the builder before save.
 func (jc *JudgeCreate) defaults() {
-	if _, ok := jc.mutation.GetType(); !ok {
-		v := judge.DefaultType
-		jc.mutation.SetType(v)
-	}
 	if _, ok := jc.mutation.CreatedAt(); !ok {
 		v := judge.DefaultCreatedAt()
 		jc.mutation.SetCreatedAt(v)
@@ -143,10 +139,20 @@ func (jc *JudgeCreate) defaults() {
 		v := judge.DefaultUpdatedAt()
 		jc.mutation.SetUpdatedAt(v)
 	}
+	if _, ok := jc.mutation.GetType(); !ok {
+		v := judge.DefaultType
+		jc.mutation.SetType(v)
+	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (jc *JudgeCreate) check() error {
+	if _, ok := jc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Judge.created_at"`)}
+	}
+	if _, ok := jc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "Judge.updated_at"`)}
+	}
 	if _, ok := jc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New(`ent: missing required field "Judge.name"`)}
 	}
@@ -174,12 +180,6 @@ func (jc *JudgeCreate) check() error {
 	if _, ok := jc.mutation.Configuration(); !ok {
 		return &ValidationError{Name: "configuration", err: errors.New(`ent: missing required field "Judge.configuration"`)}
 	}
-	if _, ok := jc.mutation.CreatedAt(); !ok {
-		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Judge.created_at"`)}
-	}
-	if _, ok := jc.mutation.UpdatedAt(); !ok {
-		return &ValidationError{Name: "updated_at", err: errors.New(`ent: missing required field "Judge.updated_at"`)}
-	}
 	return nil
 }
 
@@ -206,6 +206,14 @@ func (jc *JudgeCreate) createSpec() (*Judge, *sqlgraph.CreateSpec) {
 		_node = &Judge{config: jc.config}
 		_spec = sqlgraph.NewCreateSpec(judge.Table, sqlgraph.NewFieldSpec(judge.FieldID, field.TypeInt))
 	)
+	if value, ok := jc.mutation.CreatedAt(); ok {
+		_spec.SetField(judge.FieldCreatedAt, field.TypeTime, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := jc.mutation.UpdatedAt(); ok {
+		_spec.SetField(judge.FieldUpdatedAt, field.TypeTime, value)
+		_node.UpdatedAt = value
+	}
 	if value, ok := jc.mutation.Name(); ok {
 		_spec.SetField(judge.FieldName, field.TypeString, value)
 		_node.Name = value
@@ -221,14 +229,6 @@ func (jc *JudgeCreate) createSpec() (*Judge, *sqlgraph.CreateSpec) {
 	if value, ok := jc.mutation.Configuration(); ok {
 		_spec.SetField(judge.FieldConfiguration, field.TypeString, value)
 		_node.Configuration = value
-	}
-	if value, ok := jc.mutation.CreatedAt(); ok {
-		_spec.SetField(judge.FieldCreatedAt, field.TypeTime, value)
-		_node.CreatedAt = value
-	}
-	if value, ok := jc.mutation.UpdatedAt(); ok {
-		_spec.SetField(judge.FieldUpdatedAt, field.TypeTime, value)
-		_node.UpdatedAt = value
 	}
 	if nodes := jc.mutation.ProblemsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

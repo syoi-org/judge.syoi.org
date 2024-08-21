@@ -299,12 +299,12 @@ func (jq *JudgeQuery) WithProblems(opts ...func(*ProblemQuery)) *JudgeQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CreatedAt time.Time `json:"created_at,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Judge.Query().
-//		GroupBy(judge.FieldName).
+//		GroupBy(judge.FieldCreatedAt).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 func (jq *JudgeQuery) GroupBy(field string, fields ...string) *JudgeGroupBy {
@@ -322,11 +322,11 @@ func (jq *JudgeQuery) GroupBy(field string, fields ...string) *JudgeGroupBy {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CreatedAt time.Time `json:"created_at,omitempty"`
 //	}
 //
 //	client.Judge.Query().
-//		Select(judge.FieldName).
+//		Select(judge.FieldCreatedAt).
 //		Scan(ctx, &v)
 func (jq *JudgeQuery) Select(fields ...string) *JudgeSelect {
 	jq.ctx.Fields = append(jq.ctx.Fields, fields...)
