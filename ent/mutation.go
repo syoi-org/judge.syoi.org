@@ -40,7 +40,7 @@ type JudgeMutation struct {
 	name            *string
 	code            *string
 	_type           *judge.Type
-	configuration   *map[string]string
+	configuration   *string
 	created_at      *time.Time
 	updated_at      *time.Time
 	clearedFields   map[string]struct{}
@@ -259,12 +259,12 @@ func (m *JudgeMutation) ResetType() {
 }
 
 // SetConfiguration sets the "configuration" field.
-func (m *JudgeMutation) SetConfiguration(value map[string]string) {
-	m.configuration = &value
+func (m *JudgeMutation) SetConfiguration(s string) {
+	m.configuration = &s
 }
 
 // Configuration returns the value of the "configuration" field in the mutation.
-func (m *JudgeMutation) Configuration() (r map[string]string, exists bool) {
+func (m *JudgeMutation) Configuration() (r string, exists bool) {
 	v := m.configuration
 	if v == nil {
 		return
@@ -275,7 +275,7 @@ func (m *JudgeMutation) Configuration() (r map[string]string, exists bool) {
 // OldConfiguration returns the old "configuration" field's value of the Judge entity.
 // If the Judge object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *JudgeMutation) OldConfiguration(ctx context.Context) (v map[string]string, err error) {
+func (m *JudgeMutation) OldConfiguration(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldConfiguration is only allowed on UpdateOne operations")
 	}
@@ -545,7 +545,7 @@ func (m *JudgeMutation) SetField(name string, value ent.Value) error {
 		m.SetType(v)
 		return nil
 	case judge.FieldConfiguration:
-		v, ok := value.(map[string]string)
+		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}

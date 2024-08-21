@@ -66,8 +66,6 @@ var (
 	NameValidator func(string) error
 	// CodeValidator is a validator for the "code" field. It is called by the builders before save.
 	CodeValidator func(string) error
-	// DefaultConfiguration holds the default value on creation for the "configuration" field.
-	DefaultConfiguration map[string]string
 	// DefaultCreatedAt holds the default value on creation for the "created_at" field.
 	DefaultCreatedAt func() time.Time
 	// DefaultUpdatedAt holds the default value on creation for the "updated_at" field.
@@ -126,6 +124,11 @@ func ByCode(opts ...sql.OrderTermOption) OrderOption {
 // ByType orders the results by the type field.
 func ByType(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldType, opts...).ToFunc()
+}
+
+// ByConfiguration orders the results by the configuration field.
+func ByConfiguration(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldConfiguration, opts...).ToFunc()
 }
 
 // ByCreatedAt orders the results by the created_at field.

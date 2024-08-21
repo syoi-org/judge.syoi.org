@@ -72,8 +72,16 @@ func (ju *JudgeUpdate) SetNillableType(j *judge.Type) *JudgeUpdate {
 }
 
 // SetConfiguration sets the "configuration" field.
-func (ju *JudgeUpdate) SetConfiguration(m map[string]string) *JudgeUpdate {
-	ju.mutation.SetConfiguration(m)
+func (ju *JudgeUpdate) SetConfiguration(s string) *JudgeUpdate {
+	ju.mutation.SetConfiguration(s)
+	return ju
+}
+
+// SetNillableConfiguration sets the "configuration" field if the given value is not nil.
+func (ju *JudgeUpdate) SetNillableConfiguration(s *string) *JudgeUpdate {
+	if s != nil {
+		ju.SetConfiguration(*s)
+	}
 	return ju
 }
 
@@ -216,7 +224,7 @@ func (ju *JudgeUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.SetField(judge.FieldType, field.TypeEnum, value)
 	}
 	if value, ok := ju.mutation.Configuration(); ok {
-		_spec.SetField(judge.FieldConfiguration, field.TypeJSON, value)
+		_spec.SetField(judge.FieldConfiguration, field.TypeString, value)
 	}
 	if value, ok := ju.mutation.CreatedAt(); ok {
 		_spec.SetField(judge.FieldCreatedAt, field.TypeTime, value)
@@ -332,8 +340,16 @@ func (juo *JudgeUpdateOne) SetNillableType(j *judge.Type) *JudgeUpdateOne {
 }
 
 // SetConfiguration sets the "configuration" field.
-func (juo *JudgeUpdateOne) SetConfiguration(m map[string]string) *JudgeUpdateOne {
-	juo.mutation.SetConfiguration(m)
+func (juo *JudgeUpdateOne) SetConfiguration(s string) *JudgeUpdateOne {
+	juo.mutation.SetConfiguration(s)
+	return juo
+}
+
+// SetNillableConfiguration sets the "configuration" field if the given value is not nil.
+func (juo *JudgeUpdateOne) SetNillableConfiguration(s *string) *JudgeUpdateOne {
+	if s != nil {
+		juo.SetConfiguration(*s)
+	}
 	return juo
 }
 
@@ -506,7 +522,7 @@ func (juo *JudgeUpdateOne) sqlSave(ctx context.Context) (_node *Judge, err error
 		_spec.SetField(judge.FieldType, field.TypeEnum, value)
 	}
 	if value, ok := juo.mutation.Configuration(); ok {
-		_spec.SetField(judge.FieldConfiguration, field.TypeJSON, value)
+		_spec.SetField(judge.FieldConfiguration, field.TypeString, value)
 	}
 	if value, ok := juo.mutation.CreatedAt(); ok {
 		_spec.SetField(judge.FieldCreatedAt, field.TypeTime, value)

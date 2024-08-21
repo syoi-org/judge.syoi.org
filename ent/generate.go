@@ -1,3 +1,12 @@
 package ent
 
-//go:generate go run -mod=mod entgo.io/ent/cmd/ent generate ./schema
+import (
+	_ "ariga.io/ogent"
+	_ "entgo.io/contrib/entoas"
+	_ "entgo.io/contrib/entproto"
+	_ "entgo.io/ent/entc"
+	_ "entgo.io/ent/entc/gen"
+	_ "github.com/ogen-go/ogen"
+)
+
+//go:generate go run -mod=mod entc.go

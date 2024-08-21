@@ -65,6 +65,11 @@ func Code(v string) predicate.Judge {
 	return predicate.Judge(sql.FieldEQ(FieldCode, v))
 }
 
+// Configuration applies equality check predicate on the "configuration" field. It's identical to ConfigurationEQ.
+func Configuration(v string) predicate.Judge {
+	return predicate.Judge(sql.FieldEQ(FieldConfiguration, v))
+}
+
 // CreatedAt applies equality check predicate on the "created_at" field. It's identical to CreatedAtEQ.
 func CreatedAt(v time.Time) predicate.Judge {
 	return predicate.Judge(sql.FieldEQ(FieldCreatedAt, v))
@@ -223,6 +228,71 @@ func TypeIn(vs ...Type) predicate.Judge {
 // TypeNotIn applies the NotIn predicate on the "type" field.
 func TypeNotIn(vs ...Type) predicate.Judge {
 	return predicate.Judge(sql.FieldNotIn(FieldType, vs...))
+}
+
+// ConfigurationEQ applies the EQ predicate on the "configuration" field.
+func ConfigurationEQ(v string) predicate.Judge {
+	return predicate.Judge(sql.FieldEQ(FieldConfiguration, v))
+}
+
+// ConfigurationNEQ applies the NEQ predicate on the "configuration" field.
+func ConfigurationNEQ(v string) predicate.Judge {
+	return predicate.Judge(sql.FieldNEQ(FieldConfiguration, v))
+}
+
+// ConfigurationIn applies the In predicate on the "configuration" field.
+func ConfigurationIn(vs ...string) predicate.Judge {
+	return predicate.Judge(sql.FieldIn(FieldConfiguration, vs...))
+}
+
+// ConfigurationNotIn applies the NotIn predicate on the "configuration" field.
+func ConfigurationNotIn(vs ...string) predicate.Judge {
+	return predicate.Judge(sql.FieldNotIn(FieldConfiguration, vs...))
+}
+
+// ConfigurationGT applies the GT predicate on the "configuration" field.
+func ConfigurationGT(v string) predicate.Judge {
+	return predicate.Judge(sql.FieldGT(FieldConfiguration, v))
+}
+
+// ConfigurationGTE applies the GTE predicate on the "configuration" field.
+func ConfigurationGTE(v string) predicate.Judge {
+	return predicate.Judge(sql.FieldGTE(FieldConfiguration, v))
+}
+
+// ConfigurationLT applies the LT predicate on the "configuration" field.
+func ConfigurationLT(v string) predicate.Judge {
+	return predicate.Judge(sql.FieldLT(FieldConfiguration, v))
+}
+
+// ConfigurationLTE applies the LTE predicate on the "configuration" field.
+func ConfigurationLTE(v string) predicate.Judge {
+	return predicate.Judge(sql.FieldLTE(FieldConfiguration, v))
+}
+
+// ConfigurationContains applies the Contains predicate on the "configuration" field.
+func ConfigurationContains(v string) predicate.Judge {
+	return predicate.Judge(sql.FieldContains(FieldConfiguration, v))
+}
+
+// ConfigurationHasPrefix applies the HasPrefix predicate on the "configuration" field.
+func ConfigurationHasPrefix(v string) predicate.Judge {
+	return predicate.Judge(sql.FieldHasPrefix(FieldConfiguration, v))
+}
+
+// ConfigurationHasSuffix applies the HasSuffix predicate on the "configuration" field.
+func ConfigurationHasSuffix(v string) predicate.Judge {
+	return predicate.Judge(sql.FieldHasSuffix(FieldConfiguration, v))
+}
+
+// ConfigurationEqualFold applies the EqualFold predicate on the "configuration" field.
+func ConfigurationEqualFold(v string) predicate.Judge {
+	return predicate.Judge(sql.FieldEqualFold(FieldConfiguration, v))
+}
+
+// ConfigurationContainsFold applies the ContainsFold predicate on the "configuration" field.
+func ConfigurationContainsFold(v string) predicate.Judge {
+	return predicate.Judge(sql.FieldContainsFold(FieldConfiguration, v))
 }
 
 // CreatedAtEQ applies the EQ predicate on the "created_at" field.

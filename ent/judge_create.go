@@ -48,8 +48,8 @@ func (jc *JudgeCreate) SetNillableType(j *judge.Type) *JudgeCreate {
 }
 
 // SetConfiguration sets the "configuration" field.
-func (jc *JudgeCreate) SetConfiguration(m map[string]string) *JudgeCreate {
-	jc.mutation.SetConfiguration(m)
+func (jc *JudgeCreate) SetConfiguration(s string) *JudgeCreate {
+	jc.mutation.SetConfiguration(s)
 	return jc
 }
 
@@ -135,10 +135,6 @@ func (jc *JudgeCreate) defaults() {
 		v := judge.DefaultType
 		jc.mutation.SetType(v)
 	}
-	if _, ok := jc.mutation.Configuration(); !ok {
-		v := judge.DefaultConfiguration
-		jc.mutation.SetConfiguration(v)
-	}
 	if _, ok := jc.mutation.CreatedAt(); !ok {
 		v := judge.DefaultCreatedAt()
 		jc.mutation.SetCreatedAt(v)
@@ -223,7 +219,7 @@ func (jc *JudgeCreate) createSpec() (*Judge, *sqlgraph.CreateSpec) {
 		_node.Type = value
 	}
 	if value, ok := jc.mutation.Configuration(); ok {
-		_spec.SetField(judge.FieldConfiguration, field.TypeJSON, value)
+		_spec.SetField(judge.FieldConfiguration, field.TypeString, value)
 		_node.Configuration = value
 	}
 	if value, ok := jc.mutation.CreatedAt(); ok {

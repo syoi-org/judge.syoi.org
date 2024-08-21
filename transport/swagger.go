@@ -1,10 +1,11 @@
 package transport
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	_ "github.com/syoi-org/judy/docs"
 )
 
 type SwaggerHandler struct{}
@@ -13,10 +14,18 @@ func NewSwaggerHandler() *SwaggerHandler {
 	return &SwaggerHandler{}
 }
 
-func (h *SwaggerHandler) GinHandler() gin.HandlerFunc {
-	return ginSwagger.WrapHandler(swaggerFiles.Handler)
+func (h *SwaggerHandler) RegisterControllerRoutes(rg *gin.RouterGroup) {
+	rg.Any("", func(c *gin.Context) {
+		c.Redirect(http.StatusSeeOther, "/docs/swagger/index.html")
+	})
+	rg.StaticFile("/openapi.json", "./ent/openapi.json")
+	rg.Any("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler,
+		ginSwagger.URL("/docs/openapi.json"),
+	))
 }
 
 func (h *SwaggerHandler) RoutePattern() string {
-	return "/docs/*any"
+	return "/docs"
 }
+
+var _ ControllerRoute = (*SwaggerHandler)(nil)

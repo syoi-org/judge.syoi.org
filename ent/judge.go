@@ -3,7 +3,6 @@
 package ent
 
 import (
-	"encoding/json"
 	"fmt"
 	"strings"
 	"time"
@@ -25,7 +24,7 @@ type Judge struct {
 	// Type holds the value of the "type" field.
 	Type judge.Type `json:"type,omitempty"`
 	// Configuration holds the value of the "configuration" field.
-	Configuration map[string]string `json:"configuration,omitempty"`
+	Configuration string `json:"configuration,omitempty"`
 	// CreatedAt holds the value of the "created_at" field.
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// UpdatedAt holds the value of the "updated_at" field.
@@ -59,11 +58,9 @@ func (*Judge) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case judge.FieldConfiguration:
-			values[i] = new([]byte)
 		case judge.FieldID:
 			values[i] = new(sql.NullInt64)
-		case judge.FieldName, judge.FieldCode, judge.FieldType:
+		case judge.FieldName, judge.FieldCode, judge.FieldType, judge.FieldConfiguration:
 			values[i] = new(sql.NullString)
 		case judge.FieldCreatedAt, judge.FieldUpdatedAt:
 			values[i] = new(sql.NullTime)
@@ -107,12 +104,10 @@ func (j *Judge) assignValues(columns []string, values []any) error {
 				j.Type = judge.Type(value.String)
 			}
 		case judge.FieldConfiguration:
-			if value, ok := values[i].(*[]byte); !ok {
+			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field configuration", values[i])
-			} else if value != nil && len(*value) > 0 {
-				if err := json.Unmarshal(*value, &j.Configuration); err != nil {
-					return fmt.Errorf("unmarshal field configuration: %w", err)
-				}
+			} else if value.Valid {
+				j.Configuration = value.String
 			}
 		case judge.FieldCreatedAt:
 			if value, ok := values[i].(*sql.NullTime); !ok {
@@ -177,7 +172,7 @@ func (j *Judge) String() string {
 	builder.WriteString(fmt.Sprintf("%v", j.Type))
 	builder.WriteString(", ")
 	builder.WriteString("configuration=")
-	builder.WriteString(fmt.Sprintf("%v", j.Configuration))
+	builder.WriteString(j.Configuration)
 	builder.WriteString(", ")
 	builder.WriteString("created_at=")
 	builder.WriteString(j.CreatedAt.Format(time.ANSIC))

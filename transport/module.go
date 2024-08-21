@@ -6,5 +6,6 @@ var Module = fx.Options(
 	fx.Provide(NewHttp),
 	fx.Invoke(runHttpServer),
 	fx.Provide(NewRouter),
-	fx.Provide(NewSwaggerHandler),
+	fx.Provide(AsControllerRoute(NewSwaggerHandler)),
+	fx.Provide(NewOgentServer),
 )

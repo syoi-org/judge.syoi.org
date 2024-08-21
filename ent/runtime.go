@@ -25,10 +25,6 @@ func init() {
 	judgeDescCode := judgeFields[1].Descriptor()
 	// judge.CodeValidator is a validator for the "code" field. It is called by the builders before save.
 	judge.CodeValidator = judgeDescCode.Validators[0].(func(string) error)
-	// judgeDescConfiguration is the schema descriptor for configuration field.
-	judgeDescConfiguration := judgeFields[3].Descriptor()
-	// judge.DefaultConfiguration holds the default value on creation for the configuration field.
-	judge.DefaultConfiguration = judgeDescConfiguration.Default.(map[string]string)
 	// judgeDescCreatedAt is the schema descriptor for created_at field.
 	judgeDescCreatedAt := judgeFields[4].Descriptor()
 	// judge.DefaultCreatedAt holds the default value on creation for the created_at field.

@@ -1,0 +1,2088 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Judy Judge API",
+    "description": "This is a API for running Judy Judge.",
+    "version": "1.0"
+  },
+  "paths": {
+    "/judges": {
+      "get": {
+        "tags": [
+          "Judge"
+        ],
+        "summary": "List Judges",
+        "description": "List Judges.",
+        "operationId": "listJudge",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "what page to render",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "itemsPerPage",
+            "in": "query",
+            "description": "item count to render per page",
+            "schema": {
+              "type": "integer",
+              "maximum": 255,
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "result Judge list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JudgeList"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Judge"
+        ],
+        "summary": "Create a new Judge",
+        "description": "Creates a new Judge and persists it to storage.",
+        "operationId": "createJudge",
+        "requestBody": {
+          "description": "Judge to create",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "local",
+                      "codeforces",
+                      "vjudge",
+                      "syoj",
+                      "noop"
+                    ],
+                    "default": "local"
+                  },
+                  "configuration": {
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "problems": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "required": [
+                  "name",
+                  "code",
+                  "type",
+                  "configuration",
+                  "created_at",
+                  "updated_at"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Judge created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JudgeCreate"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/judges/{id}": {
+      "get": {
+        "tags": [
+          "Judge"
+        ],
+        "summary": "Find a Judge by ID",
+        "description": "Finds the Judge with the requested ID and returns it.",
+        "operationId": "readJudge",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Judge",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Judge with requested ID was found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JudgeRead"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Judge"
+        ],
+        "summary": "Deletes a Judge by ID",
+        "description": "Deletes the Judge with the requested ID.",
+        "operationId": "deleteJudge",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Judge",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Judge with requested ID was deleted"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Judge"
+        ],
+        "summary": "Updates a Judge",
+        "description": "Updates a Judge and persists changes to storage.",
+        "operationId": "updateJudge",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Judge",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Judge properties to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "local",
+                      "codeforces",
+                      "vjudge",
+                      "syoj",
+                      "noop"
+                    ],
+                    "default": "local"
+                  },
+                  "configuration": {
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "problems": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Judge updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JudgeUpdate"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/judges/{id}/problems": {
+      "get": {
+        "tags": [
+          "Judge"
+        ],
+        "summary": "List attached Problems",
+        "description": "List attached Problems.",
+        "operationId": "listJudgeProblems",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Judge",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "what page to render",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "itemsPerPage",
+            "in": "query",
+            "description": "item count to render per page",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "result Judges list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Judge_ProblemsList"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/problems": {
+      "get": {
+        "tags": [
+          "Problem"
+        ],
+        "summary": "List Problems",
+        "description": "List Problems.",
+        "operationId": "listProblem",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "what page to render",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "itemsPerPage",
+            "in": "query",
+            "description": "item count to render per page",
+            "schema": {
+              "type": "integer",
+              "maximum": 255,
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "result Problem list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProblemList"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Problem"
+        ],
+        "summary": "Create a new Problem",
+        "description": "Creates a new Problem and persists it to storage.",
+        "operationId": "createProblem",
+        "requestBody": {
+          "description": "Problem to create",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "submissions": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "judge": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "name",
+                  "code",
+                  "created_at",
+                  "updated_at",
+                  "judge"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Problem created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemCreate"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/problems/{id}": {
+      "get": {
+        "tags": [
+          "Problem"
+        ],
+        "summary": "Find a Problem by ID",
+        "description": "Finds the Problem with the requested ID and returns it.",
+        "operationId": "readProblem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Problem",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Problem with requested ID was found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemRead"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Problem"
+        ],
+        "summary": "Deletes a Problem by ID",
+        "description": "Deletes the Problem with the requested ID.",
+        "operationId": "deleteProblem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Problem",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Problem with requested ID was deleted"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Problem"
+        ],
+        "summary": "Updates a Problem",
+        "description": "Updates a Problem and persists changes to storage.",
+        "operationId": "updateProblem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Problem",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Problem properties to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "code": {
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "submissions": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "judge": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Problem updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemUpdate"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/problems/{id}/judge": {
+      "get": {
+        "tags": [
+          "Problem"
+        ],
+        "summary": "Find the attached Judge",
+        "description": "Find the attached Judge of the Problem with the given ID",
+        "operationId": "readProblemJudge",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Problem",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Judge attached to Problem with requested ID was found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem_JudgeRead"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/problems/{id}/submissions": {
+      "get": {
+        "tags": [
+          "Problem"
+        ],
+        "summary": "List attached Submissions",
+        "description": "List attached Submissions.",
+        "operationId": "listProblemSubmissions",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Problem",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "what page to render",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "itemsPerPage",
+            "in": "query",
+            "description": "item count to render per page",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "result Problems list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Problem_SubmissionsList"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/submissions": {
+      "get": {
+        "tags": [
+          "Submission"
+        ],
+        "summary": "List Submissions",
+        "description": "List Submissions.",
+        "operationId": "listSubmission",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "what page to render",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "itemsPerPage",
+            "in": "query",
+            "description": "item count to render per page",
+            "schema": {
+              "type": "integer",
+              "maximum": 255,
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "result Submission list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SubmissionList"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Submission"
+        ],
+        "summary": "Create a new Submission",
+        "description": "Creates a new Submission and persists it to storage.",
+        "operationId": "createSubmission",
+        "requestBody": {
+          "description": "Submission to create",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "pending",
+                      "compiling",
+                      "judging",
+                      "finished"
+                    ],
+                    "default": "pending"
+                  },
+                  "verdict": {
+                    "type": "string",
+                    "enum": [
+                      "OK",
+                      "TLE",
+                      "MLE",
+                      "ILE",
+                      "WA",
+                      "CE",
+                      "RE",
+                      "PE",
+                      "CRASHED",
+                      "OTHER"
+                    ],
+                    "default": "OK"
+                  },
+                  "test_count": {
+                    "type": "integer"
+                  },
+                  "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "problem": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "status",
+                  "verdict",
+                  "test_count",
+                  "created_at",
+                  "updated_at",
+                  "problem"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Submission created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmissionCreate"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/submissions/{id}": {
+      "get": {
+        "tags": [
+          "Submission"
+        ],
+        "summary": "Find a Submission by ID",
+        "description": "Finds the Submission with the requested ID and returns it.",
+        "operationId": "readSubmission",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Submission",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Submission with requested ID was found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmissionRead"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Submission"
+        ],
+        "summary": "Deletes a Submission by ID",
+        "description": "Deletes the Submission with the requested ID.",
+        "operationId": "deleteSubmission",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Submission",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Submission with requested ID was deleted"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Submission"
+        ],
+        "summary": "Updates a Submission",
+        "description": "Updates a Submission and persists changes to storage.",
+        "operationId": "updateSubmission",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Submission",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Submission properties to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "pending",
+                      "compiling",
+                      "judging",
+                      "finished"
+                    ],
+                    "default": "pending"
+                  },
+                  "verdict": {
+                    "type": "string",
+                    "enum": [
+                      "OK",
+                      "TLE",
+                      "MLE",
+                      "ILE",
+                      "WA",
+                      "CE",
+                      "RE",
+                      "PE",
+                      "CRASHED",
+                      "OTHER"
+                    ],
+                    "default": "OK"
+                  },
+                  "test_count": {
+                    "type": "integer"
+                  },
+                  "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "problem": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Submission updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmissionUpdate"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/submissions/{id}/problem": {
+      "get": {
+        "tags": [
+          "Submission"
+        ],
+        "summary": "Find the attached Problem",
+        "description": "Find the attached Problem of the Submission with the given ID",
+        "operationId": "readSubmissionProblem",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Submission",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Problem attached to Submission with requested ID was found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Submission_ProblemRead"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Judge": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "local",
+              "codeforces",
+              "vjudge",
+              "syoj",
+              "noop"
+            ],
+            "default": "local"
+          },
+          "configuration": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "problems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "type",
+          "configuration",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "JudgeCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "local",
+              "codeforces",
+              "vjudge",
+              "syoj",
+              "noop"
+            ],
+            "default": "local"
+          },
+          "configuration": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "type",
+          "configuration",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "JudgeList": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "local",
+              "codeforces",
+              "vjudge",
+              "syoj",
+              "noop"
+            ],
+            "default": "local"
+          },
+          "configuration": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "type",
+          "configuration",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "JudgeRead": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "local",
+              "codeforces",
+              "vjudge",
+              "syoj",
+              "noop"
+            ],
+            "default": "local"
+          },
+          "configuration": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "type",
+          "configuration",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "JudgeUpdate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "local",
+              "codeforces",
+              "vjudge",
+              "syoj",
+              "noop"
+            ],
+            "default": "local"
+          },
+          "configuration": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "type",
+          "configuration",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "Judge_ProblemsList": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "Problem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "submissions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Submission"
+            }
+          },
+          "judge": {
+            "$ref": "#/components/schemas/Judge"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "created_at",
+          "updated_at",
+          "judge"
+        ]
+      },
+      "ProblemCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "ProblemList": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "ProblemRead": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "ProblemUpdate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "Problem_JudgeRead": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "local",
+              "codeforces",
+              "vjudge",
+              "syoj",
+              "noop"
+            ],
+            "default": "local"
+          },
+          "configuration": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "type",
+          "configuration",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "Problem_SubmissionsList": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "compiling",
+              "judging",
+              "finished"
+            ],
+            "default": "pending"
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "TLE",
+              "MLE",
+              "ILE",
+              "WA",
+              "CE",
+              "RE",
+              "PE",
+              "CRASHED",
+              "OTHER"
+            ],
+            "default": "OK"
+          },
+          "test_count": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "verdict",
+          "test_count",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "Submission": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "compiling",
+              "judging",
+              "finished"
+            ],
+            "default": "pending"
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "TLE",
+              "MLE",
+              "ILE",
+              "WA",
+              "CE",
+              "RE",
+              "PE",
+              "CRASHED",
+              "OTHER"
+            ],
+            "default": "OK"
+          },
+          "test_count": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "problem": {
+            "$ref": "#/components/schemas/Problem"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "verdict",
+          "test_count",
+          "created_at",
+          "updated_at",
+          "problem"
+        ]
+      },
+      "SubmissionCreate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "compiling",
+              "judging",
+              "finished"
+            ],
+            "default": "pending"
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "TLE",
+              "MLE",
+              "ILE",
+              "WA",
+              "CE",
+              "RE",
+              "PE",
+              "CRASHED",
+              "OTHER"
+            ],
+            "default": "OK"
+          },
+          "test_count": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "verdict",
+          "test_count",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "SubmissionList": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "compiling",
+              "judging",
+              "finished"
+            ],
+            "default": "pending"
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "TLE",
+              "MLE",
+              "ILE",
+              "WA",
+              "CE",
+              "RE",
+              "PE",
+              "CRASHED",
+              "OTHER"
+            ],
+            "default": "OK"
+          },
+          "test_count": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "verdict",
+          "test_count",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "SubmissionRead": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "compiling",
+              "judging",
+              "finished"
+            ],
+            "default": "pending"
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "TLE",
+              "MLE",
+              "ILE",
+              "WA",
+              "CE",
+              "RE",
+              "PE",
+              "CRASHED",
+              "OTHER"
+            ],
+            "default": "OK"
+          },
+          "test_count": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "verdict",
+          "test_count",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "SubmissionUpdate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "compiling",
+              "judging",
+              "finished"
+            ],
+            "default": "pending"
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "OK",
+              "TLE",
+              "MLE",
+              "ILE",
+              "WA",
+              "CE",
+              "RE",
+              "PE",
+              "CRASHED",
+              "OTHER"
+            ],
+            "default": "OK"
+          },
+          "test_count": {
+            "type": "integer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "verdict",
+          "test_count",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "Submission_ProblemRead": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "code",
+          "created_at",
+          "updated_at"
+        ]
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "invalid input, data invalid",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "errors": {}
+              },
+              "required": [
+                "code",
+                "status"
+              ]
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "insufficient permissions",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "errors": {}
+              },
+              "required": [
+                "code",
+                "status"
+              ]
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "errors": {}
+              },
+              "required": [
+                "code",
+                "status"
+              ]
+            }
+          }
+        }
+      },
+      "409": {
+        "description": "conflicting resources",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "errors": {}
+              },
+              "required": [
+                "code",
+                "status"
+              ]
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "unexpected error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "errors": {}
+              },
+              "required": [
+                "code",
+                "status"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

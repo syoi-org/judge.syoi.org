@@ -19,7 +19,7 @@ func (Judge) Fields() []ent.Field {
 		field.String("name").NotEmpty(),
 		field.String("code").NotEmpty().Unique(),
 		field.Enum("type").Values("local", "codeforces", "vjudge", "syoj", "noop").Default("local"),
-		field.JSON("configuration", map[string]string{}).Default(map[string]string{}),
+		field.String("configuration"),
 		field.Time("created_at").Default(time.Now),
 		field.Time("updated_at").Default(time.Now).UpdateDefault(time.Now),
 	}

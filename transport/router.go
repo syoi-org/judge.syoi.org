@@ -6,6 +6,7 @@ import (
 
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
+	"github.com/syoi-org/judy/ent/ogent"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 )
@@ -15,7 +16,7 @@ type Params struct {
 	Logger           *zap.SugaredLogger `optional:"true"`
 	ControllerRoutes []ControllerRoute  `group:"controllerRoutes"`
 	HandlerRoutes    []HandlerRoute     `group:"handlerRoutes"`
-	SwaggerHandler   *SwaggerHandler
+	OgentServer      *ogent.Server
 }
 
 type Result struct {
@@ -32,13 +33,12 @@ func NewRouter(p Params) Result {
 	}
 	server.Use(gin.Recovery())
 
-	apiRouterGroup := server.Group("/v1")
 	for _, route := range p.ControllerRoutes {
 		if p.Logger != nil {
 			p.Logger.Infow("registering controller route", "pattern", route.RoutePattern())
 		}
 		route.RegisterControllerRoutes(
-			apiRouterGroup.Group(route.RoutePattern()),
+			server.Group(route.RoutePattern()),
 		)
 	}
 
@@ -49,7 +49,7 @@ func NewRouter(p Params) Result {
 		server.Any(route.RoutePattern(), gin.WrapH(route.HttpHandler()))
 	}
 
-	apiRouterGroup.GET(p.SwaggerHandler.RoutePattern(), p.SwaggerHandler.GinHandler())
+	server.NoRoute(gin.WrapH(p.OgentServer))
 
 	return Result{
 		Http: server,
