@@ -30,5 +30,6 @@ func (Problem) Edges() []ent.Edge {
 func (Problem) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		TimeMixin{},
+		GraphQLMixin{},
 	}
 }

@@ -31,6 +31,8 @@ type Client struct {
 	Problem *ProblemClient
 	// Submission is the client for interacting with the Submission builders.
 	Submission *SubmissionClient
+	// additional fields for node api
+	tables tables
 }
 
 // NewClient creates a new client configured with the given options.

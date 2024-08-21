@@ -25,6 +25,8 @@ type SubmissionQuery struct {
 	predicates  []predicate.Submission
 	withProblem *ProblemQuery
 	withFKs     bool
+	modifiers   []func(*sql.Selector)
+	loadTotal   []func(context.Context, []*Submission) error
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -391,6 +393,9 @@ func (sq *SubmissionQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*S
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
 	}
+	if len(sq.modifiers) > 0 {
+		_spec.Modifiers = sq.modifiers
+	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
@@ -403,6 +408,11 @@ func (sq *SubmissionQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*S
 	if query := sq.withProblem; query != nil {
 		if err := sq.loadProblem(ctx, query, nodes, nil,
 			func(n *Submission, e *Problem) { n.Edges.Problem = e }); err != nil {
+			return nil, err
+		}
+	}
+	for i := range sq.loadTotal {
+		if err := sq.loadTotal[i](ctx, nodes); err != nil {
 			return nil, err
 		}
 	}
@@ -444,6 +454,9 @@ func (sq *SubmissionQuery) loadProblem(ctx context.Context, query *ProblemQuery,
 
 func (sq *SubmissionQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := sq.querySpec()
+	if len(sq.modifiers) > 0 {
+		_spec.Modifiers = sq.modifiers
+	}
 	_spec.Node.Columns = sq.ctx.Fields
 	if len(sq.ctx.Fields) > 0 {
 		_spec.Unique = sq.ctx.Unique != nil && *sq.ctx.Unique

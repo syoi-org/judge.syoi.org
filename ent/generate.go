@@ -2,6 +2,7 @@ package ent
 
 import (
 	_ "ariga.io/ogent"
+	_ "entgo.io/contrib/entgql"
 	_ "entgo.io/contrib/entoas"
 	_ "entgo.io/contrib/entproto"
 	_ "entgo.io/ent/entc"
@@ -10,3 +11,4 @@ import (
 )
 
 //go:generate go run -mod=mod entc.go
+//go:generate go run -mod=mod github.com/99designs/gqlgen

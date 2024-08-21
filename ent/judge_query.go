@@ -20,11 +20,14 @@ import (
 // JudgeQuery is the builder for querying Judge entities.
 type JudgeQuery struct {
 	config
-	ctx          *QueryContext
-	order        []judge.OrderOption
-	inters       []Interceptor
-	predicates   []predicate.Judge
-	withProblems *ProblemQuery
+	ctx               *QueryContext
+	order             []judge.OrderOption
+	inters            []Interceptor
+	predicates        []predicate.Judge
+	withProblems      *ProblemQuery
+	modifiers         []func(*sql.Selector)
+	loadTotal         []func(context.Context, []*Judge) error
+	withNamedProblems map[string]*ProblemQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -384,6 +387,9 @@ func (jq *JudgeQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Judge,
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
 	}
+	if len(jq.modifiers) > 0 {
+		_spec.Modifiers = jq.modifiers
+	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
@@ -397,6 +403,18 @@ func (jq *JudgeQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Judge,
 		if err := jq.loadProblems(ctx, query, nodes,
 			func(n *Judge) { n.Edges.Problems = []*Problem{} },
 			func(n *Judge, e *Problem) { n.Edges.Problems = append(n.Edges.Problems, e) }); err != nil {
+			return nil, err
+		}
+	}
+	for name, query := range jq.withNamedProblems {
+		if err := jq.loadProblems(ctx, query, nodes,
+			func(n *Judge) { n.appendNamedProblems(name) },
+			func(n *Judge, e *Problem) { n.appendNamedProblems(name, e) }); err != nil {
+			return nil, err
+		}
+	}
+	for i := range jq.loadTotal {
+		if err := jq.loadTotal[i](ctx, nodes); err != nil {
 			return nil, err
 		}
 	}
@@ -437,6 +455,9 @@ func (jq *JudgeQuery) loadProblems(ctx context.Context, query *ProblemQuery, nod
 
 func (jq *JudgeQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := jq.querySpec()
+	if len(jq.modifiers) > 0 {
+		_spec.Modifiers = jq.modifiers
+	}
 	_spec.Node.Columns = jq.ctx.Fields
 	if len(jq.ctx.Fields) > 0 {
 		_spec.Unique = jq.ctx.Unique != nil && *jq.ctx.Unique
@@ -514,6 +535,20 @@ func (jq *JudgeQuery) sqlQuery(ctx context.Context) *sql.Selector {
 		selector.Limit(*limit)
 	}
 	return selector
+}
+
+// WithNamedProblems tells the query-builder to eager-load the nodes that are connected to the "problems"
+// edge with the given name. The optional arguments are used to configure the query builder of the edge.
+func (jq *JudgeQuery) WithNamedProblems(name string, opts ...func(*ProblemQuery)) *JudgeQuery {
+	query := (&ProblemClient{config: jq.config}).Query()
+	for _, opt := range opts {
+		opt(query)
+	}
+	if jq.withNamedProblems == nil {
+		jq.withNamedProblems = make(map[string]*ProblemQuery)
+	}
+	jq.withNamedProblems[name] = query
+	return jq
 }
 
 // JudgeGroupBy is the group-by builder for Judge entities.

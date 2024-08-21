@@ -21,13 +21,16 @@ import (
 // ProblemQuery is the builder for querying Problem entities.
 type ProblemQuery struct {
 	config
-	ctx             *QueryContext
-	order           []problem.OrderOption
-	inters          []Interceptor
-	predicates      []predicate.Problem
-	withSubmissions *SubmissionQuery
-	withJudge       *JudgeQuery
-	withFKs         bool
+	ctx                  *QueryContext
+	order                []problem.OrderOption
+	inters               []Interceptor
+	predicates           []predicate.Problem
+	withSubmissions      *SubmissionQuery
+	withJudge            *JudgeQuery
+	withFKs              bool
+	modifiers            []func(*sql.Selector)
+	loadTotal            []func(context.Context, []*Problem) error
+	withNamedSubmissions map[string]*SubmissionQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -429,6 +432,9 @@ func (pq *ProblemQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Prob
 		node.Edges.loadedTypes = loadedTypes
 		return node.assignValues(columns, values)
 	}
+	if len(pq.modifiers) > 0 {
+		_spec.Modifiers = pq.modifiers
+	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
@@ -448,6 +454,18 @@ func (pq *ProblemQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Prob
 	if query := pq.withJudge; query != nil {
 		if err := pq.loadJudge(ctx, query, nodes, nil,
 			func(n *Problem, e *Judge) { n.Edges.Judge = e }); err != nil {
+			return nil, err
+		}
+	}
+	for name, query := range pq.withNamedSubmissions {
+		if err := pq.loadSubmissions(ctx, query, nodes,
+			func(n *Problem) { n.appendNamedSubmissions(name) },
+			func(n *Problem, e *Submission) { n.appendNamedSubmissions(name, e) }); err != nil {
+			return nil, err
+		}
+	}
+	for i := range pq.loadTotal {
+		if err := pq.loadTotal[i](ctx, nodes); err != nil {
 			return nil, err
 		}
 	}
@@ -520,6 +538,9 @@ func (pq *ProblemQuery) loadJudge(ctx context.Context, query *JudgeQuery, nodes 
 
 func (pq *ProblemQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := pq.querySpec()
+	if len(pq.modifiers) > 0 {
+		_spec.Modifiers = pq.modifiers
+	}
 	_spec.Node.Columns = pq.ctx.Fields
 	if len(pq.ctx.Fields) > 0 {
 		_spec.Unique = pq.ctx.Unique != nil && *pq.ctx.Unique
@@ -597,6 +618,20 @@ func (pq *ProblemQuery) sqlQuery(ctx context.Context) *sql.Selector {
 		selector.Limit(*limit)
 	}
 	return selector
+}
+
+// WithNamedSubmissions tells the query-builder to eager-load the nodes that are connected to the "submissions"
+// edge with the given name. The optional arguments are used to configure the query builder of the edge.
+func (pq *ProblemQuery) WithNamedSubmissions(name string, opts ...func(*SubmissionQuery)) *ProblemQuery {
+	query := (&SubmissionClient{config: pq.config}).Query()
+	for _, opt := range opts {
+		opt(query)
+	}
+	if pq.withNamedSubmissions == nil {
+		pq.withNamedSubmissions = make(map[string]*SubmissionQuery)
+	}
+	pq.withNamedSubmissions[name] = query
+	return pq
 }
 
 // ProblemGroupBy is the group-by builder for Problem entities.

@@ -42,6 +42,10 @@ type ProblemEdges struct {
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [2]bool
+	// totalCount holds the count of the edges above.
+	totalCount [2]map[string]int
+
+	namedSubmissions map[string][]*Submission
 }
 
 // SubmissionsOrErr returns the Submissions value or an error if the edge
@@ -188,6 +192,30 @@ func (pr *Problem) String() string {
 	builder.WriteString(pr.Code)
 	builder.WriteByte(')')
 	return builder.String()
+}
+
+// NamedSubmissions returns the Submissions named value or an error if the edge was not
+// loaded in eager-loading with this name.
+func (pr *Problem) NamedSubmissions(name string) ([]*Submission, error) {
+	if pr.Edges.namedSubmissions == nil {
+		return nil, &NotLoadedError{edge: name}
+	}
+	nodes, ok := pr.Edges.namedSubmissions[name]
+	if !ok {
+		return nil, &NotLoadedError{edge: name}
+	}
+	return nodes, nil
+}
+
+func (pr *Problem) appendNamedSubmissions(name string, edges ...*Submission) {
+	if pr.Edges.namedSubmissions == nil {
+		pr.Edges.namedSubmissions = make(map[string][]*Submission)
+	}
+	if len(edges) == 0 {
+		pr.Edges.namedSubmissions[name] = []*Submission{}
+	} else {
+		pr.Edges.namedSubmissions[name] = append(pr.Edges.namedSubmissions[name], edges...)
+	}
 }
 
 // Problems is a parsable slice of Problem.

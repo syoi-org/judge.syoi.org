@@ -31,5 +31,6 @@ func (Judge) Edges() []ent.Edge {
 func (Judge) Mixin() []ent.Mixin {
 	return []ent.Mixin{
 		TimeMixin{},
+		GraphQLMixin{},
 	}
 }

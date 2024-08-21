@@ -7,6 +7,7 @@ import (
 	"log"
 
 	"ariga.io/ogent"
+	"entgo.io/contrib/entgql"
 	"entgo.io/contrib/entoas"
 	"entgo.io/contrib/entproto"
 	"entgo.io/ent/entc"
@@ -15,6 +16,14 @@ import (
 )
 
 func main() {
+	entgqlext, err := entgql.NewExtension(
+		entgql.WithSchemaGenerator(),
+		entgql.WithSchemaPath("ent.graphql"),
+		entgql.WithConfigPath("gqlgen.yml"),
+	)
+	if err != nil {
+		log.Fatalf("creating entgql extension: %v", err)
+	}
 	protoext, err := entproto.NewExtension()
 	if err != nil {
 		log.Fatalf("creating entproto extension: %v", err)
@@ -35,7 +44,12 @@ func main() {
 	if err != nil {
 		log.Fatalf("creating ogent extension: %v", err)
 	}
-	err = entc.Generate("./schema", &gen.Config{}, entc.Extensions(protoext, ogentext, entoasext))
+	err = entc.Generate("./schema", &gen.Config{}, entc.Extensions(
+		entgqlext,
+		protoext,
+		ogentext,
+		entoasext,
+	))
 	if err != nil {
 		log.Fatalf("running ent codegen: %v", err)
 	}
