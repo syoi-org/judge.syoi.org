@@ -25,7 +25,6 @@
             go
             cobra-cli
             ent-go
-            go-swag
             isolate
             just
           ] ++ [
