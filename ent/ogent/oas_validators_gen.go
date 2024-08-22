@@ -126,6 +126,56 @@ func (s CreateSubmissionReqVerdict) Validate() error {
 	}
 }
 
+func (s *HealthCheckOK) Validate() error {
+	alias := (*HealthCheckResult)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *HealthCheckResult) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if err := s.Status.Validate(); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "status",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s HealthCheckResultStatus) Validate() error {
+	switch s {
+	case "ok":
+		return nil
+	case "error":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *HealthCheckServiceUnavailable) Validate() error {
+	alias := (*HealthCheckResult)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (s *JudgeCreate) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer

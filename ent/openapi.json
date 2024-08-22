@@ -6,6 +6,37 @@
     "version": "1.0"
   },
   "paths": {
+    "/healthz": {
+      "description": "Health Checking for API services",
+      "get": {
+        "summary": "Health Checking",
+        "description": "Health Checking for API services",
+        "operationId": "healthCheck",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthCheckResult"
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthCheckResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/judges": {
       "get": {
         "tags": [
@@ -1155,6 +1186,27 @@
   },
   "components": {
     "schemas": {
+      "HealthCheckResult": {
+        "description": "Result of health check",
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "error"
+            ]
+          },
+          "uptime": {
+            "type": "string"
+          },
+          "errors": {}
+        },
+        "required": [
+          "status",
+          "uptime"
+        ]
+      },
       "Judge": {
         "type": "object",
         "properties": {

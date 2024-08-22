@@ -25,6 +25,10 @@ type DeleteSubmissionRes interface {
 	deleteSubmissionRes()
 }
 
+type HealthCheckRes interface {
+	healthCheckRes()
+}
+
 type ListJudgeProblemsRes interface {
 	listJudgeProblemsRes()
 }

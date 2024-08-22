@@ -456,6 +456,93 @@ type DeleteSubmissionNoContent struct{}
 
 func (*DeleteSubmissionNoContent) deleteSubmissionRes() {}
 
+type HealthCheckOK HealthCheckResult
+
+func (*HealthCheckOK) healthCheckRes() {}
+
+// Result of health check.
+// Ref: #/components/schemas/HealthCheckResult
+type HealthCheckResult struct {
+	Status HealthCheckResultStatus `json:"status"`
+	Uptime string                  `json:"uptime"`
+	Errors jx.Raw                  `json:"errors"`
+}
+
+// GetStatus returns the value of Status.
+func (s *HealthCheckResult) GetStatus() HealthCheckResultStatus {
+	return s.Status
+}
+
+// GetUptime returns the value of Uptime.
+func (s *HealthCheckResult) GetUptime() string {
+	return s.Uptime
+}
+
+// GetErrors returns the value of Errors.
+func (s *HealthCheckResult) GetErrors() jx.Raw {
+	return s.Errors
+}
+
+// SetStatus sets the value of Status.
+func (s *HealthCheckResult) SetStatus(val HealthCheckResultStatus) {
+	s.Status = val
+}
+
+// SetUptime sets the value of Uptime.
+func (s *HealthCheckResult) SetUptime(val string) {
+	s.Uptime = val
+}
+
+// SetErrors sets the value of Errors.
+func (s *HealthCheckResult) SetErrors(val jx.Raw) {
+	s.Errors = val
+}
+
+type HealthCheckResultStatus string
+
+const (
+	HealthCheckResultStatusOk    HealthCheckResultStatus = "ok"
+	HealthCheckResultStatusError HealthCheckResultStatus = "error"
+)
+
+// AllValues returns all HealthCheckResultStatus values.
+func (HealthCheckResultStatus) AllValues() []HealthCheckResultStatus {
+	return []HealthCheckResultStatus{
+		HealthCheckResultStatusOk,
+		HealthCheckResultStatusError,
+	}
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (s HealthCheckResultStatus) MarshalText() ([]byte, error) {
+	switch s {
+	case HealthCheckResultStatusOk:
+		return []byte(s), nil
+	case HealthCheckResultStatusError:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *HealthCheckResultStatus) UnmarshalText(data []byte) error {
+	switch HealthCheckResultStatus(data) {
+	case HealthCheckResultStatusOk:
+		*s = HealthCheckResultStatusOk
+		return nil
+	case HealthCheckResultStatusError:
+		*s = HealthCheckResultStatusError
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
+}
+
+type HealthCheckServiceUnavailable HealthCheckResult
+
+func (*HealthCheckServiceUnavailable) healthCheckRes() {}
+
 // Ref: #/components/schemas/JudgeCreate
 type JudgeCreate struct {
 	ID            int             `json:"id"`
@@ -2205,6 +2292,7 @@ func (*R500) createSubmissionRes()       {}
 func (*R500) deleteJudgeRes()            {}
 func (*R500) deleteProblemRes()          {}
 func (*R500) deleteSubmissionRes()       {}
+func (*R500) healthCheckRes()            {}
 func (*R500) listJudgeProblemsRes()      {}
 func (*R500) listJudgeRes()              {}
 func (*R500) listProblemRes()            {}

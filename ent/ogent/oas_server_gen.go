@@ -44,6 +44,12 @@ type Handler interface {
 	//
 	// DELETE /submissions/{id}
 	DeleteSubmission(ctx context.Context, params DeleteSubmissionParams) (DeleteSubmissionRes, error)
+	// HealthCheck implements healthCheck operation.
+	//
+	// Health Checking for API services.
+	//
+	// GET /healthz
+	HealthCheck(ctx context.Context) (HealthCheckRes, error)
 	// ListJudge implements listJudge operation.
 	//
 	// List Judges.

@@ -67,6 +67,15 @@ func (UnimplementedHandler) DeleteSubmission(ctx context.Context, params DeleteS
 	return r, ht.ErrNotImplemented
 }
 
+// HealthCheck implements healthCheck operation.
+//
+// Health Checking for API services.
+//
+// GET /healthz
+func (UnimplementedHandler) HealthCheck(ctx context.Context) (r HealthCheckRes, _ error) {
+	return r, ht.ErrNotImplemented
+}
+
 // ListJudge implements listJudge operation.
 //
 // List Judges.
