@@ -5564,12 +5564,6 @@ func (s *UpdateJudgeReq) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *UpdateJudgeReq) encodeFields(e *jx.Encoder) {
 	{
-		if s.CreatedAt.Set {
-			e.FieldStart("created_at")
-			s.CreatedAt.Encode(e, json.EncodeDateTime)
-		}
-	}
-	{
 		if s.UpdatedAt.Set {
 			e.FieldStart("updated_at")
 			s.UpdatedAt.Encode(e, json.EncodeDateTime)
@@ -5611,14 +5605,13 @@ func (s *UpdateJudgeReq) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfUpdateJudgeReq = [7]string{
-	0: "created_at",
-	1: "updated_at",
-	2: "name",
-	3: "code",
-	4: "type",
-	5: "configuration",
-	6: "problems",
+var jsonFieldsNameOfUpdateJudgeReq = [6]string{
+	0: "updated_at",
+	1: "name",
+	2: "code",
+	3: "type",
+	4: "configuration",
+	5: "problems",
 }
 
 // Decode decodes UpdateJudgeReq from json.
@@ -5630,16 +5623,6 @@ func (s *UpdateJudgeReq) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "created_at":
-			if err := func() error {
-				s.CreatedAt.Reset()
-				if err := s.CreatedAt.Decode(d, json.DecodeDateTime); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"created_at\"")
-			}
 		case "updated_at":
 			if err := func() error {
 				s.UpdatedAt.Reset()
@@ -5789,12 +5772,6 @@ func (s *UpdateProblemReq) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *UpdateProblemReq) encodeFields(e *jx.Encoder) {
 	{
-		if s.CreatedAt.Set {
-			e.FieldStart("created_at")
-			s.CreatedAt.Encode(e, json.EncodeDateTime)
-		}
-	}
-	{
 		if s.UpdatedAt.Set {
 			e.FieldStart("updated_at")
 			s.UpdatedAt.Encode(e, json.EncodeDateTime)
@@ -5830,13 +5807,12 @@ func (s *UpdateProblemReq) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfUpdateProblemReq = [6]string{
-	0: "created_at",
-	1: "updated_at",
-	2: "name",
-	3: "code",
-	4: "submissions",
-	5: "judge",
+var jsonFieldsNameOfUpdateProblemReq = [5]string{
+	0: "updated_at",
+	1: "name",
+	2: "code",
+	3: "submissions",
+	4: "judge",
 }
 
 // Decode decodes UpdateProblemReq from json.
@@ -5847,16 +5823,6 @@ func (s *UpdateProblemReq) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "created_at":
-			if err := func() error {
-				s.CreatedAt.Reset()
-				if err := s.CreatedAt.Decode(d, json.DecodeDateTime); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"created_at\"")
-			}
 		case "updated_at":
 			if err := func() error {
 				s.UpdatedAt.Reset()
@@ -5950,12 +5916,6 @@ func (s *UpdateSubmissionReq) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *UpdateSubmissionReq) encodeFields(e *jx.Encoder) {
 	{
-		if s.CreatedAt.Set {
-			e.FieldStart("created_at")
-			s.CreatedAt.Encode(e, json.EncodeDateTime)
-		}
-	}
-	{
 		if s.UpdatedAt.Set {
 			e.FieldStart("updated_at")
 			s.UpdatedAt.Encode(e, json.EncodeDateTime)
@@ -5987,13 +5947,12 @@ func (s *UpdateSubmissionReq) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfUpdateSubmissionReq = [6]string{
-	0: "created_at",
-	1: "updated_at",
-	2: "status",
-	3: "verdict",
-	4: "test_count",
-	5: "problem",
+var jsonFieldsNameOfUpdateSubmissionReq = [5]string{
+	0: "updated_at",
+	1: "status",
+	2: "verdict",
+	3: "test_count",
+	4: "problem",
 }
 
 // Decode decodes UpdateSubmissionReq from json.
@@ -6005,16 +5964,6 @@ func (s *UpdateSubmissionReq) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "created_at":
-			if err := func() error {
-				s.CreatedAt.Reset()
-				if err := s.CreatedAt.Decode(d, json.DecodeDateTime); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"created_at\"")
-			}
 		case "updated_at":
 			if err := func() error {
 				s.UpdatedAt.Reset()

@@ -47,7 +47,6 @@ func (c *JudgeCreate) SetInput(i CreateJudgeInput) *JudgeCreate {
 
 // UpdateJudgeInput represents a mutation input for updating judges.
 type UpdateJudgeInput struct {
-	CreatedAt        *time.Time
 	UpdatedAt        *time.Time
 	Name             *string
 	Code             *string
@@ -60,9 +59,6 @@ type UpdateJudgeInput struct {
 
 // Mutate applies the UpdateJudgeInput on the JudgeMutation builder.
 func (i *UpdateJudgeInput) Mutate(m *JudgeMutation) {
-	if v := i.CreatedAt; v != nil {
-		m.SetCreatedAt(*v)
-	}
 	if v := i.UpdatedAt; v != nil {
 		m.SetUpdatedAt(*v)
 	}
@@ -135,7 +131,6 @@ func (c *ProblemCreate) SetInput(i CreateProblemInput) *ProblemCreate {
 
 // UpdateProblemInput represents a mutation input for updating problems.
 type UpdateProblemInput struct {
-	CreatedAt           *time.Time
 	UpdatedAt           *time.Time
 	Name                *string
 	Code                *string
@@ -147,9 +142,6 @@ type UpdateProblemInput struct {
 
 // Mutate applies the UpdateProblemInput on the ProblemMutation builder.
 func (i *UpdateProblemInput) Mutate(m *ProblemMutation) {
-	if v := i.CreatedAt; v != nil {
-		m.SetCreatedAt(*v)
-	}
 	if v := i.UpdatedAt; v != nil {
 		m.SetUpdatedAt(*v)
 	}
@@ -223,7 +215,6 @@ func (c *SubmissionCreate) SetInput(i CreateSubmissionInput) *SubmissionCreate {
 
 // UpdateSubmissionInput represents a mutation input for updating submissions.
 type UpdateSubmissionInput struct {
-	CreatedAt *time.Time
 	UpdatedAt *time.Time
 	Status    *submission.Status
 	Verdict   *submission.Verdict
@@ -233,9 +224,6 @@ type UpdateSubmissionInput struct {
 
 // Mutate applies the UpdateSubmissionInput on the SubmissionMutation builder.
 func (i *UpdateSubmissionInput) Mutate(m *SubmissionMutation) {
-	if v := i.CreatedAt; v != nil {
-		m.SetCreatedAt(*v)
-	}
 	if v := i.UpdatedAt; v != nil {
 		m.SetUpdatedAt(*v)
 	}

@@ -30,20 +30,6 @@ func (pu *ProblemUpdate) Where(ps ...predicate.Problem) *ProblemUpdate {
 	return pu
 }
 
-// SetCreatedAt sets the "created_at" field.
-func (pu *ProblemUpdate) SetCreatedAt(t time.Time) *ProblemUpdate {
-	pu.mutation.SetCreatedAt(t)
-	return pu
-}
-
-// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (pu *ProblemUpdate) SetNillableCreatedAt(t *time.Time) *ProblemUpdate {
-	if t != nil {
-		pu.SetCreatedAt(*t)
-	}
-	return pu
-}
-
 // SetUpdatedAt sets the "updated_at" field.
 func (pu *ProblemUpdate) SetUpdatedAt(t time.Time) *ProblemUpdate {
 	pu.mutation.SetUpdatedAt(t)
@@ -202,9 +188,6 @@ func (pu *ProblemUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
-	if value, ok := pu.mutation.CreatedAt(); ok {
-		_spec.SetField(problem.FieldCreatedAt, field.TypeTime, value)
-	}
 	if value, ok := pu.mutation.UpdatedAt(); ok {
 		_spec.SetField(problem.FieldUpdatedAt, field.TypeTime, value)
 	}
@@ -306,20 +289,6 @@ type ProblemUpdateOne struct {
 	fields   []string
 	hooks    []Hook
 	mutation *ProblemMutation
-}
-
-// SetCreatedAt sets the "created_at" field.
-func (puo *ProblemUpdateOne) SetCreatedAt(t time.Time) *ProblemUpdateOne {
-	puo.mutation.SetCreatedAt(t)
-	return puo
-}
-
-// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (puo *ProblemUpdateOne) SetNillableCreatedAt(t *time.Time) *ProblemUpdateOne {
-	if t != nil {
-		puo.SetCreatedAt(*t)
-	}
-	return puo
 }
 
 // SetUpdatedAt sets the "updated_at" field.
@@ -509,9 +478,6 @@ func (puo *ProblemUpdateOne) sqlSave(ctx context.Context) (_node *Problem, err e
 				ps[i](selector)
 			}
 		}
-	}
-	if value, ok := puo.mutation.CreatedAt(); ok {
-		_spec.SetField(problem.FieldCreatedAt, field.TypeTime, value)
 	}
 	if value, ok := puo.mutation.UpdatedAt(); ok {
 		_spec.SetField(problem.FieldUpdatedAt, field.TypeTime, value)

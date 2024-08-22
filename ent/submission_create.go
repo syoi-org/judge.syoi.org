@@ -186,6 +186,11 @@ func (sc *SubmissionCreate) check() error {
 	if _, ok := sc.mutation.TestCount(); !ok {
 		return &ValidationError{Name: "test_count", err: errors.New(`ent: missing required field "Submission.test_count"`)}
 	}
+	if v, ok := sc.mutation.TestCount(); ok {
+		if err := submission.TestCountValidator(v); err != nil {
+			return &ValidationError{Name: "test_count", err: fmt.Errorf(`ent: validator failed for field "Submission.test_count": %w`, err)}
+		}
+	}
 	if len(sc.mutation.ProblemIDs()) == 0 {
 		return &ValidationError{Name: "problem", err: errors.New(`ent: missing required edge "Submission.problem"`)}
 	}

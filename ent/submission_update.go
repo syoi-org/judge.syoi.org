@@ -29,20 +29,6 @@ func (su *SubmissionUpdate) Where(ps ...predicate.Submission) *SubmissionUpdate 
 	return su
 }
 
-// SetCreatedAt sets the "created_at" field.
-func (su *SubmissionUpdate) SetCreatedAt(t time.Time) *SubmissionUpdate {
-	su.mutation.SetCreatedAt(t)
-	return su
-}
-
-// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (su *SubmissionUpdate) SetNillableCreatedAt(t *time.Time) *SubmissionUpdate {
-	if t != nil {
-		su.SetCreatedAt(*t)
-	}
-	return su
-}
-
 // SetUpdatedAt sets the "updated_at" field.
 func (su *SubmissionUpdate) SetUpdatedAt(t time.Time) *SubmissionUpdate {
 	su.mutation.SetUpdatedAt(t)
@@ -168,6 +154,11 @@ func (su *SubmissionUpdate) check() error {
 			return &ValidationError{Name: "verdict", err: fmt.Errorf(`ent: validator failed for field "Submission.verdict": %w`, err)}
 		}
 	}
+	if v, ok := su.mutation.TestCount(); ok {
+		if err := submission.TestCountValidator(v); err != nil {
+			return &ValidationError{Name: "test_count", err: fmt.Errorf(`ent: validator failed for field "Submission.test_count": %w`, err)}
+		}
+	}
 	if su.mutation.ProblemCleared() && len(su.mutation.ProblemIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Submission.problem"`)
 	}
@@ -185,9 +176,6 @@ func (su *SubmissionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 				ps[i](selector)
 			}
 		}
-	}
-	if value, ok := su.mutation.CreatedAt(); ok {
-		_spec.SetField(submission.FieldCreatedAt, field.TypeTime, value)
 	}
 	if value, ok := su.mutation.UpdatedAt(); ok {
 		_spec.SetField(submission.FieldUpdatedAt, field.TypeTime, value)
@@ -251,20 +239,6 @@ type SubmissionUpdateOne struct {
 	fields   []string
 	hooks    []Hook
 	mutation *SubmissionMutation
-}
-
-// SetCreatedAt sets the "created_at" field.
-func (suo *SubmissionUpdateOne) SetCreatedAt(t time.Time) *SubmissionUpdateOne {
-	suo.mutation.SetCreatedAt(t)
-	return suo
-}
-
-// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
-func (suo *SubmissionUpdateOne) SetNillableCreatedAt(t *time.Time) *SubmissionUpdateOne {
-	if t != nil {
-		suo.SetCreatedAt(*t)
-	}
-	return suo
 }
 
 // SetUpdatedAt sets the "updated_at" field.
@@ -405,6 +379,11 @@ func (suo *SubmissionUpdateOne) check() error {
 			return &ValidationError{Name: "verdict", err: fmt.Errorf(`ent: validator failed for field "Submission.verdict": %w`, err)}
 		}
 	}
+	if v, ok := suo.mutation.TestCount(); ok {
+		if err := submission.TestCountValidator(v); err != nil {
+			return &ValidationError{Name: "test_count", err: fmt.Errorf(`ent: validator failed for field "Submission.test_count": %w`, err)}
+		}
+	}
 	if suo.mutation.ProblemCleared() && len(suo.mutation.ProblemIDs()) > 0 {
 		return errors.New(`ent: clearing a required unique edge "Submission.problem"`)
 	}
@@ -439,9 +418,6 @@ func (suo *SubmissionUpdateOne) sqlSave(ctx context.Context) (_node *Submission,
 				ps[i](selector)
 			}
 		}
-	}
-	if value, ok := suo.mutation.CreatedAt(); ok {
-		_spec.SetField(submission.FieldCreatedAt, field.TypeTime, value)
 	}
 	if value, ok := suo.mutation.UpdatedAt(); ok {
 		_spec.SetField(submission.FieldUpdatedAt, field.TypeTime, value)

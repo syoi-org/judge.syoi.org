@@ -80,6 +80,8 @@ var (
 	UpdateDefaultUpdatedAt func() time.Time
 	// DefaultTestCount holds the default value on creation for the "test_count" field.
 	DefaultTestCount int
+	// TestCountValidator is a validator for the "test_count" field. It is called by the builders before save.
+	TestCountValidator func(int) error
 )
 
 // Status defines the type for the "status" enum field.

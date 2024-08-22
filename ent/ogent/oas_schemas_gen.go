@@ -3263,18 +3263,12 @@ func (s *SubmissionUpdateVerdict) UnmarshalText(data []byte) error {
 }
 
 type UpdateJudgeReq struct {
-	CreatedAt     OptDateTime           `json:"created_at"`
 	UpdatedAt     OptDateTime           `json:"updated_at"`
 	Name          OptString             `json:"name"`
 	Code          OptString             `json:"code"`
 	Type          OptUpdateJudgeReqType `json:"type"`
 	Configuration OptString             `json:"configuration"`
 	Problems      []int                 `json:"problems"`
-}
-
-// GetCreatedAt returns the value of CreatedAt.
-func (s *UpdateJudgeReq) GetCreatedAt() OptDateTime {
-	return s.CreatedAt
 }
 
 // GetUpdatedAt returns the value of UpdatedAt.
@@ -3305,11 +3299,6 @@ func (s *UpdateJudgeReq) GetConfiguration() OptString {
 // GetProblems returns the value of Problems.
 func (s *UpdateJudgeReq) GetProblems() []int {
 	return s.Problems
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *UpdateJudgeReq) SetCreatedAt(val OptDateTime) {
-	s.CreatedAt = val
 }
 
 // SetUpdatedAt sets the value of UpdatedAt.
@@ -3405,17 +3394,11 @@ func (s *UpdateJudgeReqType) UnmarshalText(data []byte) error {
 }
 
 type UpdateProblemReq struct {
-	CreatedAt   OptDateTime `json:"created_at"`
 	UpdatedAt   OptDateTime `json:"updated_at"`
 	Name        OptString   `json:"name"`
 	Code        OptString   `json:"code"`
 	Submissions []int       `json:"submissions"`
 	Judge       OptInt      `json:"judge"`
-}
-
-// GetCreatedAt returns the value of CreatedAt.
-func (s *UpdateProblemReq) GetCreatedAt() OptDateTime {
-	return s.CreatedAt
 }
 
 // GetUpdatedAt returns the value of UpdatedAt.
@@ -3441,11 +3424,6 @@ func (s *UpdateProblemReq) GetSubmissions() []int {
 // GetJudge returns the value of Judge.
 func (s *UpdateProblemReq) GetJudge() OptInt {
 	return s.Judge
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *UpdateProblemReq) SetCreatedAt(val OptDateTime) {
-	s.CreatedAt = val
 }
 
 // SetUpdatedAt sets the value of UpdatedAt.
@@ -3474,17 +3452,11 @@ func (s *UpdateProblemReq) SetJudge(val OptInt) {
 }
 
 type UpdateSubmissionReq struct {
-	CreatedAt OptDateTime                   `json:"created_at"`
 	UpdatedAt OptDateTime                   `json:"updated_at"`
 	Status    OptUpdateSubmissionReqStatus  `json:"status"`
 	Verdict   OptUpdateSubmissionReqVerdict `json:"verdict"`
 	TestCount OptInt                        `json:"test_count"`
 	Problem   OptInt                        `json:"problem"`
-}
-
-// GetCreatedAt returns the value of CreatedAt.
-func (s *UpdateSubmissionReq) GetCreatedAt() OptDateTime {
-	return s.CreatedAt
 }
 
 // GetUpdatedAt returns the value of UpdatedAt.
@@ -3510,11 +3482,6 @@ func (s *UpdateSubmissionReq) GetTestCount() OptInt {
 // GetProblem returns the value of Problem.
 func (s *UpdateSubmissionReq) GetProblem() OptInt {
 	return s.Problem
-}
-
-// SetCreatedAt sets the value of CreatedAt.
-func (s *UpdateSubmissionReq) SetCreatedAt(val OptDateTime) {
-	s.CreatedAt = val
 }
 
 // SetUpdatedAt sets the value of UpdatedAt.

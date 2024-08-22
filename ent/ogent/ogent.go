@@ -101,9 +101,6 @@ func (h *OgentHandler) ReadJudge(ctx context.Context, params ReadJudgeParams) (R
 func (h *OgentHandler) UpdateJudge(ctx context.Context, req *UpdateJudgeReq, params UpdateJudgeParams) (UpdateJudgeRes, error) {
 	b := h.client.Judge.UpdateOneID(params.ID)
 	// Add all fields.
-	if v, ok := req.CreatedAt.Get(); ok {
-		b.SetCreatedAt(v)
-	}
 	if v, ok := req.UpdatedAt.Get(); ok {
 		b.SetUpdatedAt(v)
 	}
@@ -325,9 +322,6 @@ func (h *OgentHandler) ReadProblem(ctx context.Context, params ReadProblemParams
 func (h *OgentHandler) UpdateProblem(ctx context.Context, req *UpdateProblemReq, params UpdateProblemParams) (UpdateProblemRes, error) {
 	b := h.client.Problem.UpdateOneID(params.ID)
 	// Add all fields.
-	if v, ok := req.CreatedAt.Get(); ok {
-		b.SetCreatedAt(v)
-	}
 	if v, ok := req.UpdatedAt.Get(); ok {
 		b.SetUpdatedAt(v)
 	}
@@ -572,9 +566,6 @@ func (h *OgentHandler) ReadSubmission(ctx context.Context, params ReadSubmission
 func (h *OgentHandler) UpdateSubmission(ctx context.Context, req *UpdateSubmissionReq, params UpdateSubmissionParams) (UpdateSubmissionRes, error) {
 	b := h.client.Submission.UpdateOneID(params.ID)
 	// Add all fields.
-	if v, ok := req.CreatedAt.Get(); ok {
-		b.SetCreatedAt(v)
-	}
 	if v, ok := req.UpdatedAt.Get(); ok {
 		b.SetUpdatedAt(v)
 	}

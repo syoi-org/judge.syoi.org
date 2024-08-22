@@ -17,17 +17,17 @@ type Judge struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
-	// CreatedAt holds the value of the "created_at" field.
+	// Time when the entity was created.
 	CreatedAt time.Time `json:"created_at,omitempty"`
-	// UpdatedAt holds the value of the "updated_at" field.
+	// Time when the entity was last updated.
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
-	// Name holds the value of the "name" field.
+	// Name of the judge. Example: Aizu Online Judge
 	Name string `json:"name,omitempty"`
-	// Code holds the value of the "code" field.
+	// Unique codename of the judge. Example: AZOJ
 	Code string `json:"code,omitempty"`
-	// Type holds the value of the "type" field.
+	// Type of the judge. Example: local
 	Type judge.Type `json:"type,omitempty"`
-	// Configuration holds the value of the "configuration" field.
+	// Configuration of the judge. Encoded in form urlencoded format (key1=value1&key2=value2...).
 	Configuration string `json:"configuration,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the JudgeQuery when eager-loading is set.

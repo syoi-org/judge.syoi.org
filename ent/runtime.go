@@ -80,4 +80,6 @@ func init() {
 	submissionDescTestCount := submissionFields[2].Descriptor()
 	// submission.DefaultTestCount holds the default value on creation for the test_count field.
 	submission.DefaultTestCount = submissionDescTestCount.Default.(int)
+	// submission.TestCountValidator is a validator for the "test_count" field. It is called by the builders before save.
+	submission.TestCountValidator = submissionDescTestCount.Validators[0].(func(int) error)
 }

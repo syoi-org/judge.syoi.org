@@ -18,15 +18,15 @@ type Submission struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
-	// CreatedAt holds the value of the "created_at" field.
+	// Time when the entity was created.
 	CreatedAt time.Time `json:"created_at,omitempty"`
-	// UpdatedAt holds the value of the "updated_at" field.
+	// Time when the entity was last updated.
 	UpdatedAt time.Time `json:"updated_at,omitempty"`
-	// Status holds the value of the "status" field.
+	// Status of the submission. Example: finished
 	Status submission.Status `json:"status,omitempty"`
-	// Verdict holds the value of the "verdict" field.
+	// Verdict of the submission. Example: OK
 	Verdict submission.Verdict `json:"verdict,omitempty"`
-	// TestCount holds the value of the "test_count" field.
+	// Number of test cases finished or currently judging. Example: 13
 	TestCount int `json:"test_count,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the SubmissionQuery when eager-loading is set.

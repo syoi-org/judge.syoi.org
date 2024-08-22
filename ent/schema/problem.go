@@ -15,8 +15,10 @@ type Problem struct {
 // Fields of the Problem.
 func (Problem) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("name").NotEmpty(),
-		field.String("code").NotEmpty().Unique(),
+		field.String("name").NotEmpty().
+			Comment("Name of the problem. Example: A+B Problem"),
+		field.String("code").NotEmpty().Unique().
+			Comment("Unique codename of the problem. Example: AZ2008B"),
 	}
 }
 
