@@ -13,6 +13,9 @@ schema = 3
   [mod."entgo.io/ent"]
     version = "v0.14.0"
     hash = "sha256-jPgmUUOMcn5tJJMkO0oUsq15VAU5RxtK+UuYY158vXs="
+  [mod."github.com/99designs/gqlgen"]
+    version = "v0.17.49"
+    hash = "sha256-g7IuKD8ZZrZWHToMsgIvGYb3/xCvXSg60QIL3MLP/tM="
   [mod."github.com/KyleBanks/depth"]
     version = "v1.2.1"
     hash = "sha256-czR52MfeKA2FdStXCebTMQRKT8jaWQcbV214O3j49qU="
@@ -28,6 +31,9 @@ schema = 3
   [mod."github.com/agext/levenshtein"]
     version = "v1.2.3"
     hash = "sha256-d1lUB0kToOsPYfRmEh9SO+iVipgmsRs4xQkj1xlY9og="
+  [mod."github.com/agnivade/levenshtein"]
+    version = "v1.1.1"
+    hash = "sha256-tgv2s8XIcWjscv1pP87TOIUV4vADT2px1Lo/MQCTBjM="
   [mod."github.com/apparentlymart/go-textseg/v13"]
     version = "v13.0.0"
     hash = "sha256-Hn+zO0J/vnG5U6JvZfRyWm8vsqYdjh4RAreWnZLCQKQ="
@@ -124,6 +130,18 @@ schema = 3
   [mod."github.com/google/uuid"]
     version = "v1.6.0"
     hash = "sha256-VWl9sqUzdOuhW0KzQlv0gwwUQClYkmZwSydHG2sALYw="
+  [mod."github.com/gorilla/websocket"]
+    version = "v1.5.0"
+    hash = "sha256-EYVgkSEMo4HaVrsWKqnsYRp8SSS8gNf7t+Elva02Ofc="
+  [mod."github.com/hashicorp/errwrap"]
+    version = "v1.0.0"
+    hash = "sha256-LGSLrefkABG1kH1i+GUWiD2/ggJxiZEJ+D2YNbhZjmo="
+  [mod."github.com/hashicorp/go-multierror"]
+    version = "v1.1.1"
+    hash = "sha256-ANzPEUJIZIlToxR89Mn7Db73d9LGI51ssy7eNnUgmlA="
+  [mod."github.com/hashicorp/golang-lru/v2"]
+    version = "v2.0.7"
+    hash = "sha256-t1bcXLgrQNOYUVyYEZ0knxcXpsTk4IuJZDjKvyJX75g="
   [mod."github.com/hashicorp/hcl/v2"]
     version = "v2.15.0"
     hash = "sha256-yE4zjGWkesc75g3gOh+xTG8Ksw3SgiAbhzKCC6xL1pQ="
@@ -181,6 +199,9 @@ schema = 3
   [mod."github.com/segmentio/asm"]
     version = "v1.2.0"
     hash = "sha256-zbNuKxNrUDUc6IlmRQNuJQzVe5Ol/mqp7srDg9IMMqs="
+  [mod."github.com/sosodev/duration"]
+    version = "v1.3.1"
+    hash = "sha256-4TQS0p7FjTztG7P3VJDEaWLHHEOUADFwgEswuh/obb0="
   [mod."github.com/sourcegraph/conc"]
     version = "v0.3.0"
     hash = "sha256-mIdMs9MLAOBKf3/0quf1iI3v8uNWydy7ae5MFa+F2Ko="
@@ -220,6 +241,15 @@ schema = 3
   [mod."github.com/ugorji/go/codec"]
     version = "v1.2.12"
     hash = "sha256-sp1LJ93UK7mFwgZqG8jxCgTCPgKR74HNU6XxX0Jfjm0="
+  [mod."github.com/vektah/gqlparser/v2"]
+    version = "v2.5.16"
+    hash = "sha256-qE8sqfH1WEbQnV18VvIOAdkJ4cGj6vyRxxPdUKFCi+s="
+  [mod."github.com/vmihailenco/msgpack/v5"]
+    version = "v5.3.5"
+    hash = "sha256-Uj5xRZbtxE8evniQPuBVkxkEdMa/H/pt9s84J16swm8="
+  [mod."github.com/vmihailenco/tagparser/v2"]
+    version = "v2.0.0"
+    hash = "sha256-M9QyaKhSmmYwsJk7gkjtqu9PuiqZHSmTkous8VWkWY0="
   [mod."github.com/zclconf/go-cty"]
     version = "v1.14.4"
     hash = "sha256-Pc54uTUUxMTROex41VWFYu6pAqUxCDACAuDdMMwiW1g="
