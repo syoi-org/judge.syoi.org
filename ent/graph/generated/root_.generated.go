@@ -10,6 +10,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
+	"github.com/syoi-org/judy/ent"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -32,6 +33,7 @@ type Config struct {
 }
 
 type ResolverRoot interface {
+	Mutation() MutationResolver
 	Query() QueryResolver
 }
 
@@ -48,6 +50,15 @@ type ComplexityRoot struct {
 		Problems      func(childComplexity int) int
 		Type          func(childComplexity int) int
 		UpdatedAt     func(childComplexity int) int
+	}
+
+	Mutation struct {
+		CreateJudge      func(childComplexity int, input ent.CreateJudgeInput) int
+		CreateProblem    func(childComplexity int, input ent.CreateProblemInput) int
+		CreateSubmission func(childComplexity int, input ent.CreateSubmissionInput) int
+		UpdateJudge      func(childComplexity int, id int, input ent.UpdateJudgeInput) int
+		UpdateProblem    func(childComplexity int, id int, input ent.UpdateProblemInput) int
+		UpdateSubmission func(childComplexity int, id int, input ent.UpdateSubmissionInput) int
 	}
 
 	PageInfo struct {
@@ -160,6 +171,78 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Judge.UpdatedAt(childComplexity), true
+
+	case "Mutation.createJudge":
+		if e.complexity.Mutation.CreateJudge == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_createJudge_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.CreateJudge(childComplexity, args["input"].(ent.CreateJudgeInput)), true
+
+	case "Mutation.createProblem":
+		if e.complexity.Mutation.CreateProblem == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_createProblem_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.CreateProblem(childComplexity, args["input"].(ent.CreateProblemInput)), true
+
+	case "Mutation.createSubmission":
+		if e.complexity.Mutation.CreateSubmission == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_createSubmission_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.CreateSubmission(childComplexity, args["input"].(ent.CreateSubmissionInput)), true
+
+	case "Mutation.updateJudge":
+		if e.complexity.Mutation.UpdateJudge == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_updateJudge_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.UpdateJudge(childComplexity, args["id"].(int), args["input"].(ent.UpdateJudgeInput)), true
+
+	case "Mutation.updateProblem":
+		if e.complexity.Mutation.UpdateProblem == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_updateProblem_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.UpdateProblem(childComplexity, args["id"].(int), args["input"].(ent.UpdateProblemInput)), true
+
+	case "Mutation.updateSubmission":
+		if e.complexity.Mutation.UpdateSubmission == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_updateSubmission_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.UpdateSubmission(childComplexity, args["id"].(int), args["input"].(ent.UpdateSubmissionInput)), true
 
 	case "PageInfo.endCursor":
 		if e.complexity.PageInfo.EndCursor == nil {
@@ -379,6 +462,21 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 			}
 
 			return &response
+		}
+	case ast.Mutation:
+		return func(ctx context.Context) *graphql.Response {
+			if !first {
+				return nil
+			}
+			first = false
+			ctx = graphql.WithUnmarshalerMap(ctx, inputUnmarshalMap)
+			data := ec._Mutation(ctx, rc.Operation.SelectionSet)
+			var buf bytes.Buffer
+			data.MarshalGQL(&buf)
+
+			return &graphql.Response{
+				Data: buf.Bytes(),
+			}
 		}
 
 	default:
@@ -646,6 +744,15 @@ input UpdateSubmissionInput {
   verdict: SubmissionVerdict
   testCount: Int
   problemID: ID
+}
+`, BuiltIn: false},
+	{Name: "../../mutation.graphql", Input: `type Mutation {
+    createJudge(input: CreateJudgeInput!): Judge!
+    updateJudge(id: ID!, input: UpdateJudgeInput!): Judge!
+    createProblem(input: CreateProblemInput!): Problem!
+    updateProblem(id: ID!, input: UpdateProblemInput!): Problem!
+    createSubmission(input: CreateSubmissionInput!): Submission!
+    updateSubmission(id: ID!, input: UpdateSubmissionInput!): Submission!
 }
 `, BuiltIn: false},
 }

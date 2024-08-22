@@ -1,0 +1,8 @@
+type Mutation {
+    createJudge(input: CreateJudgeInput!): Judge!
+    updateJudge(id: ID!, input: UpdateJudgeInput!): Judge!
+    createProblem(input: CreateProblemInput!): Problem!
+    updateProblem(id: ID!, input: UpdateProblemInput!): Problem!
+    createSubmission(input: CreateSubmissionInput!): Submission!
+    updateSubmission(id: ID!, input: UpdateSubmissionInput!): Submission!
+}

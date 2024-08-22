@@ -2692,6 +2692,25 @@ func (ec *executionContext) _Submission(ctx context.Context, sel ast.SelectionSe
 
 // region    ***************************** type.gotpl *****************************
 
+func (ec *executionContext) unmarshalNCreateJudgeInput2githubᚗcomᚋsyoiᚑorgᚋjudyᚋentᚐCreateJudgeInput(ctx context.Context, v interface{}) (ent.CreateJudgeInput, error) {
+	res, err := ec.unmarshalInputCreateJudgeInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalNCreateProblemInput2githubᚗcomᚋsyoiᚑorgᚋjudyᚋentᚐCreateProblemInput(ctx context.Context, v interface{}) (ent.CreateProblemInput, error) {
+	res, err := ec.unmarshalInputCreateProblemInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalNCreateSubmissionInput2githubᚗcomᚋsyoiᚑorgᚋjudyᚋentᚐCreateSubmissionInput(ctx context.Context, v interface{}) (ent.CreateSubmissionInput, error) {
+	res, err := ec.unmarshalInputCreateSubmissionInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNJudge2githubᚗcomᚋsyoiᚑorgᚋjudyᚋentᚐJudge(ctx context.Context, sel ast.SelectionSet, v ent.Judge) graphql.Marshaler {
+	return ec._Judge(ctx, sel, &v)
+}
+
 func (ec *executionContext) marshalNJudge2ᚕᚖgithubᚗcomᚋsyoiᚑorgᚋjudyᚋentᚐJudgeᚄ(ctx context.Context, sel ast.SelectionSet, v []*ent.Judge) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
@@ -2794,6 +2813,10 @@ func (ec *executionContext) marshalNNode2ᚕgithubᚗcomᚋsyoiᚑorgᚋjudyᚋe
 	return ret
 }
 
+func (ec *executionContext) marshalNProblem2githubᚗcomᚋsyoiᚑorgᚋjudyᚋentᚐProblem(ctx context.Context, sel ast.SelectionSet, v ent.Problem) graphql.Marshaler {
+	return ec._Problem(ctx, sel, &v)
+}
+
 func (ec *executionContext) marshalNProblem2ᚕᚖgithubᚗcomᚋsyoiᚑorgᚋjudyᚋentᚐProblemᚄ(ctx context.Context, sel ast.SelectionSet, v []*ent.Problem) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
@@ -2846,6 +2869,10 @@ func (ec *executionContext) marshalNProblem2ᚖgithubᚗcomᚋsyoiᚑorgᚋjudy�
 		return graphql.Null
 	}
 	return ec._Problem(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalNSubmission2githubᚗcomᚋsyoiᚑorgᚋjudyᚋentᚐSubmission(ctx context.Context, sel ast.SelectionSet, v ent.Submission) graphql.Marshaler {
+	return ec._Submission(ctx, sel, &v)
 }
 
 func (ec *executionContext) marshalNSubmission2ᚕᚖgithubᚗcomᚋsyoiᚑorgᚋjudyᚋentᚐSubmissionᚄ(ctx context.Context, sel ast.SelectionSet, v []*ent.Submission) graphql.Marshaler {
@@ -2935,6 +2962,21 @@ func (ec *executionContext) marshalNTime2timeᚐTime(ctx context.Context, sel as
 		}
 	}
 	return res
+}
+
+func (ec *executionContext) unmarshalNUpdateJudgeInput2githubᚗcomᚋsyoiᚑorgᚋjudyᚋentᚐUpdateJudgeInput(ctx context.Context, v interface{}) (ent.UpdateJudgeInput, error) {
+	res, err := ec.unmarshalInputUpdateJudgeInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalNUpdateProblemInput2githubᚗcomᚋsyoiᚑorgᚋjudyᚋentᚐUpdateProblemInput(ctx context.Context, v interface{}) (ent.UpdateProblemInput, error) {
+	res, err := ec.unmarshalInputUpdateProblemInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalNUpdateSubmissionInput2githubᚗcomᚋsyoiᚑorgᚋjudyᚋentᚐUpdateSubmissionInput(ctx context.Context, v interface{}) (ent.UpdateSubmissionInput, error) {
+	res, err := ec.unmarshalInputUpdateSubmissionInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) unmarshalOCursor2ᚖentgoᚗioᚋcontribᚋentgqlᚐCursor(ctx context.Context, v interface{}) (*entgql.Cursor[int], error) {
