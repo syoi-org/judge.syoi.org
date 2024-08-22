@@ -8,28 +8,40 @@ import (
 	"github.com/99designs/gqlgen/graphql"
 )
 
-func (j *Judge) Problems(ctx context.Context) (result []*Problem, err error) {
-	if fc := graphql.GetFieldContext(ctx); fc != nil && fc.Field.Alias != "" {
-		result, err = j.NamedProblems(graphql.GetFieldContext(ctx).Field.Alias)
-	} else {
-		result, err = j.Edges.ProblemsOrErr()
+func (j *Judge) Problems(
+	ctx context.Context, after *Cursor, first *int, before *Cursor, last *int,
+) (*ProblemConnection, error) {
+	opts := []ProblemPaginateOption{}
+	alias := graphql.GetFieldContext(ctx).Field.Alias
+	totalCount, hasTotalCount := j.Edges.totalCount[0][alias]
+	if nodes, err := j.NamedProblems(alias); err == nil || hasTotalCount {
+		pager, err := newProblemPager(opts, last != nil)
+		if err != nil {
+			return nil, err
+		}
+		conn := &ProblemConnection{Edges: []*ProblemEdge{}, TotalCount: totalCount}
+		conn.build(nodes, pager, after, first, before, last)
+		return conn, nil
 	}
-	if IsNotLoaded(err) {
-		result, err = j.QueryProblems().All(ctx)
-	}
-	return result, err
+	return j.QueryProblems().Paginate(ctx, after, first, before, last, opts...)
 }
 
-func (pr *Problem) Submissions(ctx context.Context) (result []*Submission, err error) {
-	if fc := graphql.GetFieldContext(ctx); fc != nil && fc.Field.Alias != "" {
-		result, err = pr.NamedSubmissions(graphql.GetFieldContext(ctx).Field.Alias)
-	} else {
-		result, err = pr.Edges.SubmissionsOrErr()
+func (pr *Problem) Submissions(
+	ctx context.Context, after *Cursor, first *int, before *Cursor, last *int,
+) (*SubmissionConnection, error) {
+	opts := []SubmissionPaginateOption{}
+	alias := graphql.GetFieldContext(ctx).Field.Alias
+	totalCount, hasTotalCount := pr.Edges.totalCount[0][alias]
+	if nodes, err := pr.NamedSubmissions(alias); err == nil || hasTotalCount {
+		pager, err := newSubmissionPager(opts, last != nil)
+		if err != nil {
+			return nil, err
+		}
+		conn := &SubmissionConnection{Edges: []*SubmissionEdge{}, TotalCount: totalCount}
+		conn.build(nodes, pager, after, first, before, last)
+		return conn, nil
 	}
-	if IsNotLoaded(err) {
-		result, err = pr.QuerySubmissions().All(ctx)
-	}
-	return result, err
+	return pr.QuerySubmissions().Paginate(ctx, after, first, before, last, opts...)
 }
 
 func (pr *Problem) Judge(ctx context.Context) (*Judge, error) {

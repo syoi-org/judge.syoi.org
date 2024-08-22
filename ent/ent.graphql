@@ -50,7 +50,57 @@ type Judge implements Node {
   code: String!
   type: JudgeType!
   configuration: String!
-  problems: [Problem!]
+  problems(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: Cursor
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: Cursor
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): ProblemConnection!
+}
+"""
+A connection to a list of items.
+"""
+type JudgeConnection {
+  """
+  A list of edges.
+  """
+  edges: [JudgeEdge]
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  Identifies the total count of items in the connection.
+  """
+  totalCount: Int!
+}
+"""
+An edge in a connection.
+"""
+type JudgeEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Judge
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor!
 }
 """
 JudgeType is enum for the field type
@@ -113,8 +163,58 @@ type Problem implements Node {
   updatedAt: Time!
   name: String!
   code: String!
-  submissions: [Submission!]
+  submissions(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: Cursor
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: Cursor
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): SubmissionConnection!
   judge: Judge!
+}
+"""
+A connection to a list of items.
+"""
+type ProblemConnection {
+  """
+  A list of edges.
+  """
+  edges: [ProblemEdge]
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  Identifies the total count of items in the connection.
+  """
+  totalCount: Int!
+}
+"""
+An edge in a connection.
+"""
+type ProblemEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Problem
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor!
 }
 type Query {
   """
@@ -135,9 +235,69 @@ type Query {
     """
     ids: [ID!]!
   ): [Node]!
-  judges: [Judge!]!
-  problems: [Problem!]!
-  submissions: [Submission!]!
+  judges(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: Cursor
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: Cursor
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): JudgeConnection!
+  problems(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: Cursor
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: Cursor
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): ProblemConnection!
+  submissions(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: Cursor
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: Cursor
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): SubmissionConnection!
 }
 type Submission implements Node {
   id: ID!
@@ -147,6 +307,36 @@ type Submission implements Node {
   verdict: SubmissionVerdict!
   testCount: Int!
   problem: Problem!
+}
+"""
+A connection to a list of items.
+"""
+type SubmissionConnection {
+  """
+  A list of edges.
+  """
+  edges: [SubmissionEdge]
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  Identifies the total count of items in the connection.
+  """
+  totalCount: Int!
+}
+"""
+An edge in a connection.
+"""
+type SubmissionEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Submission
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor!
 }
 """
 SubmissionStatus is enum for the field status

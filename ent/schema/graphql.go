@@ -12,6 +12,7 @@ type GraphQLMixin struct {
 
 func (GraphQLMixin) Annotations() []schema.Annotation {
 	return []schema.Annotation{
+		entgql.RelayConnection(),
 		entgql.QueryField(),
 		entgql.Mutations(
 			entgql.MutationCreate(),

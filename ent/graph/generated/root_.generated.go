@@ -8,6 +8,7 @@ import (
 	"errors"
 	"sync/atomic"
 
+	"entgo.io/contrib/entgql"
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
 	"github.com/syoi-org/judy/ent"
@@ -47,9 +48,20 @@ type ComplexityRoot struct {
 		CreatedAt     func(childComplexity int) int
 		ID            func(childComplexity int) int
 		Name          func(childComplexity int) int
-		Problems      func(childComplexity int) int
+		Problems      func(childComplexity int, after *entgql.Cursor[int], first *int, before *entgql.Cursor[int], last *int) int
 		Type          func(childComplexity int) int
 		UpdatedAt     func(childComplexity int) int
+	}
+
+	JudgeConnection struct {
+		Edges      func(childComplexity int) int
+		PageInfo   func(childComplexity int) int
+		TotalCount func(childComplexity int) int
+	}
+
+	JudgeEdge struct {
+		Cursor func(childComplexity int) int
+		Node   func(childComplexity int) int
 	}
 
 	Mutation struct {
@@ -74,16 +86,27 @@ type ComplexityRoot struct {
 		ID          func(childComplexity int) int
 		Judge       func(childComplexity int) int
 		Name        func(childComplexity int) int
-		Submissions func(childComplexity int) int
+		Submissions func(childComplexity int, after *entgql.Cursor[int], first *int, before *entgql.Cursor[int], last *int) int
 		UpdatedAt   func(childComplexity int) int
 	}
 
+	ProblemConnection struct {
+		Edges      func(childComplexity int) int
+		PageInfo   func(childComplexity int) int
+		TotalCount func(childComplexity int) int
+	}
+
+	ProblemEdge struct {
+		Cursor func(childComplexity int) int
+		Node   func(childComplexity int) int
+	}
+
 	Query struct {
-		Judges      func(childComplexity int) int
+		Judges      func(childComplexity int, after *entgql.Cursor[int], first *int, before *entgql.Cursor[int], last *int) int
 		Node        func(childComplexity int, id int) int
 		Nodes       func(childComplexity int, ids []int) int
-		Problems    func(childComplexity int) int
-		Submissions func(childComplexity int) int
+		Problems    func(childComplexity int, after *entgql.Cursor[int], first *int, before *entgql.Cursor[int], last *int) int
+		Submissions func(childComplexity int, after *entgql.Cursor[int], first *int, before *entgql.Cursor[int], last *int) int
 	}
 
 	Submission struct {
@@ -94,6 +117,17 @@ type ComplexityRoot struct {
 		TestCount func(childComplexity int) int
 		UpdatedAt func(childComplexity int) int
 		Verdict   func(childComplexity int) int
+	}
+
+	SubmissionConnection struct {
+		Edges      func(childComplexity int) int
+		PageInfo   func(childComplexity int) int
+		TotalCount func(childComplexity int) int
+	}
+
+	SubmissionEdge struct {
+		Cursor func(childComplexity int) int
+		Node   func(childComplexity int) int
 	}
 }
 
@@ -156,7 +190,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			break
 		}
 
-		return e.complexity.Judge.Problems(childComplexity), true
+		args, err := ec.field_Judge_problems_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Judge.Problems(childComplexity, args["after"].(*entgql.Cursor[int]), args["first"].(*int), args["before"].(*entgql.Cursor[int]), args["last"].(*int)), true
 
 	case "Judge.type":
 		if e.complexity.Judge.Type == nil {
@@ -171,6 +210,41 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Judge.UpdatedAt(childComplexity), true
+
+	case "JudgeConnection.edges":
+		if e.complexity.JudgeConnection.Edges == nil {
+			break
+		}
+
+		return e.complexity.JudgeConnection.Edges(childComplexity), true
+
+	case "JudgeConnection.pageInfo":
+		if e.complexity.JudgeConnection.PageInfo == nil {
+			break
+		}
+
+		return e.complexity.JudgeConnection.PageInfo(childComplexity), true
+
+	case "JudgeConnection.totalCount":
+		if e.complexity.JudgeConnection.TotalCount == nil {
+			break
+		}
+
+		return e.complexity.JudgeConnection.TotalCount(childComplexity), true
+
+	case "JudgeEdge.cursor":
+		if e.complexity.JudgeEdge.Cursor == nil {
+			break
+		}
+
+		return e.complexity.JudgeEdge.Cursor(childComplexity), true
+
+	case "JudgeEdge.node":
+		if e.complexity.JudgeEdge.Node == nil {
+			break
+		}
+
+		return e.complexity.JudgeEdge.Node(childComplexity), true
 
 	case "Mutation.createJudge":
 		if e.complexity.Mutation.CreateJudge == nil {
@@ -312,7 +386,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			break
 		}
 
-		return e.complexity.Problem.Submissions(childComplexity), true
+		args, err := ec.field_Problem_submissions_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Problem.Submissions(childComplexity, args["after"].(*entgql.Cursor[int]), args["first"].(*int), args["before"].(*entgql.Cursor[int]), args["last"].(*int)), true
 
 	case "Problem.updatedAt":
 		if e.complexity.Problem.UpdatedAt == nil {
@@ -321,12 +400,52 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Problem.UpdatedAt(childComplexity), true
 
+	case "ProblemConnection.edges":
+		if e.complexity.ProblemConnection.Edges == nil {
+			break
+		}
+
+		return e.complexity.ProblemConnection.Edges(childComplexity), true
+
+	case "ProblemConnection.pageInfo":
+		if e.complexity.ProblemConnection.PageInfo == nil {
+			break
+		}
+
+		return e.complexity.ProblemConnection.PageInfo(childComplexity), true
+
+	case "ProblemConnection.totalCount":
+		if e.complexity.ProblemConnection.TotalCount == nil {
+			break
+		}
+
+		return e.complexity.ProblemConnection.TotalCount(childComplexity), true
+
+	case "ProblemEdge.cursor":
+		if e.complexity.ProblemEdge.Cursor == nil {
+			break
+		}
+
+		return e.complexity.ProblemEdge.Cursor(childComplexity), true
+
+	case "ProblemEdge.node":
+		if e.complexity.ProblemEdge.Node == nil {
+			break
+		}
+
+		return e.complexity.ProblemEdge.Node(childComplexity), true
+
 	case "Query.judges":
 		if e.complexity.Query.Judges == nil {
 			break
 		}
 
-		return e.complexity.Query.Judges(childComplexity), true
+		args, err := ec.field_Query_judges_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.Judges(childComplexity, args["after"].(*entgql.Cursor[int]), args["first"].(*int), args["before"].(*entgql.Cursor[int]), args["last"].(*int)), true
 
 	case "Query.node":
 		if e.complexity.Query.Node == nil {
@@ -357,14 +476,24 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			break
 		}
 
-		return e.complexity.Query.Problems(childComplexity), true
+		args, err := ec.field_Query_problems_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.Problems(childComplexity, args["after"].(*entgql.Cursor[int]), args["first"].(*int), args["before"].(*entgql.Cursor[int]), args["last"].(*int)), true
 
 	case "Query.submissions":
 		if e.complexity.Query.Submissions == nil {
 			break
 		}
 
-		return e.complexity.Query.Submissions(childComplexity), true
+		args, err := ec.field_Query_submissions_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.Submissions(childComplexity, args["after"].(*entgql.Cursor[int]), args["first"].(*int), args["before"].(*entgql.Cursor[int]), args["last"].(*int)), true
 
 	case "Submission.createdAt":
 		if e.complexity.Submission.CreatedAt == nil {
@@ -414,6 +543,41 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Submission.Verdict(childComplexity), true
+
+	case "SubmissionConnection.edges":
+		if e.complexity.SubmissionConnection.Edges == nil {
+			break
+		}
+
+		return e.complexity.SubmissionConnection.Edges(childComplexity), true
+
+	case "SubmissionConnection.pageInfo":
+		if e.complexity.SubmissionConnection.PageInfo == nil {
+			break
+		}
+
+		return e.complexity.SubmissionConnection.PageInfo(childComplexity), true
+
+	case "SubmissionConnection.totalCount":
+		if e.complexity.SubmissionConnection.TotalCount == nil {
+			break
+		}
+
+		return e.complexity.SubmissionConnection.TotalCount(childComplexity), true
+
+	case "SubmissionEdge.cursor":
+		if e.complexity.SubmissionEdge.Cursor == nil {
+			break
+		}
+
+		return e.complexity.SubmissionEdge.Cursor(childComplexity), true
+
+	case "SubmissionEdge.node":
+		if e.complexity.SubmissionEdge.Node == nil {
+			break
+		}
+
+		return e.complexity.SubmissionEdge.Node(childComplexity), true
 
 	}
 	return 0, false
@@ -578,7 +742,57 @@ type Judge implements Node {
   code: String!
   type: JudgeType!
   configuration: String!
-  problems: [Problem!]
+  problems(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: Cursor
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: Cursor
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): ProblemConnection!
+}
+"""
+A connection to a list of items.
+"""
+type JudgeConnection {
+  """
+  A list of edges.
+  """
+  edges: [JudgeEdge]
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  Identifies the total count of items in the connection.
+  """
+  totalCount: Int!
+}
+"""
+An edge in a connection.
+"""
+type JudgeEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Judge
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor!
 }
 """
 JudgeType is enum for the field type
@@ -641,8 +855,58 @@ type Problem implements Node {
   updatedAt: Time!
   name: String!
   code: String!
-  submissions: [Submission!]
+  submissions(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: Cursor
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: Cursor
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): SubmissionConnection!
   judge: Judge!
+}
+"""
+A connection to a list of items.
+"""
+type ProblemConnection {
+  """
+  A list of edges.
+  """
+  edges: [ProblemEdge]
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  Identifies the total count of items in the connection.
+  """
+  totalCount: Int!
+}
+"""
+An edge in a connection.
+"""
+type ProblemEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Problem
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor!
 }
 type Query {
   """
@@ -663,9 +927,69 @@ type Query {
     """
     ids: [ID!]!
   ): [Node]!
-  judges: [Judge!]!
-  problems: [Problem!]!
-  submissions: [Submission!]!
+  judges(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: Cursor
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: Cursor
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): JudgeConnection!
+  problems(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: Cursor
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: Cursor
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): ProblemConnection!
+  submissions(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: Cursor
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: Cursor
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): SubmissionConnection!
 }
 type Submission implements Node {
   id: ID!
@@ -675,6 +999,36 @@ type Submission implements Node {
   verdict: SubmissionVerdict!
   testCount: Int!
   problem: Problem!
+}
+"""
+A connection to a list of items.
+"""
+type SubmissionConnection {
+  """
+  A list of edges.
+  """
+  edges: [SubmissionEdge]
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  Identifies the total count of items in the connection.
+  """
+  totalCount: Int!
+}
+"""
+An edge in a connection.
+"""
+type SubmissionEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: Submission
+  """
+  A cursor for use in pagination.
+  """
+  cursor: Cursor!
 }
 """
 SubmissionStatus is enum for the field status

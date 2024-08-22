@@ -7,6 +7,7 @@ package graph
 import (
 	"context"
 
+	"entgo.io/contrib/entgql"
 	"github.com/syoi-org/judy/ent"
 	"github.com/syoi-org/judy/ent/graph/generated"
 )
@@ -22,18 +23,18 @@ func (r *queryResolver) Nodes(ctx context.Context, ids []int) ([]ent.Noder, erro
 }
 
 // Judges is the resolver for the judges field.
-func (r *queryResolver) Judges(ctx context.Context) ([]*ent.Judge, error) {
-	return r.client.Judge.Query().All(ctx)
+func (r *queryResolver) Judges(ctx context.Context, after *entgql.Cursor[int], first *int, before *entgql.Cursor[int], last *int) (*ent.JudgeConnection, error) {
+	return r.client.Judge.Query().Paginate(ctx, after, first, before, last)
 }
 
 // Problems is the resolver for the problems field.
-func (r *queryResolver) Problems(ctx context.Context) ([]*ent.Problem, error) {
-	return r.client.Problem.Query().All(ctx)
+func (r *queryResolver) Problems(ctx context.Context, after *entgql.Cursor[int], first *int, before *entgql.Cursor[int], last *int) (*ent.ProblemConnection, error) {
+	return r.client.Problem.Query().Paginate(ctx, after, first, before, last)
 }
 
 // Submissions is the resolver for the submissions field.
-func (r *queryResolver) Submissions(ctx context.Context) ([]*ent.Submission, error) {
-	return r.client.Submission.Query().All(ctx)
+func (r *queryResolver) Submissions(ctx context.Context, after *entgql.Cursor[int], first *int, before *entgql.Cursor[int], last *int) (*ent.SubmissionConnection, error) {
+	return r.client.Submission.Query().Paginate(ctx, after, first, before, last)
 }
 
 // Query returns generated.QueryResolver implementation.

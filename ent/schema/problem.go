@@ -1,6 +1,7 @@
 package schema
 
 import (
+	"entgo.io/contrib/entgql"
 	"entgo.io/ent"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
@@ -22,7 +23,7 @@ func (Problem) Fields() []ent.Field {
 // Edges of the Problem.
 func (Problem) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("submissions", Submission.Type),
+		edge.To("submissions", Submission.Type).Annotations(entgql.RelayConnection()),
 		edge.From("judge", Judge.Type).Ref("problems").Unique().Required(),
 	}
 }
