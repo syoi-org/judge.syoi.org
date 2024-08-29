@@ -27,6 +27,8 @@
             ent-go
             isolate
             just
+            protobuf
+            protoc-gen-go
           ] ++ [
             gomod2nix.packages.${system}.default
           ];

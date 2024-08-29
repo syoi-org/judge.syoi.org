@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+option go_package = "github.com/syoi-org/judy/internal/queue/pb";
+
+message ConsumeRequest {
+    string queue = 1;
+    string consumer = 2;
+    bool auto_ack = 3;
+}
+
+message Delivery {
+    int64 delivery_tag = 1;
+    bool redelivered = 2;
+    string exchange = 3;
+    string routing_key = 4;
+    bytes body = 5;
+}
+
+message ExchangeDeclareRequest {
+    string name = 1;
+}
+
+message ExchangeDeclareResponse {}
+
+message GetRequest {
+    string queue = 1;
+    bool auto_ack = 2;
+}
+
+message GetResponse {
+    Delivery delivery = 1;
+    bool ok = 2;
+}
+
+message PublishRequest {
+    string exchange = 1;
+    string key = 2;
+    bytes body = 3;
+}
+
+message PublishResponse {}
+
+message QueueBindRequest {
+    string name = 1;
+    string key = 2;
+    string exchange = 3;
+}
+
+message QueueBindResponse {}
+
+message QueueDeclareRequest {
+    string name = 1;
+}
+
+message QueueDeclareResponse {
+    string name = 1;
+}
+
+service Broker {
+    rpc Consume(ConsumeRequest) returns (stream Delivery);
+    rpc ExchangeDeclare(ExchangeDeclareRequest) returns (ExchangeDeclareResponse);
+    rpc Get(GetRequest) returns (GetResponse);
+    rpc Publish(PublishRequest) returns (PublishResponse);
+    rpc QueueBind(QueueBindRequest) returns (QueueBindResponse);
+    rpc QueueDeclare(QueueDeclareRequest) returns (QueueDeclareResponse);
+}

@@ -12,6 +12,10 @@ logger:
 http:
   listen_addr: :8080
 
+# GRPC Server Configuration
+grpc:
+  listen_addr: :8081
+
 # Database Configuration
 db:
   # Database type

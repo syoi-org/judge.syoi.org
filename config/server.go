@@ -13,9 +13,10 @@ import (
 
 type ServerConfig struct {
 	fx.Out
-	Logger *logger.Config    `mapstructure:"logger" yaml:"logger" validate:"required"`
-	Http   *transport.Config `mapstructure:"http" yaml:"http" validate:"required"`
-	Db     *db.Config        `mapstructure:"db" yaml:"db" validate:"required"`
+	Logger *logger.Config        `mapstructure:"logger" yaml:"logger" validate:"required"`
+	Http   *transport.Config     `mapstructure:"http" yaml:"http" validate:"required"`
+	Grpc   *transport.GrpcConfig `mapstructure:"grpc" yaml:"grpc" validate:"required"`
+	Db     *db.Config            `mapstructure:"db" yaml:"db" validate:"required"`
 }
 
 func (a *ServerConfig) Validate() error {
