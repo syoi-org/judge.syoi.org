@@ -22,6 +22,7 @@
         };
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
+            air
             go
             cobra-cli
             ent-go

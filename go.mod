@@ -17,6 +17,7 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/mattn/go-sqlite3 v1.14.16
 	github.com/ogen-go/ogen v1.3.0
+	github.com/oklog/ulid/v2 v2.0.2
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/viper v1.20.0-alpha.6
 	github.com/swaggo/files v1.0.1

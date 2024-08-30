@@ -7,6 +7,7 @@ import (
 	"github.com/syoi-org/judy/internal/broker/pb"
 	"go.uber.org/fx"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 type GrpcConfig struct {
@@ -22,6 +23,7 @@ type GrpcParams struct {
 func NewGrpc(p GrpcParams) *grpc.Server {
 	grpcServer := grpc.NewServer()
 	pb.RegisterBrokerServer(grpcServer, p.Broker)
+	reflection.Register(grpcServer)
 	return grpcServer
 }
 

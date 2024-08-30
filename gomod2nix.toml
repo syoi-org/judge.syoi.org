@@ -190,6 +190,9 @@ schema = 3
   [mod."github.com/ogen-go/ogen"]
     version = "v1.3.0"
     hash = "sha256-OKKI4ijjy4FehayepO64WIzSw6+AYpJlWvqJDkus4hA="
+  [mod."github.com/oklog/ulid/v2"]
+    version = "v2.0.2"
+    hash = "sha256-+PBnRIsu9qUpSMM/zbLRgUxoLpLJ7fVvwGSFsuuhLIk="
   [mod."github.com/pelletier/go-toml/v2"]
     version = "v2.2.2"
     hash = "sha256-ukxk1Cfm6cQW18g/aa19tLcUu5BnF7VmfAvrDHAOl6A="
@@ -301,6 +304,12 @@ schema = 3
   [mod."golang.org/x/tools"]
     version = "v0.24.0"
     hash = "sha256-2LBEW//aW8qrHc26F6Ma7CsYJRaCALfi0xQl2KgWems="
+  [mod."google.golang.org/genproto/googleapis/rpc"]
+    version = "v0.0.0-20240826202546-f6391c0de4c7"
+    hash = "sha256-4T4DTrmFbqT4tD7PSL7Ie7u8ZN2iwGkhK02nWugssxk="
+  [mod."google.golang.org/grpc"]
+    version = "v1.65.0"
+    hash = "sha256-YP4dewjs+YuTH7rD1p/AFNoKHlk037wbVvSLVAtewIA="
   [mod."google.golang.org/protobuf"]
     version = "v1.34.2"
     hash = "sha256-nMTlrDEE2dbpWz50eQMPBQXCyQh4IdjrTIccaU0F3m0="

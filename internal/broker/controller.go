@@ -62,3 +62,52 @@ func (c *controller) ExchangeDeclare(ctx context.Context, exchangeDeclareRequest
 	}
 	return nil, nil
 }
+
+func (c *controller) Get(ctx context.Context, getRequest *pb.GetRequest) (*pb.GetResponse, error) {
+	delivery, ok, err := c.Service.Get(getRequest.Queue, getRequest.AutoAck)
+	if err != nil {
+		err = status.Errorf(codes.Internal, "failed to get delivery: %v", err)
+		c.Logger.Error(err)
+		return nil, err
+	}
+	return &pb.GetResponse{
+		Delivery: &pb.Delivery{
+			DeliveryTag: delivery.DeliveryTag,
+			Redelivered: delivery.Redelivered,
+			Exchange:    delivery.Exchange,
+			RoutingKey:  delivery.RoutingKey,
+			Body:        delivery.Body,
+		},
+		Ok: ok,
+	}, nil
+}
+
+func (c *controller) Publish(ctx context.Context, publishRequest *pb.PublishRequest) (*pb.PublishResponse, error) {
+	if err := c.Service.Publish(publishRequest.Exchange, publishRequest.Key, publishRequest.Body); err != nil {
+		err = status.Errorf(codes.Internal, "failed to publish: %v", err)
+		c.Logger.Error(err)
+		return nil, err
+	}
+	return &pb.PublishResponse{}, nil
+}
+
+func (c *controller) QueueBind(ctx context.Context, queueBindRequest *pb.QueueBindRequest) (*pb.QueueBindResponse, error) {
+	if err := c.Service.QueueBind(queueBindRequest.Name, queueBindRequest.Key, queueBindRequest.Exchange); err != nil {
+		err = status.Errorf(codes.Internal, "failed to bind queue: %v", err)
+		c.Logger.Error(err)
+		return nil, err
+	}
+	return &pb.QueueBindResponse{}, nil
+}
+
+func (c *controller) QueueDeclare(ctx context.Context, queueDeclareRequest *pb.QueueDeclareRequest) (*pb.QueueDeclareResponse, error) {
+	queue, err := c.Service.QueueDeclare(queueDeclareRequest.Name)
+	if err != nil {
+		err = status.Errorf(codes.Internal, "failed to declare queue: %v", err)
+		c.Logger.Error(err)
+		return nil, err
+	}
+	return &pb.QueueDeclareResponse{
+		Name: queue.Name,
+	}, nil
+}
