@@ -23,6 +23,26 @@ func NewQueue(name string) *MessageQueue {
 	}
 }
 
+func (q *MessageQueue) Ack(deliveryTag int64) {
+	q.mu.Lock()
+	defer q.mu.Unlock()
+	if _, ok := q.unackedDeliveries[deliveryTag]; ok {
+		delete(q.unackedDeliveries, deliveryTag)
+	}
+}
+
+func (q *MessageQueue) Nack(deliveryTag int64, requeue bool) {
+	q.mu.Lock()
+	defer q.mu.Unlock()
+	if delivery, ok := q.unackedDeliveries[deliveryTag]; ok {
+		delete(q.unackedDeliveries, deliveryTag)
+		if requeue {
+			delivery.Redelivered = true
+			q.deliveries = append(q.deliveries, delivery)
+		}
+	}
+}
+
 func (q *MessageQueue) Publish(delivery *Delivery) {
 	q.mu.Lock()
 	defer q.mu.Unlock()
